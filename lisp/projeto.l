@@ -1,7 +1,7 @@
 ;; Carrega os outros ficheiros de código, escreve e lê ficheiros, e trata da interação com o utilizador
 
-(load "procura.l")
-(load "puzzle.l")
+(load "./lisp/procura.l")
+(load "./lisp/puzzle.l")
 
 ;;==========================================    INTERFACE MESSAGES FOR INTERFACE    ==========================================
 
