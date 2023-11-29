@@ -38,11 +38,23 @@
 
 (defun print-board (board)
   (cond
-    ((not (car board)) (format nil "~2%--------------------~%"))
+    ((not (car board)) (format t "~%-----------------------------------------------~%"))
     (T 
-      (progn  
-        (format nil "~%~2t ~w" (car board))  
+      (progn
+        (print-row (car board))
         (print-board (cdr board))
+      )
+    )
+  )
+)
+
+(defun print-row (row &optional (column 9))
+  (cond 
+    ((> 0 column) (format t "~%"))
+    (t 
+      (progn
+        (format t "~5a" (car row))
+        (print-row (cdr row) (1- column))
       )
     )
   )
@@ -53,9 +65,22 @@
 "Returns the current position of the horse - where in the board is T"
   (cond
     ((eq (nth column (car board)) T) (list row column))
-    ((<= (length (car board)) column) (posicao-cavalo (cdr board) (1+  row)))
-    ((car board) (posicao-cavalo board row (1+ column)))
+    ((<= (length (car board)) column) (current-position (cdr board) (1+  row)))
+    ((car board) (current-position board row (1+ column)))
     (T nil)
+  )
+)
+
+(defun place-list (position row &optional (value nil))
+"Places a *value* into a list *row* in the *position*"
+  (cond
+    ((eq position 0) (cons value (cdr row)))
+    (T 
+      (append 
+        (list (car row)) 
+        (place-list (1- position) (cdr row) value)
+      )
+    )
   )
 )
 
@@ -63,8 +88,8 @@
 "Places a *value* into the *board* in the position (*row*, *column*) with origin in the top left"
   (cond
     ((null (car board)) nil)
-    ((eq row 0) (cons (substituir-posicao column (car board) value) (cdr board)))
-    (T (cons (car board) (substituir (1- row) column (cdr board) value)))
+    ((eq row 0) (cons (place-list column (car board) value) (cdr board)))
+    (T (cons (car board) (place (1- row) column (cdr board) value)))
   )
 )
 
