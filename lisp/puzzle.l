@@ -119,23 +119,75 @@
 
 ; ------------------------------------------------- Operators
 
+#| (defun remove-double-number(board val) 
+
+) |#
+
+
+
 (defun move-1 (board)
+"1st operator"
+  (move board 2 -1)
+)
+
+(defun move-2 (board)
+"2nd operator"
+  (move board 2 1)
+)
+
+(defun move-3 (board)
+"3rd operator"
+  (move board 1 2)
+)
+
+(defun move-4 (board)
+"4th operator"
+  (move board -1 2)
+)
+
+(defun move-5 (board)
+"5th operator"
+  (move board -2 1)
+)
+
+(defun move-6 (board)
+"6th operator"
+  (move board -2 -1)
+)
+
+(defun move-7 (board)
+"7th operator"
+  (move board -1 -2)
+)
+
+(defun move-8 (board)
+"8th operator"
+  (move board 1 -2)
+)
+
+(defun move (board amount-row amount-column)
+"Move the horse (T) on the *board* by *amount-row* and *amount-column"
   (let 
     ((horse-position (current-position board)))
     (cond 
       ((null horse-position)
-        nil ;todo o q fazer quando o cavalo n ta em jogo
+        board ;todo o q fazer quando o cavalo n ta em jogo
       )
       (T 
         (progn
           (let 
             ((value-at (cell (car horse-position) (cadr horse-position) board)))
             ;todo o q fazer com o valor (simetrico e duplo)
-            (place 
-              (+ 2 (car horse-position))
-              (1+ (cadr horse-position)) 
-              (place (car horse-position) (cadr horse-position) board)
-              T
+            (cond 
+              ((null value-at) board) ; if position to move to is nil
+              (T
+                (place 
+                  (+ amount-row (car horse-position))
+                  (+ amount-column (cadr horse-position)) 
+                  (place (car horse-position) (cadr horse-position) board)
+                  T
+                )
+              )
             )
           )
         )
