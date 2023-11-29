@@ -3,7 +3,7 @@
 ;; ola
 ;; ^^^^Contribuicao do batista :)
 
-
+; ------------------------------------------------- Test Boards
 (defun tabuleiro-teste ()
 "Tabuleiro de teste sem nenhuma jogada realizada"
   '(
@@ -36,7 +36,25 @@
   )
 )
 
+(defun test-board()
+'(
+  (nil  nil  nil  nil  nil  nil  nil  nil  nil  nil )
+  (nil  nil  nil  nil  nil  nil  nil  nil  nil  nil )
+  (nil  nil  nil  60   nil  50   nil  nil  nil  nil )
+  (nil  nil  70   nil  nil  nil  40   nil  nil  nil )
+  (nil  nil  nil  nil  T    nil  nil  nil  nil  nil )
+  (nil  nil  80   nil  nil  nil  30   nil  nil  nil )
+  (nil  nil  nil  10   nil  20   nil  nil  nil  nil )
+  (nil  nil  nil  nil  nil  nil  nil  nil  nil  nil )
+  (nil  nil  nil  nil  nil  nil  nil  nil  nil  nil )
+  (nil  nil  nil  nil  nil  nil  nil  nil  nil  nil )
+ )
+)
+
+; ------------------------------------------------- Movements and operations
+
 (defun print-board (board)
+"Prints the *board* in a clean and proper way"
   (cond
     ((not (car board)) (format t "~%-----------------------------------------------~%"))
     (T 
@@ -49,6 +67,7 @@
 )
 
 (defun print-row (row &optional (column 9))
+"Prints a *row* of the board in a clean and proper way"
   (cond 
     ((> 0 column) (format t "~%"))
     (t 
@@ -60,6 +79,11 @@
   )
 )
 
+
+(defun cell (row column board)
+  "returns what is in the *column*, of the row number *row* of *board*"
+  (nth column (nth row board))
+)
 
 (defun current-position (board &optional (row 0) (column 0))
 "Returns the current position of the horse - where in the board is T"
@@ -92,6 +116,35 @@
     (T (cons (car board) (place (1- row) column (cdr board) value)))
   )
 )
+
+; ------------------------------------------------- Operators
+
+(defun move-1 (board)
+  (let 
+    ((horse-position (current-position board)))
+    (cond 
+      ((null horse-position)
+        nil ;todo o q fazer quando o cavalo n ta em jogo
+      )
+      (T 
+        (progn
+          (let 
+            ((value-at (cell (car horse-position) (cadr horse-position) board)))
+            ;todo o q fazer com o valor (simetrico e duplo)
+            (place 
+              (+ 2 (car horse-position))
+              (1+ (cadr horse-position)) 
+              (place (car horse-position) (cadr horse-position) board)
+              T
+            )
+          )
+        )
+      ) 
+    )
+  )
+)
+
+; ------------------------------------------------- Generating a board
 
 (defun shuffle (board)
 "Shuffles a list"
