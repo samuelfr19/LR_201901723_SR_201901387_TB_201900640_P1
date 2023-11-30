@@ -80,7 +80,7 @@
 )
 
 
-(defun cell (row column board)
+(defun cell (board row column)
   "returns what is in the *column*, of the row number *row* of *board*"
   (nth column (nth row board))
 )
@@ -88,10 +88,11 @@
 (defun current-position (board &optional (row 0) (column 0))
 "Returns the current position of the horse - where in the board is T"
   (cond
-    ((eq (nth column (car board)) T) (list row column))
-    ((<= (length (car board)) column) (current-position (cdr board) (1+  row)))
-    ((car board) (current-position board row (1+ column)))
-    (T nil)
+    ((null board) nil)
+    ((eq t (cell board row column)) (list row column))
+    ((< 9 row) nil)
+    ((< 9 column) (current-position board (1+ row)))
+    (t (current-position board row (1+ column)))
   )
 )
 
@@ -132,7 +133,12 @@ todo perguntar ao stor a relevancia disto
 
 |#
 
-
+(defun set-horse-start-position (board &optional (pos 0))
+  (cond
+    ((current-position board) board)
+    (T (place 0 pos board T))
+  )
+)
 
 (defun move-1 (board)
 "1st operator"
@@ -190,7 +196,7 @@ todo perguntar ao stor a relevancia disto
         ) nil)
       (T
         (let 
-          ((value-at (cell (car horse-position) (cadr horse-position) board)))
+          ((value-at (cell board (car horse-position) (cadr horse-position))))
           ;todo o q fazer com o valor (simetrico e duplo)
           (cond 
             ((null value-at) board) ; if position to move to is nil
