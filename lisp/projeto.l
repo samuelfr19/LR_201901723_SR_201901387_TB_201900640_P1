@@ -5,8 +5,6 @@
 
 ;;==========================================    INTERFACE MESSAGES FOR INTERFACE    ==========================================
 
-
-
 (defun startMessage()
 "Mostra as opções iniciais"
   (progn
@@ -76,4 +74,37 @@
     (format t "~%|                                         |")
     (format t "~% -----------------------------------------~%~%> ")
  )
+)
+
+; -------------------------------------------------- Menu Navigation
+
+(defun start ()
+  (progn
+    (startMessage)
+    (let ((in (read)))
+      (cond
+        ((eq in 1) t ;(show-problems)
+        )
+        ((eq in 2) (chooseProblemMessage))
+        (T nil)
+      )
+    )
+  )
+)
+
+; -------------------------------------------------- Menu Navigation
+(defun get-problems()
+  (with-open-file (stream "problemas.dat" :if-does-not-exist :error)
+    (do
+      (
+        (result nil (cons next result))
+        (next (read stream nil 'eof) (read stream nil 'eof))
+      )
+      ((equal next 'eof) (reverse result))
+    )
+  )
+)
+
+(defun get-problem (n)
+  (nth n (get-problems))
 )

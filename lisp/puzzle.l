@@ -132,6 +132,8 @@ todo perguntar ao stor a relevancia disto
 
 |#
 
+
+
 (defun move-1 (board)
 "1st operator"
   (move board 2 -1)
