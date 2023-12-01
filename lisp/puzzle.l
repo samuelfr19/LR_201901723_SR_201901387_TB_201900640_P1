@@ -79,7 +79,6 @@
   )
 )
 
-
 (defun cell (board row column)
   "returns what is in the *column*, of the row number *row* of *board*"
   (nth column (nth row board))
@@ -155,6 +154,19 @@ todo perguntar ao stor a relevancia disto
   )
 )
 
+(defun all-possible-movements (board)
+  (remove nil (list 
+    (move-1 board) 
+    (move-2 board) 
+    (move-3 board) 
+    (move-4 board) 
+    (move-5 board)
+    (move-6 board) 
+    (move-7 board) 
+    (move-8 board) 
+  ))
+)
+
 (defun move-1 (board)
 "1st operator"
   (move board 2 -1)
@@ -201,7 +213,7 @@ todo perguntar ao stor a relevancia disto
     ((horse-position (current-position board)))
     (cond 
       ((null horse-position)
-        board ;todo o q fazer quando o cavalo n ta em jogo
+        nil
       )
       ((or 
         (> (+ (car horse-position) amount-row) 9) 
@@ -211,10 +223,10 @@ todo perguntar ao stor a relevancia disto
         ) nil)
       (T
         (let 
-          ((value-at (cell board (car horse-position) (cadr horse-position))))
+          ((value-at (cell board (+ amount-row (car horse-position)) (+ amount-column (cadr horse-position)) )))
           ;todo o q fazer com o valor (simetrico e duplo)
           (cond 
-            ((null value-at) board) ; if position to move to is nil
+            ((not (numberp value-at)) nil) ; if position to move to is nil
             (T
               (place 
                 (+ amount-row (car horse-position))
@@ -225,12 +237,10 @@ todo perguntar ao stor a relevancia disto
             )
           )
         )
-      
       ) 
     )
   )
 )
-
 ; ------------------------------------------------- Generating a board
 
 (defun shuffle (board)
