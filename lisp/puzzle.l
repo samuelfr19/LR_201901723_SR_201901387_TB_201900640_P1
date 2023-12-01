@@ -7,7 +7,7 @@
 (defun tabuleiro-teste ()
 "Tabuleiro de teste sem nenhuma jogada realizada"
   '(
-    (94  25  54  89  21  8   36  14  41  96) 
+    (94  25  54  89  21  nil   36  14  41  96) 
     (78  47  56  23  5   49  13  12  26  60) 
     (0   27  17  83  34  93  74  52  45  80) 
     (69  9   77  95  55  39  91  73  57  30) 
@@ -132,6 +132,21 @@ todo perguntar ao stor a relevancia disto
 )
 
 |#
+(defun all-horse-start-positions (board &optional (column 0))
+  (cond 
+    ((current-position board) nil)
+    (T (let ((first-row (car board)))
+      (cond
+        ((> column 9) '())
+        ((nth column first-row) 
+          (append (list (set-horse-start-position board column)) (all-horse-start-positions board (1+ column)))
+        )
+        (t (all-horse-start-positions board (1+ column)))
+      )
+    ))
+  )
+)
+
 
 (defun set-horse-start-position (board &optional (pos 0))
   (cond
