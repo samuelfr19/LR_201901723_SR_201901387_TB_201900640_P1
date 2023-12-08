@@ -34,6 +34,14 @@
   )
 )
 
+(defun print-node (node)
+  (progn
+    (format t "Score: ~a | Depth: ~a | Heuristic: ~a~%~%" (node-score node) (node-depth node) (node-heuristic node))
+    (print-board (node-board node))
+    (if (node-parent node) (print-node (node-parent node)) nil)
+  )
+)
+
 (defun calculate-score (current-score previous-board new-board)
   (let* (
       (pos (current-position new-board))
@@ -46,7 +54,7 @@
 (defun list-to-nodes (parent children)
   (mapcar 
     (lambda (board) 
-      (create-node board (calculate-score (node-score parent) (node-board parent) board) parent)
+      (create-node board (calculate-score (node-score parent) (node-board parent) board) parent (1+ (node-depth parent)))
     )
     children
   )
@@ -59,6 +67,6 @@
 (defun generate-children (node)
   (cond
     ((current-position (node-board node)) (list-to-nodes node (all-possible-movements (node-board node))))
-    (t (generate-first-children (node)))
+    (t (generate-first-children node))
   )
 )

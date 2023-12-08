@@ -56,7 +56,7 @@
 (defun print-board (board)
 "Prints the *board* in a clean and proper way"
   (cond
-    ((not (car board)) (format t "~%-----------------------------------------------~%"))
+    ((not (car board)) (format t "~%--------------------------------------------------~%"))
     (T 
       (progn
         (print-row (car board))
@@ -84,14 +84,23 @@
   (nth column (nth row board))
 )
 
-(defun current-position (board &optional (row 0) (column 0))
+(defun current-position (board &optional (value-to-find t) (row 0) (column 0) )
 "Returns the current position of the horse - where in the board is T"
   (cond
     ((null board) nil)
-    ((eq t (cell board row column)) (list row column))
+    ((eq value-to-find (cell board row column)) (list row column))
     ((< 9 row) nil)
-    ((< 9 column) (current-position board (1+ row)))
-    (t (current-position board row (1+ column)))
+    ((< 9 column) (current-position board  value-to-find (1+ row)))
+    (t (current-position board value-to-find row (1+ column)))
+  )
+)
+
+(defun place (row column board &optional (value nil))
+"Places a *value* into the *board* in the position (*row*, *column*) with origin in the top left"
+  (cond
+    ((null (car board)) nil)
+    ((eq row 0) (cons (place-list column (car board) value) (cdr board)))
+    (T (cons (car board) (place (1- row) column (cdr board) value)))
   )
 )
 
@@ -108,29 +117,69 @@
   )
 )
 
-(defun place (row column board &optional (value nil))
-"Places a *value* into the *board* in the position (*row*, *column*) with origin in the top left"
+; ------------------------------------------------- Operators
+
+; (apply-number-rules (node-board (nth 2 (generate-children (test-node)))) 44)
+(defun apply-number-rules (board val)
+  (remove-reverse-number (remove-double-number board val) val)
+)
+
+(defun remove-double-number (board val) 
   (cond
-    ((null (car board)) nil)
-    ((eq row 0) (cons (place-list column (car board) value) (cdr board)))
-    (T (cons (car board) (place (1- row) column (cdr board) value)))
+    ((not (numberp val)))
+    ((= val (reverse-digits val))
+      (let* (
+          (double-digit-numbers (find-double-digit-numbers board))
+          (position-to-remove (car (last double-digit-numbers)))
+        )
+        (progn
+          (format t "~%double-digit-numbers ~w, position to remove ~w~%" double-digit-numbers position-to-remove)
+          (place (car position-to-remove) (cadr position-to-remove) board)      
+        )
+      )
+    )
+    (t board)
   )
 )
 
-; ------------------------------------------------- Operators
-
-#| 
-todo perguntar ao stor a relevancia disto
-
-(defun remove-double-number (board val) 
-
-) 
-
 (defun remove-reverse-number (board val)
-
+  (let ((pos (current-position board (reverse-digits val))))
+    (cond
+      ((null pos) board)
+      (t (place (car pos) (cadr pos) board))
+    )
+  )
 )
 
-|#
+(defun find-double-digit-numbers (board &optional (value 1))
+  (cond
+    ((> value 9) '())
+    ((current-position board (* value 11)) 
+      (append 
+        (list (current-position board (* value 11)))
+        (find-double-digit-numbers board (1+ value))
+      )
+    )
+    (t  (find-double-digit-numbers board (1+ value)))
+  )
+)
+
+(defun reverse-digits (n)
+  (cond
+    ((not (numberp n)) nil) ; we shouldnt get a non number here
+    ((> n 99) nil) ; numbers cant be greater then 99
+    ((< n 10) (* n 10))
+    (t 
+      (let (
+          (first-digit (floor n 10))
+          (second-digit (mod n 10))
+        )
+        (+ (* 10 second-digit) first-digit)
+      )
+    )
+  )
+)
+
 (defun all-horse-start-positions (board &optional (column 0))
   (cond 
     ((current-position board) nil)
@@ -226,7 +275,7 @@ todo perguntar ao stor a relevancia disto
           ((value-at (cell board (+ amount-row (car horse-position)) (+ amount-column (cadr horse-position)) )))
           ;todo o q fazer com o valor (simetrico e duplo)
           (cond 
-            ((not (numberp value-at)) nil) ; if position to move to is nil
+            ((not (numberp value-at)) nil)
             (T
               (place 
                 (+ amount-row (car horse-position))
