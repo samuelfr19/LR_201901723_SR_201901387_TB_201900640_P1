@@ -4,6 +4,25 @@
     ;;3. Algoritmo de Procura do Melhor Primeiro (A*)
     ;;4. Os algoritmos SMA*, IDA* e/ou RBFS (caso optem por implementar o bónus)
 
+(defun is-node (node)
+  (cond
+    ((= 5 (length node)) 
+      (cond 
+        ((and 
+          (numberp (node-score node)) 
+          (numberp (node-depth node))
+          (numberp (node-heuristic node))
+          (= 10 (length (node-board node)))
+        )
+        t
+        )
+        (t nil)
+      )
+    )
+    (t nil)
+  )
+)
+
 (defun create-node (board score parent &optional (d 0) (h 0))
   (list board score parent d h)
 )
@@ -66,7 +85,21 @@
 
 (defun generate-children (node)
   (cond
-    ((current-position (node-board node)) (list-to-nodes node (all-possible-movements (node-board node))))
+    ((current-position (node-board node)) (list-to-nodes node (all-possible-movements (node-board node)))) ;problema
     (t (generate-first-children node))
+  )
+)
+
+; ------------------------------------------------- Algorythms
+
+(defun bfs (node &optional (queue nil) (visited nil))
+  (cond
+    ((>= 0 (node-score node)) (print-node node))
+    ((null node) nil)
+    ((and (null queue) (null visited)) (bfs node (list node) '()))
+    ((car queue) 
+      (bfs (car queue) (append (cdr queue) (generate-children node)) (cons node visited))
+    )
+    (t visited)
   )
 )

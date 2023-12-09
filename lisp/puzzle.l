@@ -119,7 +119,6 @@
 
 ; ------------------------------------------------- Operators
 
-; (apply-number-rules (node-board (nth 2 (generate-children (test-node)))) 44)
 (defun apply-number-rules (board val)
   (remove-reverse-number (remove-double-number board val) val)
 )
@@ -130,12 +129,9 @@
     ((= val (reverse-digits val))
       (let* (
           (double-digit-numbers (find-double-digit-numbers board))
-          (position-to-remove (car (last double-digit-numbers)))
+          (position-to-remove (car double-digit-numbers)) ; the smallest value will always be extracted like this
         )
-        (progn
-          (format t "~%double-digit-numbers ~w, position to remove ~w~%" double-digit-numbers position-to-remove)
-          (place (car position-to-remove) (cadr position-to-remove) board)      
-        )
+        (place (car position-to-remove) (cadr position-to-remove) board)
       )
     )
     (t board)
@@ -273,16 +269,15 @@
       (T
         (let 
           ((value-at (cell board (+ amount-row (car horse-position)) (+ amount-column (cadr horse-position)) )))
-          ;todo o q fazer com o valor (simetrico e duplo)
           (cond 
             ((not (numberp value-at)) nil)
             (T
-              (place 
+              (apply-number-rules (place 
                 (+ amount-row (car horse-position))
                 (+ amount-column (cadr horse-position)) 
                 (place (car horse-position) (cadr horse-position) board)
                 T
-              )
+              ) value-at)
             )
           )
         )
