@@ -103,3 +103,15 @@
     (t visited)
   )
 )
+
+(defun dfs (node &optional (queue nil) (visited nil))
+  (cond
+    ((>= 0 (node-score node)) (print-node node))
+    ((null node) nil)
+    ((and (null queue) (null visited)) (bfs node (list node) '()))
+    ((car queue) 
+      (bfs (car queue) (append (generate-children node) (cdr queue)) (cons node visited))
+    )
+    (t visited)
+  )
+)
