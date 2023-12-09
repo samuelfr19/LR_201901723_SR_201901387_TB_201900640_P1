@@ -92,26 +92,27 @@
 
 ; ------------------------------------------------- Algorythms
 
-(defun bfs (node &optional (queue nil) (visited nil))
+(defun fs (node b &optional (queue nil) (visited nil))
   (cond
     ((>= 0 (node-score node)) (print-node node))
     ((null node) nil)
-    ((and (null queue) (null visited)) (bfs node (list node) '()))
+    ((and (null queue) (null visited)) (fs node b (list node) '()))
     ((car queue) 
-      (bfs (car queue) (append (cdr queue) (generate-children node)) (cons node visited))
+      (if b
+        (fs (car queue) b (append (cdr queue) (generate-children node)) (cons node visited))
+        (fs (car queue) b (append (generate-children node) (cdr queue)) (cons node visited))
+      )
     )
     (t visited)
   )
 )
 
-(defun dfs (node &optional (queue nil) (visited nil))
-  (cond
-    ((>= 0 (node-score node)) (print-node node))
-    ((null node) nil)
-    ((and (null queue) (null visited)) (bfs node (list node) '()))
-    ((car queue) 
-      (bfs (car queue) (append (generate-children node) (cdr queue)) (cons node visited))
-    )
-    (t visited)
-  )
+(defun bfs (node)
+  (fs node T)
 )
+
+(defun dfs (node)
+  (fs node NIL)
+)
+
+(defun a-star (node ))
