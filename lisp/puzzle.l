@@ -4,6 +4,9 @@
 ;; ^^^^Contribuicao do batista :)
 
 ; ------------------------------------------------- Test Boards
+; ---------- IF WE APPLY THE NUMBER RULES THERE IS NO POSSIBLE ANSWER TO PROBLEM E
+(setq aplicar-regras nil)
+
 (defun tabuleiro-teste ()
 "Tabuleiro de teste sem nenhuma jogada realizada"
   '(
@@ -272,12 +275,20 @@
           (cond 
             ((not (numberp value-at)) nil)
             (T
-              (apply-number-rules (place 
-                (+ amount-row (car horse-position))
-                (+ amount-column (cadr horse-position)) 
-                (place (car horse-position) (cadr horse-position) board)
-                T
-              ) value-at)
+              (if aplicar-regras
+                (apply-number-rules (place 
+                  (+ amount-row (car horse-position))
+                  (+ amount-column (cadr horse-position)) 
+                  (place (car horse-position) (cadr horse-position) board)
+                  T
+                ) value-at)
+                (place 
+                  (+ amount-row (car horse-position))
+                  (+ amount-column (cadr horse-position)) 
+                  (place (car horse-position) (cadr horse-position) board)
+                  T
+                )
+              )
             )
           )
         )

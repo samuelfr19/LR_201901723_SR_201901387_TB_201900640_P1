@@ -91,19 +91,44 @@
 )
 
 ; ------------------------------------------------- Algorythms
-
-(defun fs (node b &optional (queue nil) (visited nil))
+; was getting stack overflow on recursive functions so added iterative aproaches to mitigate them
+(defun fs-recursive (node b &optional (queue nil) (visited nil))
   (cond
-    ((>= 0 (node-score node)) (print-node node))
-    ((null node) nil)
+    ((>= 0 (node-score node)) (progn (print-node node) visited))
+    ((null node) visited)
     ((and (null queue) (null visited)) (fs node b (list node) '()))
-    ((car queue) 
+    ((car queue)
       (if b
         (fs (car queue) b (append (cdr queue) (generate-children node)) (cons node visited))
         (fs (car queue) b (append (generate-children node) (cdr queue)) (cons node visited))
       )
     )
     (t visited)
+  )
+)
+
+(defun fs (node b)
+  (let (
+      (queue (list node))
+      (visited '())
+    )
+    (loop while queue do
+      (let ((current-node (car queue)))
+        (if (>= 0 (node-score current-node))
+          (prog2
+            (print-node current-node)
+            (break "^ This is a solution node, read from bottom up.^~%~%Type 'continue' to find another solution or 'abort' to stop looking.")
+          )
+        (progn
+          (setq visited (cons current-node visited))
+          (if b
+            (setq queue (append (cdr queue) (generate-children current-node)))
+            (setq queue (append (generate-children current-node) (cdr queue)))
+          )
+        )
+        )
+      )
+    )
   )
 )
 
