@@ -10,7 +10,7 @@
 (defun tabuleiro-teste ()
 "Tabuleiro de teste sem nenhuma jogada realizada"
   '(
-    (94  25  54  89  21  nil   36  14  41  96) 
+    (94  25  54  89  21  nil 36  14  41  96) 
     (78  47  56  23  5   49  13  12  26  60) 
     (0   27  17  83  34  93  74  52  45  80) 
     (69  9   77  95  55  39  91  73  57  30) 
@@ -118,6 +118,14 @@
       )
     )
   )
+)
+
+(defun total-points (board)
+  (apply #'+ (remove t (remove nil(apply #'append board))))
+)
+
+(defun total-available-houses (board)
+  (length (remove t (remove nil(apply #'append board))))
 )
 
 ; ------------------------------------------------- Operators

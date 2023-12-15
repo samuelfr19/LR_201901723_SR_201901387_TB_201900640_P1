@@ -5,9 +5,10 @@
 
 ;;==========================================    INTERFACE MESSAGES FOR INTERFACE    ==========================================
 
-(defun startMessage()
+(defun start-message()
 "Mostra as opções iniciais"
   (progn
+    (run-program "clear")
     (format t "~%~% ------------------------------")
     (format t "~%|           Jogo  do           |")
     (format t "~%|            Cavalo            |")
@@ -20,10 +21,11 @@
  )
 )
 
-(defun chooseAlgorithmMessage()
+(defun choose-algorithm-message()
 "Mostra as opções de algoritmos de procura para aplicar no problema/tabuleiro"
   (progn
-    (format t"~%~% -------------------------------------------------------------")
+    (run-program "clear")
+    (format t "~%~% -------------------------------------------------------------")
     (format t "~%|    Escolha o algoritmo de procura que pretende utilizar     |")
     (format t "~%|                                                             |")
     (format t "~%|                1     Depth first search                     |")
@@ -35,9 +37,10 @@
   )
 )
 
-(defun chooseProblemMessage()
+(defun choose-problem-message()
 "Mostra as opções iniciais"
   (progn
+    (run-program "clear")
     (format t "~%~% ----------------------------------------")
     (format t "~%|           Escolher Problema            |")
     (format t "~%|                                        |")
@@ -49,9 +52,10 @@
  )
 )
 
-(defun chooseDepthMessage()
+(defun choose-depth-message()
 "Mostra a caixa para o utilizador escolher a profundidade maxima desejada"
   (progn
+    (run-program "clear")
     (format t "~%~% -----------------------------------------")
     (format t "~%|      Escolha a profundidade maxima      |")
     (format t "~%|       desejada para executar o DFS      |")
@@ -62,9 +66,10 @@
 )
 
 
-(defun chooseHeuristicMessage()
+(defun choose-heuristic-message()
 "Mostra a caixa para o utilizador escolher a heuristica desejada"
   (progn
+    (run-program "clear")
     (format t "~%~% -----------------------------------------")
     (format t "~%|      Escolha a Heuristica desejada      |")
     (format t "~%|        para executar o algoritmo        |")
@@ -85,14 +90,14 @@
       (cond
         ((eq in 1) t ;(show-problems)
         )
-        ((eq in 2) (chooseProblemMessage))
+        ((eq in 2) (choose-problem-message))
         (T nil)
       )
     )
   )
 )
 
-; -------------------------------------------------- Menu Navigation
+; -------------------------------------------------- Read from problemas.dat
 (defun get-problems()
   (with-open-file (stream "problemas.dat" :if-does-not-exist :error)
     (do
