@@ -4,6 +4,7 @@
     ;;3. Algoritmo de Procura do Melhor Primeiro (A*)
     ;;4. Os algoritmos SMA*, IDA* e/ou RBFS (caso optem por implementar o bónus)
 
+; ------------------------------------------------- Node 
 (defun is-node (node)
   (cond
     ((= 6 (length node)) 
@@ -52,13 +53,36 @@
   (nth 5 node)
 )
 
-(defun solution-node (node)
-  (car (last (car node)))
+(defun first-node (node)
+  (cond
+    ((null (node-parent node)) node)
+    (t (first-node (node-parent node)))
+  )
 )
 
-(defun solution-lenght (node)
- (length (car node)) ;todo @samuel arranja esta merda
+; ------------------------------------------------- Solution Node 
+
+(defun create-solution-node (node size-of-queue size-of-visited)
+  (list (node-to-movements node) size-of-queue size-of-visited node)
 )
+
+(defun solution-node-path (solution-node)
+  (nth 0 solution-node)
+)
+
+(defun solution-node-size-queue (solution-node)
+  (nth 1 solution-node)
+)
+
+(defun solution-node-size-visited (solution-node)
+  (nth 2 solution-node)
+)
+
+(defun solution-node-node (solution-node)
+  (nth 3 solution-node)
+)
+
+; ------------------------------------------------- Aux Functions
 
 (defun node-from-problem (&optional (problem-number 0))
   (let ((in (get-problem problem-number)))
@@ -74,8 +98,11 @@
   )
 )
 
-(defun solution-node (node size-of-queue size-of-visited)
-  (list (node-to-movements node) size-of-queue size-of-visited node)
+(defun print-node-individual (node &optional (stream-to-write-to t))
+  (progn
+    (format stream-to-write-to "~%~%Score: ~a/~a | Depth: ~a | Heuristic: ~a~%~%" (node-score node) (node-final-score node) (node-depth node) (node-heuristic node))
+    (print-board (node-board node) stream-to-write-to)
+  )
 )
 
 (defun node-to-movements (node)
@@ -91,15 +118,6 @@
       )
     )
     (t nil)
-  )
-)
-
-(defun calculate-score (current-score previous-board new-board)
-  (let* (
-      (pos (current-position new-board))
-      (value (cell previous-board (car pos) (cadr pos)))
-    )
-    (+ current-score value)
   )
 )
 
@@ -129,11 +147,20 @@
   )
 )
 
+; ------------------------------------------------- Calculations
+
 (defun is-solution (node)
   (<= (node-final-score node) (node-score node))
 )
 
-; ------------------------------------------------- Calculations
+(defun calculate-score (current-score previous-board new-board)
+  (let* (
+      (pos (current-position new-board))
+      (value (cell previous-board (car pos) (cadr pos)))
+    )
+    (+ current-score value)
+  )
+)
 
 (defun apply-heuristic (node heuristic-value)
   (create-node  ; this wasn't my favorite implementation but the only one i could find at this point :c
@@ -196,13 +223,13 @@
     (loop while queue do
       (let* ((current-node (car queue)))
         (if (is-solution current-node)
-          (return (solution-node current-node (length queue) (length visited)))
+          (return (create-solution-node current-node (length queue) (length visited)))
           (progn
             (setq visited (cons current-node visited))
             (if b
               (setq queue (append (cdr queue) (generate-children current-node)))
               (if (> (1+ (node-depth current-node)) maximum-depth)
-                (return (solution-node nil (length queue) (length visited)))
+                (return (create-solution-node nil (length queue) (length visited)))
                 (setq queue (append (generate-children current-node) (cdr queue)))
               )
             )
@@ -241,7 +268,7 @@
     (loop while queue do
       (let ((current (pop queue)))
         (if (is-solution current) 
-          (return (solution-node current (length queue) (length visited)))
+          (return (create-solution-node current (length queue) (length visited)))
           (progn
             (do* ((children (generate-children current) (cdr children))) ((null children)) 
               (let* (
@@ -284,6 +311,7 @@
 ;;
 ;;
 ;;;==========================================    AVERAGE BRANCHING FACTOR    ==========================================
+;@samuel que e' iste
 (defun averageBranchingFator (solution 
   &optional 
     (depth (getsolutionlenght solution)) 
