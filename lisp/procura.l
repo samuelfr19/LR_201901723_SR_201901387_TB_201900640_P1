@@ -52,6 +52,14 @@
   (nth 5 node)
 )
 
+(defun solution-node (node)
+  (car (last (car node)))
+)
+
+(defun solution-lenght (node)
+ (length (car node)) ;todo @samuel arranja esta merda
+)
+
 (defun node-from-problem (&optional (problem-number 0))
   (let ((in (get-problem problem-number)))
     (create-node (caddr in) 0 (cadr in) nil)
@@ -260,4 +268,34 @@
   )
 )
 
-;; ------------------------------------------ GONCALO
+;; ------------------------------------------ GONCALO  COMO ASSIM GONCALO? AHAHAHAH
+
+
+;==========================================    PENATRANCE    ==========================================
+
+;;(defun penetrance (solution)
+;; "Funcao para calcular e definir a penetrancia da solucao final"
+;;    (coerce (/ (getsolutionlenght solution) (+ (second solution)(third solution))) 'float)
+;;) 
+;;
+;;
+;;;==========================================    AVERAGE BRANCHING FACTOR    ==========================================
+(defun averageBranchingFator (solution &optional (depth (getsolutionlenght solution)) (generatedNodes (numbergeneratednodes solution))
+  (tolerance 0.1) (min 0) (max (numbergeneratednodes solution)))
+  (let ((average (/ ( + min max) 2)))
+       (cond 
+        ((< (- max min) tolerance) (/ (+ max min) 2))
+        ((< (auxiliarbranching average depth generatednodes) 0) 
+                (averagebranchingfator solution depth generatednodes tolerance average max))
+          (t (averagebranchingfator solution depth generatednodes tolerance min average))
+       )
+  )
+)
+
+(defun auxiliarBranching (average depth generatedNodes)
+ (cond
+   ((= 1 depth) (- average generatednodes))
+   (T (+  (expt average depth) 
+          (auxiliarBranching average (- depth 1) generatednodes)))
+  )
+)
