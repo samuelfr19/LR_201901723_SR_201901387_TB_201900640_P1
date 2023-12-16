@@ -1,0 +1,54 @@
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Algoritmo: BFS 
+  -- Inicio: 21:33:14
+  -- Fim: 21:33:14
+  -- Numero de nós gerados: 51
+  -- Numero de nós expandidos: 50
+  -- Penetrancia: 0.19607843
+  -- Fator de ramificacao media: 1.2451172
+  -- Comprimento da solucao: 10
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  T    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Algoritmo: BFS 
+  -- Inicio: 21:33:31
+  -- Fim: 21:33:58
+  -- Numero de nós gerados: 29867
+  -- Numero de nós expandidos: 28491
+  -- Penetrancia: 0.0006361536
+  -- Fator de ramificacao media: 1.6235533
+  -- Comprimento da solucao: 19
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+NIL  5    NIL  NIL  NIL  NIL  NIL  NIL  NIL  T    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  4    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  2    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  1    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  10   NIL  NIL  NIL  NIL  NIL  NIL  
+
+--------------------------------------------------
+
+
