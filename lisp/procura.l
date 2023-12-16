@@ -4,6 +4,7 @@
     ;;3. Algoritmo de Procura do Melhor Primeiro (A*)
     ;;4. Os algoritmos SMA*, IDA* e/ou RBFS (caso optem por implementar o bónus)
 
+; ------------------------------------------------- Node 
 (defun is-node (node)
   (cond
     ((= 6 (length node)) 
@@ -64,6 +65,37 @@
   (+ (second node) (third node))
 )
 
+(defun first-node (node)
+  (cond
+    ((null (node-parent node)) node)
+    (t (first-node (node-parent node)))
+  )
+)
+
+; ------------------------------------------------- Solution Node 
+
+(defun create-solution-node (node size-of-queue size-of-visited)
+  (list (node-to-movements node) size-of-queue size-of-visited node)
+)
+
+(defun solution-node-path (solution-node)
+  (nth 0 solution-node)
+)
+
+(defun solution-node-size-queue (solution-node)
+  (nth 1 solution-node)
+)
+
+(defun solution-node-size-visited (solution-node)
+  (nth 2 solution-node)
+)
+
+(defun solution-node-node (solution-node)
+  (nth 3 solution-node)
+)
+
+; ------------------------------------------------- Aux Functions
+
 (defun node-from-problem (&optional (problem-number 0))
   (let ((in (get-problem problem-number)))
     (create-node (caddr in) 0 (cadr in) nil)
@@ -78,8 +110,11 @@
   )
 )
 
-(defun solution-node (node size-of-queue size-of-visited)
-  (list (node-to-movements node) size-of-queue size-of-visited node)
+(defun print-node-individual (node &optional (stream-to-write-to t))
+  (progn
+    (format stream-to-write-to "~%~%Score: ~a/~a | Depth: ~a | Heuristic: ~a~%~%" (node-score node) (node-final-score node) (node-depth node) (node-heuristic node))
+    (print-board (node-board node) stream-to-write-to)
+  )
 )
 
 (defun node-to-movements (node)
@@ -95,15 +130,6 @@
       )
     )
     (t nil)
-  )
-)
-
-(defun calculate-score (current-score previous-board new-board)
-  (let* (
-      (pos (current-position new-board))
-      (value (cell previous-board (car pos) (cadr pos)))
-    )
-    (+ current-score value)
   )
 )
 
@@ -128,16 +154,25 @@
 
 (defun generate-children (node)
   (cond
-    ((current-position (node-board node)) (list-to-nodes node (all-possible-movements (node-board node)))) ;problema
+    ((current-position (node-board node)) (list-to-nodes node (all-possible-movements (node-board node))))
     (t (generate-first-children node))
   )
 )
+
+; ------------------------------------------------- Calculations
 
 (defun is-solution (node)
   (<= (node-final-score node) (node-score node))
 )
 
-; ------------------------------------------------- Calculations
+(defun calculate-score (current-score previous-board new-board)
+  (let* (
+      (pos (current-position new-board))
+      (value (cell previous-board (car pos) (cadr pos)))
+    )
+    (+ current-score value)
+  )
+)
 
 (defun apply-heuristic (node heuristic-value)
   (create-node  ; this wasn't my favorite implementation but the only one i could find at this point :c
@@ -152,8 +187,8 @@
 
 (defun calculate-heuristic-default (node)
   (cond
-    ((= 0 (total-available-houses (node-board node))) node)
-    ((= 0 (/ (float (total-points (node-board node))) (total-available-houses (node-board node)))) node)
+    ((= 0 (total-available-squares (node-board node))) node)
+    ((= 0 (/ (float (total-points (node-board node))) (total-available-squares (node-board node)))) node)
     (t 
       (apply-heuristic
         node
@@ -161,12 +196,16 @@
           (- (node-final-score node) (node-score node))
           (/ 
             (float (total-points (node-board node))) 
-            (total-available-houses (node-board node))
+            (total-available-squares (node-board node))
           )
         )
       )
     )
   )
+)
+
+(defun our-heuristic (node)
+  
 )
 
 ;todo nossa heuristica
@@ -196,13 +235,13 @@
     (loop while queue do
       (let* ((current-node (car queue)))
         (if (is-solution current-node)
-          (return (solution-node current-node (length queue) (length visited)))
+          (return (create-solution-node current-node (length queue) (length visited)))
           (progn
             (setq visited (cons current-node visited))
             (if b
               (setq queue (append (cdr queue) (generate-children current-node)))
               (if (> (1+ (node-depth current-node)) maximum-depth)
-                (return (solution-node nil (length queue) (length visited)))
+                (return (create-solution-node nil (length queue) (length visited)))
                 (setq queue (append (generate-children current-node) (cdr queue)))
               )
             )
@@ -241,7 +280,7 @@
     (loop while queue do
       (let ((current (pop queue)))
         (if (is-solution current) 
-          (return (solution-node current (length queue) (length visited)))
+          (return (create-solution-node current (length queue) (length visited)))
           (progn
             (do* ((children (generate-children current) (cdr children))) ((null children)) 
               (let* (

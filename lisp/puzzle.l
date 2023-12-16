@@ -120,14 +120,6 @@
   )
 )
 
-(defun total-points (board)
-  (apply #'+ (remove t (remove nil(apply #'append board))))
-)
-
-(defun total-available-houses (board)
-  (length (remove t (remove nil(apply #'append board))))
-)
-
 ; ------------------------------------------------- Operators
 
 (defun apply-number-rules (board val)
@@ -201,7 +193,6 @@
     ))
   )
 )
-
 
 (defun set-horse-start-position (board &optional (pos 0))
   (cond
@@ -304,6 +295,22 @@
     )
   )
 )
+
+; ------------------------------------------------- Calculations
+
+(defun total-points (board)
+  (apply #'+ (remove t (remove nil(apply #'append board))))
+)
+
+(defun total-available-squares (board)
+  (length (remove t (remove nil(apply #'append board))))
+)
+
+(defun average-operators-score (board)
+  (/ (mapcar (lambda (child) (calculate-score 0 board child)) (all-possible-movements board))
+  )
+)
+
 ; ------------------------------------------------- Generating a board
 
 (defun shuffle (board)

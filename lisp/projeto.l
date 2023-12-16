@@ -17,7 +17,7 @@
     (format t "~%|   0        Sair              |")
     (format t "~%|                              |")
     (format t "~% ------------------------------   ~%~%> ")
- )
+  )
 )
 
 (defun choose-algorithm-message()
@@ -48,7 +48,7 @@
     (format t "~%|             0   Voltar                 |")
     (format t "~%|                                        |")
     (format t "~% ----------------------------------------   ~%~%> ")
- )
+  )
 )
 
 (defun choose-depth-message()
@@ -61,7 +61,7 @@
     (format t "~%|              0    voltar                |")
     (format t "~%|                                         |")
     (format t "~% -----------------------------------------~%~%> ")
- )
+  )
 )
 
 
@@ -98,91 +98,98 @@
 )
 
 (defun choose-problem()
- (progn 
-  (show-problems)
-  (choose-problem-message)
-      (let ((opt (read)))
-           (cond ((eq opt '0) (start))
-                 ((not (numberp opt)) 
-                  (progn (format t "Insira uma opcao valida!!") (choose-problem))) 
-                 (T
-                  (let ((problem-list (get-problems)))
-                  (if (= opt 6) (choose-algorithm (random-board)))
-                  (if (or (< opt 0) (> opt (- (length problem-list) 1))) (progn (format t "Insira uma opcao valida!!") (choose-problem))
-                                 (choose-algorithm (1- opt))
-                  )
-                  ))
-           )
-       )
+  (progn 
+    (show-problems)
+    (choose-problem-message)
+    (let ((opt (read)))
+      (cond 
+        ((eq opt '0) (start))
+        (
+          (not (numberp opt)) (progn (format t "Insira uma opcao valida!!") (choose-problem))) 
+        (T
+          (let ((problem-list (get-problems)))
+            (if (= opt 6) (choose-algorithm (random-board)))
+            (if (or (< opt 0) (> opt (- (length problem-list) 1))) 
+              (progn 
+                (format t "Insira uma opcao valida!!") 
+                (choose-problem)
+              )
+              (choose-algorithm (1- opt))
+            )
+          )
+        )
+      )
     )
+  )
 )
-
 
 (defun choose-algorithm(problem)
 "Executa um algoritmo, dependendo da opcao escolhida"
   (progn (choose-algorithm-message)
     (let ((opt (read)))
-      (cond ((not (numberp opt)) (progn (format t "Insira uma opcao valida!!") (choose-algorithm)))
+      (cond 
+        ((not (numberp opt)) (progn (format t "Insira uma opcao valida!!") (choose-algorithm)))
         ((or (> opt 3) (< opt 0)) (progn (format t "Insira uma opcao valida!!") (choose-algorithm)))
-        ((eq opt 0) (choose-problem))  
-        (T       
-            (ecase opt
-              (1    
-                (let* ((maxDepth (choose-depth problem))
-                  (solution (list (get-time) (dfs (node-from-problem problem) maxDepth) (get-time) 'DFS maxDepth)))
-                  (progn (write-final-results-file solution) solution)  
-                )
+        ((eq opt 0) (choose-problem))
+        (T
+          (ecase opt
+            (1    
+              (let* ((maxDepth (choose-depth problem))
+                (solution (list (get-time) (dfs (node-from-problem problem) maxDepth) (get-time) 'DFS maxDepth)))
+                (progn (write-final-results solution) solution)  
               )
-              (2  
-                (let
-                  ((solution (list (get-time) (bfs  (node-from-problem problem)) (get-time) 'BFS)))
-                  (progn (write-final-results-file solution) solution)
-                )
+            )
+            (2  
+              (let
+                ((solution (list (get-time) (bfs  (node-from-problem problem)) (get-time) 'BFS)))
+                (progn (write-final-results solution) solution)
               )
-              (3  
-                (let* ((heuristic (choose-heuristic problem))
-                  (solution (list (get-time) (a-star (node-from-problem problem)) (get-time) 'A* heuristic)))
-                  (progn (write-final-results-file solution) solution)  
-                )))))))
+            )
+            (3  
+              (let* (
+                  (heuristic (choose-heuristic problem))
+                  (solution (list (get-time) (a-star (node-from-problem problem)) (get-time) 'A* heuristic))
+                )
+                (progn (write-final-results solution) solution)  
+              )
+            )
+          )
+        )
+      )
+    )
+  )
 )
-
 
 (defun choose-depth(problem)
   (if (not (choose-depth-message))
-      (let ((opt (read)))
-         (cond ((eq opt '0) (choose-algorithm problem))
-               ((or (not (numberp opt)) (< opt 0)) (progn (format t "Insira uma opcao valida!!")) (choose-depth))
-               (T opt))))
+    (let ((opt (read)))
+        (cond 
+          ((eq opt '0) (choose-algorithm problem))
+          ((or (not (numberp opt)) (< opt 0)) (progn (format t "Insira uma opcao valida!!")) (choose-depth))
+          (T opt)
+        )
+    )
+  )
 )
 
 (defun choose-heuristic(problem)
   (if (not (choose-heuristic-message))
-      (let ((opt (read)))
-         (cond ((eq opt '0) (choose-algorithm problem))
-                (if (or (not (numberp opt)) (> opt 2) (< opt 0)) (progn (format t "Insira uma opcao valida!!~%") (chooseHeuristic))
-               (T opt))))
-)
-)
-
-
-(defun write-final-results-file (solution)
-"Escreve, no ficheiro de resultados, a solucao e medidas de desempenho de um determinado problema"
-  (let* (
-      (startTime (first solution))
-      (solutionNode (second solution))
-      (endTime (third solution))
-      (search (fourth solution))
-    ) 
-    (with-open-file (str "./lisp/resultados.dat" :direction :output :if-exists :append :if-does-not-exist :create)
-      (write-final-results str solutionNode startTime endTime search) 
+    (let ((opt (read)))
+      (cond 
+        ((eq opt '0) (choose-algorithm problem))
+        ((or (not (numberp opt)) (> opt 2) (< opt 0)) 
+          (progn 
+            (format t "Insira uma opcao valida!!~%") 
+            (chooseHeuristic)
+          )
+        )
+        (T opt)
+      )
     )
   )
 )
 
 ; -------------------------------------------------- File management
-
-
-
 
 (defun show-problems (&optional (i 1) (problems (get-problems)))
     (cond
@@ -195,19 +202,31 @@
 )
 )
 
+;@samuel wtf is the point of this??? esta funcao na realidade so serve como intermediario que fode tudo.
+; andas a passar os mambos p traz e p frente p nada, podias so chamar tudo certinho la em cima 🤡
+(defun write-final-results (solution) 
+"Escreve, no ficheiro de resultados, a solucao e medidas de desempenho de um determinado problema"
+  (let* (
+      (start-time (first solution))
+      (solution-node (second solution))
+      (end-time (third solution))
+      (search (fourth solution))
+    ) 
+    (with-open-file (str "./lisp/resultados.dat" :direction :output :if-exists :append :if-does-not-exist :create)
+      (final-results str solution-node start-time end-time search (last solution)) 
+    )
+  )
+)
 
-(defun write-final-results (stream solutionNode startTime endTime search &optional depth)
+(defun final-results (stream solution-node start-time end-time algorithm &optional depth)
   (progn 
     ;;(format stream "~%~tRESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:~%")
-    ;;(format stream "~%~t -- Objetivo caixas fechadas: ~a " (countClosedBoxes(getSolutionNode solutionNode)))
-    ;;(format stream "~%~t -- Algoritmo: ~a " search)
-    ;;(format stream "~%~t -- Inicio: ~a:~a:~a" (first startTime) (second startTime) (third startTime))
-    ;;(format stream "~%~t -- Fim: ~a:~a:~a" (first endTime) (second endTime) (third endTime))
-    ;;(print-board  (first solutionNode))
+    ;;(format stream "~%~t -- Objetivo caixas fechadas: ~a " (countClosedBoxes(getSolutionNode solution-node)))
+    ;;(format stream "~%~t -- Algoritmo: ~a " algorithm)
+    ;;(format stream "~%~t -- Inicio: ~a:~a:~a" (first start-time) (second start-time) (third start-time))
+    ;;(format stream "~%~t -- Fim: ~a:~a:~a" (first end-time) (second end-time) (third end-time))
+    ;;(print-board  (first solution-node))
     ;;(format stream "~%~%~%")
-
-
-    
 
     (format T "~%~tRESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:~%")
     (format t "~%~t -- Objetivo de pontos: ~a " (node-final-score solutionnode))
@@ -232,29 +251,27 @@
 ; -------------------------------------------------- File management
 (defun get-problems()
   (progn
-  (with-open-file (stream "problemas.dat" :if-does-not-exist :error)
-    (do
-      (
-        (result nil (cons next result))
-        (next (read stream nil 'eof) (read stream nil 'eof))
+    (with-open-file (stream "problemas.dat" :if-does-not-exist :error)
+      (do(
+          (result nil (cons next result))
+          (next (read stream nil 'eof) (read stream nil 'eof))
+        )
+        ((equal next 'eof) (reverse result))
       )
-      ((equal next 'eof) (reverse result))
     )
   )
-  )
 )
-
 
 (defun get-problem (n)
   (nth n (get-problems))
 )
 
-
-
-(defun get-time()
+;@samuel milisegundos.
+(defun get-time() 
   "Retorna o tempo atual em forma de lista"
   (multiple-value-bind (s m h) (get-decoded-time)
     (list h m s)
-   )
+  )
 )
  
+(start)
