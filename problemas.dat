@@ -58,7 +58,7 @@
   )  
 )
 
-("e" 300
+("E" 300
   (
     (nil  05   nil  nil  nil  15   nil  nil  nil  25 )
     (nil  nil  nil  06   nil  nil  nil  16   nil  nil)
@@ -73,4 +73,4 @@
   )
 )
 
-("f" 2000 ())
+("F" 2000 ())
