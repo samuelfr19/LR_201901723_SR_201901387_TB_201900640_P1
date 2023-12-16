@@ -129,19 +129,19 @@
             (ecase opt
               (1    
                 (let* ((maxDepth (choose-depth problem))
-                  (solution (list (get-time) (dfs (test-node problem) maxDepth) (get-time) 'DFS maxDepth)))
+                  (solution (list (get-time) (dfs (node-from-problem problem) maxDepth) (get-time) 'DFS maxDepth)))
                   (progn (write-final-results-file solution) solution)  
                 )
               )
               (2  
                 (let
-                  ((solution (list (get-time) (bfs  (test-node problem)) (get-time) 'BFS)))
+                  ((solution (list (get-time) (bfs  (node-from-problem problem)) (get-time) 'BFS)))
                   (progn (write-final-results-file solution) solution)
                 )
               )
               (3  
                 (let* ((heuristic (choose-heuristic problem))
-                  (solution (list (get-time) (a-star (test-node problem)) (get-time) 'A* heuristic)))
+                  (solution (list (get-time) (a-star (node-from-problem problem)) (get-time) 'A* heuristic)))
                   (progn (write-final-results-file solution) solution)  
                 )))))))
 )
