@@ -1,4 +1,4 @@
-("a" 70
+("A" 70
   (
     (02   20   44   nil  nil  nil  nil  nil  nil  nil)
     (nil  nil  nil  nil  nil  nil  nil  nil  nil  nil)
@@ -13,7 +13,7 @@
   )
 )
 
-("b" 60
+("B" 60
   (
     (02   nil  04   nil  06   nil  08   nil  10   nil)
     (nil  nil  nil  nil  nil  nil  nil  nil  nil  nil)
@@ -28,7 +28,7 @@
   )
 )
 
-("c" 270
+("C" 270
   (
     (01   12   03   23   nil  88   nil  nil  nil  nil)
     (21   45   43   nil  nil  nil  nil  nil  nil  nil)
@@ -43,7 +43,7 @@
   )
 )
 
-("d" 600
+("D" 600
   (
     (98   97   96   95   94   93   92   91   90   89 )
     (01   02   03   04   05   55   06   07   08   09 )
