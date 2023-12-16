@@ -56,27 +56,27 @@
 
 ; ------------------------------------------------- Movements and operations
 
-(defun print-board (board)
+(defun print-board (board &optional (stream-to-write-to t))
 "Prints the *board* in a clean and proper way"
   (cond
-    ((not (car board)) (format t "~%--------------------------------------------------~%"))
+    ((not (car board)) (format stream-to-write-to "~%--------------------------------------------------~%"))
     (T 
       (progn
-        (print-row (car board))
-        (print-board (cdr board))
+        (print-row (car board) stream-to-write-to)
+        (print-board (cdr board) stream-to-write-to)
       )
     )
   )
 )
 
-(defun print-row (row &optional (column 9))
+(defun print-row (row &optional (stream-to-write-to t) (column 9) )
 "Prints a *row* of the board in a clean and proper way"
   (cond 
-    ((> 0 column) (format t "~%"))
+    ((> 0 column) (format stream-to-write-to "~%"))
     (t 
       (progn
-        (format t "~5a" (car row))
-        (print-row (cdr row) (1- column))
+        (format stream-to-write-to "~5a" (car row))
+        (print-row (cdr row) stream-to-write-to (1- column) )
       )
     )
   )

@@ -97,7 +97,7 @@
   )
 )
 
-; -------------------------------------------------- Read from problemas.dat
+; -------------------------------------------------- File management
 (defun get-problems()
   (with-open-file (stream "problemas.dat" :if-does-not-exist :error)
     (do

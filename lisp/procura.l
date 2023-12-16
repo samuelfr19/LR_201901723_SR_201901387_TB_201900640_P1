@@ -52,17 +52,37 @@
   (nth 5 node)
 )
 
-(defun test-node (&optional (problem-number 0))
+(defun node-from-problem (&optional (problem-number 0))
   (let ((in (get-problem problem-number)))
     (create-node (caddr in) 0 (cadr in) nil)
   )
 )
 
-(defun print-node (node)
+(defun print-node (node &optional (stream-to-write-to t))
   (progn
-    (if (node-parent node) (print-node (node-parent node)) nil)
-    (format t "~%~%Score: ~a/~a | Depth: ~a | Heuristic: ~a~%~%" (node-score node) (node-final-score node) (node-depth node) (node-heuristic node))
-    (print-board (node-board node))
+    (if (node-parent node) (print-node (node-parent node) stream-to-write-to) nil)
+    (format stream-to-write-to "~%~%Score: ~a/~a | Depth: ~a | Heuristic: ~a~%~%" (node-score node) (node-final-score node) (node-depth node) (node-heuristic node))
+    (print-board (node-board node) stream-to-write-to)
+  )
+)
+
+(defun solution-node (node size-of-queue size-of-visited)
+  (list (node-to-movements node) size-of-queue size-of-visited node)
+)
+
+(defun node-to-movements (node)
+  (cond
+    ((not node) '())
+    ((node-parent node) 
+      (let* (
+          (current (current-position (node-board node)))
+          (letter (nth (cadr current) '(A B C D E F G H I J)))
+          (movement (list letter (1+ (car current))))
+        )
+        (append (node-to-movements (node-parent node)) (list movement))
+      )
+    )
+    (t nil)
   )
 )
 
@@ -119,18 +139,25 @@
 )
 
 (defun calculate-heuristic-default (node)
-  (apply-heuristic
-    node
-    (/ 
-      (- (node-final-score node) (node-score node)) 
-      (/
-        (float (total-points (node-board node))) 
-        (total-available-houses (node-board node))
-      )  
+  (cond
+    ((= 0 (total-available-houses (node-board node))) node)
+    ((= 0 (/ (float (total-points (node-board node))) (total-available-houses (node-board node)))) node)
+    (t 
+      (apply-heuristic
+        node
+        (/
+          (- (node-final-score node) (node-score node))
+          (/ 
+            (float (total-points (node-board node))) 
+            (total-available-houses (node-board node))
+          )
+        )
+      )
     )
   )
 )
 
+;todo nossa heuristica
 
 ; ------------------------------------------------- Algorythms
 ; was getting stack overflow on recursive functions so added iterative aproach to mitigate them
@@ -149,7 +176,7 @@
   )
 )
 
-(defun fs (node b) ;; todo O Q SAO OS RESULTADOS? SO O NODE? FALTA MAMBOS
+(defun fs (node b &optional (maximum-depth most-positive-fixnum))
   (let (
       (queue (list node))
       (visited '())
@@ -157,16 +184,16 @@
     (loop while queue do
       (let* ((current-node (car queue)))
         (if (is-solution current-node)
+          (return (solution-node current-node (length queue) (length visited)))
           (progn
-            (print-node current-node)
-            (break "^ This is a solution node.^~%Type 'continue' to find another solution or 'abort' to stop looking.")
-          )
-        )
-        (progn
-          (setq visited (cons current-node visited))
-          (if b
-            (setq queue (append (cdr queue) (generate-children current-node)))
-            (setq queue (append (generate-children current-node) (cdr queue)))
+            (setq visited (cons current-node visited))
+            (if b
+              (setq queue (append (cdr queue) (generate-children current-node)))
+              (if (> (1+ (node-depth current-node)) maximum-depth)
+                (return (solution-node nil (length queue) (length visited)))
+                (setq queue (append (generate-children current-node) (cdr queue)))
+              )
+            )
           )
         )
       )
@@ -178,8 +205,8 @@
   (fs node T)
 )
 
-(defun dfs (node)
-  (fs node NIL)
+(defun dfs (node &optional (max-depth most-positive-fixnum))
+  (fs node NIL max-depth)
 )
 
 ;------------------------ a-star
@@ -202,10 +229,7 @@
     (loop while queue do
       (let ((current (pop queue)))
         (if (is-solution current) 
-          (progn
-            (print-node current)
-            (break "^ This is a solution node.^~%Type 'continue' to find another solution or 'abort' to stop looking.")
-          )
+          (return (solution-node current (length queue) (length visited)))
           (progn
             (do* ((children (generate-children current) (cdr children))) ((null children)) 
               (let* (
@@ -233,7 +257,6 @@
         (push current visited)
       )
     )
-    nil
   )
 )
 
