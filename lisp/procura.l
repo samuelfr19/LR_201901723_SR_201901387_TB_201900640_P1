@@ -124,7 +124,7 @@
 
 (defun generate-children (node)
   (cond
-    ((current-position (node-board node)) (list-to-nodes node (all-possible-movements (node-board node)))) ;problema
+    ((current-position (node-board node)) (list-to-nodes node (all-possible-movements (node-board node))))
     (t (generate-first-children node))
   )
 )
@@ -148,8 +148,8 @@
 
 (defun calculate-heuristic-default (node)
   (cond
-    ((= 0 (total-available-houses (node-board node))) node)
-    ((= 0 (/ (float (total-points (node-board node))) (total-available-houses (node-board node)))) node)
+    ((= 0 (total-available-squares (node-board node))) node)
+    ((= 0 (/ (float (total-points (node-board node))) (total-available-squares (node-board node)))) node)
     (t 
       (apply-heuristic
         node
@@ -157,12 +157,16 @@
           (- (node-final-score node) (node-score node))
           (/ 
             (float (total-points (node-board node))) 
-            (total-available-houses (node-board node))
+            (total-available-squares (node-board node))
           )
         )
       )
     )
   )
+)
+
+(defun our-heuristic (node)
+  
 )
 
 ;todo nossa heuristica
@@ -280,22 +284,29 @@
 ;;
 ;;
 ;;;==========================================    AVERAGE BRANCHING FACTOR    ==========================================
-(defun averageBranchingFator (solution &optional (depth (getsolutionlenght solution)) (generatedNodes (numbergeneratednodes solution))
-  (tolerance 0.1) (min 0) (max (numbergeneratednodes solution)))
+(defun averageBranchingFator (solution 
+  &optional 
+    (depth (getsolutionlenght solution)) 
+    (generatedNodes (numbergeneratednodes solution))
+    (tolerance 0.1) 
+    (min 0) 
+    (max (numbergeneratednodes solution))
+  )
   (let ((average (/ ( + min max) 2)))
-       (cond 
-        ((< (- max min) tolerance) (/ (+ max min) 2))
-        ((< (auxiliarbranching average depth generatednodes) 0) 
-                (averagebranchingfator solution depth generatednodes tolerance average max))
-          (t (averagebranchingfator solution depth generatednodes tolerance min average))
-       )
+    (cond 
+      ((< (- max min) tolerance) (/ (+ max min) 2))
+      ((< (auxiliarbranching average depth generatednodes) 0) 
+        (averagebranchingfator solution depth generatednodes tolerance average max))
+      (t (averagebranchingfator solution depth generatednodes tolerance min average))
+    )
   )
 )
 
 (defun auxiliarBranching (average depth generatedNodes)
- (cond
-   ((= 1 depth) (- average generatednodes))
-   (T (+  (expt average depth) 
-          (auxiliarBranching average (- depth 1) generatednodes)))
+  (cond
+    ((= 1 depth) (- average generatednodes))
+    (T (+  (expt average depth) 
+      (auxiliarBranching average (- depth 1) generatednodes))
+    )
   )
 )
