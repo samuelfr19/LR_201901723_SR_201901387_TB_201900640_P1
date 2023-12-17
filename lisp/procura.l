@@ -98,7 +98,7 @@
 
 (defun node-from-problem (&optional (problem-number 0))
   (let ((in (get-problem problem-number)))
-    (create-node (caddr in) 0 (cadr in) nil)
+      (create-node (caddr in) 0 (cadr in) nil)
   )
 )
 

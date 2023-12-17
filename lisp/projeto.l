@@ -82,6 +82,14 @@
 
 ; -------------------------------------------------- Menu Navigation
 
+(defun first-start ()
+  "Funcao que inicia pela primeira vez o programa, permite gerar um novo tabuleiro para cada vez que é iniciado o programa"
+  (progn 
+    (new-file)
+    (start)
+  )
+)
+
 (defun start ()
 "Funcao que inicia todo o processo do programa, apresenta as opcoes iniciais e pede ao utilizador para escolher 
   a opcao para avancar para o proximo passo"
@@ -108,7 +116,7 @@
           (not (numberp opt)) (progn (format t "Insira uma opcao valida!!") (choose-problem))) 
         (T
           (let ((problem-list (get-problems)))
-            (if (= opt 6) (choose-algorithm (random-board)))
+            (if (= opt 6) (choose-algorithm (list "F" 2000 (random-board))))
             (if (or (< opt 0) (> opt (- (length problem-list) 1))) 
               (progn 
                 (format t "Insira uma opcao valida!!") 
@@ -229,6 +237,7 @@
       (format type "~%~t -- Penetrancia: ~F" (penetrance solution-Node))
       (format type "~%~t -- Fator de ramificacao media: ~F" (average-branching-fator solution-Node))
       (format type "~%~t -- Comprimento da solucao: ~a" (solution-lenght solution-node))
+      (format type "~%~t -- Caminho solução: ~a" (first solution-node))
       (format type "~%~t -- Tabuleiro Final: ~%")
       (format type "--------------------------------------------------~%~%")
       (print-board (final-node solution-node) type)
@@ -244,6 +253,7 @@
 
 
 ; -------------------------------------------------- File management
+
 (defun get-problems()
   (progn
     (with-open-file (stream "problemas.dat" :if-does-not-exist :error)
@@ -261,7 +271,34 @@
   (nth n (get-problems))
 )
 
-;@samuel milisegundos.
+(defun write-to-file (data)
+  "Escreve os dados no ficheiro"
+  (with-open-file (stream "problemas.dat" :direction :output :if-exists :supersede)
+      (dolist (item data)
+          (write item :stream stream)
+          (terpri stream)
+      )
+  )
+)
+
+(defun search-F (data new-board)
+  "Procura pelo F no ficheiro dos problemas e adiciona o novo tabuleiro no final da lista que encontrou o F"
+  (let ((updated-data (mapcar (lambda (item)
+    (if (and (listp item) (string= "F" (car item)))
+      (list (car item) (cadr item) new-board)
+    item)
+  )data)
+  ))updated-data
+  )
+)
+
+(defun new-file ()
+  "Rescreve um novo ficheiro com o novo tabuleiro"
+  (write-to-file (search-F (get-problems) (random-board)))
+)
+    
+    
+
 (defun get-time() 
   "Retorna o tempo atual em forma de lista"
   (multiple-value-bind (s m h) (get-decoded-time)
@@ -269,4 +306,5 @@
   )
 )
  
-(start)
+
+(first-start)
