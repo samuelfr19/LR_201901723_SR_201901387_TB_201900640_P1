@@ -5,7 +5,7 @@
 
 ;;==========================================    INTERFACE MESSAGES FOR INTERFACE    ==========================================
 
-(defun start-message()
+(defun start-message ()
 "Mostra as opções iniciais"
   (progn
     (run-program "clear")
@@ -20,7 +20,7 @@
   )
 )
 
-(defun choose-algorithm-message()
+(defun choose-algorithm-message ()
 "Mostra as opções de algoritmos de procura para aplicar no problema/tabuleiro"
   (progn
     (run-program "clear")
@@ -37,7 +37,7 @@
   )
 )
 
-(defun choose-problem-message()
+(defun choose-problem-message ()
 "Mostra as opções iniciais"
   (progn
     (format t "~%~% ----------------------------------------")
@@ -51,7 +51,7 @@
   )
 )
 
-(defun choose-depth-message()
+(defun choose-depth-message ()
 "Mostra a caixa para o utilizador escolher a profundidade maxima desejada"
   (progn
     (run-program "clear")
@@ -65,7 +65,7 @@
 )
 
 
-(defun choose-heuristic-message()
+(defun choose-heuristic-message ()
 "Mostra a caixa para o utilizador escolher a heuristica desejada"
   (progn
     (run-program "clear")
@@ -97,8 +97,9 @@
   )
 )
 
-(defun choose-problem()
+(defun choose-problem ()
   (progn 
+    (f-to-file)
     (show-problems)
     (choose-problem-message)
     (let ((opt (read)))
@@ -108,8 +109,7 @@
           (not (numberp opt)) (progn (format t "Insira uma opcao valida!!") (choose-problem))) 
         (T
           (let ((problem-list (get-problems)))
-            (if (= opt 6) (choose-algorithm (random-board)))
-            (if (or (< opt 0) (> opt (- (length problem-list) 1))) 
+            (if (or (< opt 0) (> opt (length problem-list)))
               (progn 
                 (format t "Insira uma opcao valida!!") 
                 (choose-problem)
@@ -123,7 +123,7 @@
   )
 )
 
-(defun choose-algorithm(problem)
+(defun choose-algorithm (problem)
 "Executa um algoritmo, dependendo da opcao escolhida"
   (progn (choose-algorithm-message)
     (let ((opt (read)))
@@ -135,20 +135,20 @@
           (ecase opt
             (1    
               (let* ((maxDepth (choose-depth problem))
-                (solution (list (get-time) (dfs (node-from-problem problem) maxDepth) (get-time) 'DFS)))
+                (solution (list (get-internal-real-time) (dfs (node-from-problem problem) maxDepth) (get-internal-real-time) 'DFS)))
                 (progn (final-results solution) solution)  
               )
             )
             (2  
               (let
-                ((solution (list (get-time) (bfs  (node-from-problem problem)) (get-time) 'BFS)))
+                ((solution (list (get-internal-real-time) (bfs  (node-from-problem problem)) (get-internal-real-time) 'BFS)))
                 (progn (final-results solution) solution)
               )
             )
             (3  
               (let* (
                   (heuristic (choose-heuristic problem))
-                  (solution (list (get-time) (a-star (node-from-problem problem)) (get-time) 'A*))
+                  (solution (list (get-internal-real-time) (a-star (node-from-problem problem)) (get-internal-real-time) 'A*))
                 )
                 (progn (final-results solution) solution)  
               )
@@ -160,7 +160,7 @@
   )
 )
 
-(defun choose-depth(problem)
+(defun choose-depth (problem)
   (if (not (choose-depth-message))
     (let ((opt (read)))
         (cond 
@@ -172,7 +172,7 @@
   )
 )
 
-(defun choose-heuristic(problem)
+(defun choose-heuristic (problem)
   (if (not (choose-heuristic-message))
     (let ((opt (read)))
       (cond 
@@ -180,7 +180,7 @@
         ((or (not (numberp opt)) (> opt 2) (< opt 0)) 
           (progn 
             (format t "Insira uma opcao valida!!~%") 
-            (choose-heuristic)
+            (choose-heuristic problem)
           )
         )
         (T opt)
@@ -191,15 +191,15 @@
 
 ; -------------------------------------------------- File management
 
-(defun show-problems (&optional (i 1) (problems (get-problems)))
-    (cond
-     ((null problems))
-     (T (let ((problem (car problems)))
-        (format T "~%~d - Problema ~d (~d pontos):~%" i (car problem) (cadr problem))
-        (print-board (caddr problem)))
-        (show-problems (+ i 1) (cdr problems))
-     ) 
-)
+(defun  show-problems (&optional (i 1) (problems (get-problems)))
+  (cond
+    ((null problems))
+    (T (let ((problem (car problems)))
+      (format T "~%~d - Problema ~d (~d pontos):~%" i (car problem) (cadr problem))
+      (print-board (caddr problem)))
+      (show-problems (+ i 1) (cdr problems))
+    ) 
+  )
 )
 
 (defun final-results (solution)
@@ -222,8 +222,7 @@
     (progn 
       (format type "~t RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:~%")
       (format type "~%~t -- Algoritmo: ~a " search)
-      (format type "~%~t -- Inicio: ~a:~a:~a" (first start-time) (second start-time) (third start-time))
-      (format type "~%~t -- Fim: ~a:~a:~a" (first end-time) (second end-time) (third end-time))
+      (format type "~%~t -- Milisegundos: ~F" (* (/ (float (- end-time start-time)) internal-time-units-per-second) 1000))
       (format type "~%~t -- Numero de nós gerados: ~a" (generated-nodes solution-node))
       (format type "~%~t -- Numero de nós expandidos: ~a" (third solution-Node))
       (format type "~%~t -- Penetrancia: ~F" (penetrance solution-Node))
@@ -241,24 +240,72 @@
   )
 )
 
-
-
 ; -------------------------------------------------- File management
-(defun get-problems()
-  (progn
-    (with-open-file (stream "problemas.dat" :if-does-not-exist :error)
-      (do(
-          (result nil (cons next result))
-          (next (read stream nil 'eof) (read stream nil 'eof))
-        )
-        ((equal next 'eof) (reverse result))
+
+(defun get-problems ()
+  (with-open-file (stream "problemas.dat" :if-does-not-exist :error)
+    (do (
+        (result nil (cons next result))
+        (next (read stream nil 'eof) (read stream nil 'eof))
       )
+      ((equal next 'eof) (reverse result))
     )
   )
 )
 
 (defun get-problem (n)
   (nth n (get-problems))
+)
+
+(defun write-problem (problem stream)
+  (progn
+    (format stream "~%(~w ~w~%~t(~%" (car problem) (cadr problem))
+    (mapcar 
+      (lambda (line)  
+        (progn
+          (format stream "~2t(")
+          (mapcar 
+            (lambda (cel)
+              (format stream "~5a" cel)
+            ) 
+            line)
+          (format stream ")~%")
+        )
+      )
+      (car (last problem)))
+    (format stream "~t)~%)~%~%")
+  )
+)
+
+(defun f-to-file ()
+  (let* (
+      (problems (get-problems))
+      (problem-f (find-if (lambda (problem) (string= "F" (car problem))) problems))
+    )
+    (cond
+      (problem-f
+        (let* (
+            (updated-problems 
+              (mapcar 
+                (lambda (problem) 
+                  (if (string= (car problem) "F") 
+                    (list (car problem) (cadr problem) (random-board))
+                    problem
+                  )
+                ) 
+                problems 
+              )
+            )
+          )
+          (with-open-file (output-stream "problemas.dat" :direction :output)
+            (mapcar (lambda (problem) (write-problem problem output-stream)) updated-problems)
+          )
+          updated-problems
+        )
+      )
+      (t "Didn't find problem f")
+    )
+  )
 )
 
 ;@samuel milisegundos.
