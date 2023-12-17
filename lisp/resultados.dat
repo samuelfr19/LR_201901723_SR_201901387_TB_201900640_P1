@@ -140,3 +140,229 @@ NIL  NIL  NIL  10   NIL  NIL  NIL  NIL  NIL  NIL
 --------------------------------------------------
 
 
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Algoritmo: DFS 
+  -- Inicio: 17:7:35
+  -- Fim: 17:7:35
+  -- Numero de nós gerados: 8
+  -- Numero de nós expandidos: 6
+  -- Penetrancia: 0.375
+  -- Fator de ramificacao media: 1.59375
+  -- Comprimento da solucao: 3
+  -- Caminho solução: ((B 1) (C 3) (D 5))
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+2    NIL  44   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  T    NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Algoritmo: BFS 
+  -- Inicio: 17:8:24
+  -- Fim: 17:8:51
+  -- Numero de nós gerados: 29867
+  -- Numero de nós expandidos: 28491
+  -- Penetrancia: 0.0006361536
+  -- Fator de ramificacao media: 1.6235533
+  -- Comprimento da solucao: 19
+  -- Caminho solução: ((F 1) (D 2) (F 3) (D 4) (F 5) (D 6) (F 7) (D 8) (F 9) (H 10) (J 9) (H 8) (J 7) (H 6) (J 5) (H 4) (J 3) (H 2) (J 1))
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+NIL  5    NIL  NIL  NIL  NIL  NIL  NIL  NIL  T    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  4    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  2    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  1    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  10   NIL  NIL  NIL  NIL  NIL  NIL  
+
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Algoritmo: A* 
+  -- Inicio: 17:9:47
+  -- Fim: 17:9:47
+  -- Numero de nós gerados: 50
+  -- Numero de nós expandidos: 50
+  -- Penetrancia: 0.2
+  -- Fator de ramificacao media: 1.3183594
+  -- Comprimento da solucao: 10
+  -- Caminho solução: ((A 1) (B 3) (C 1) (D 3) (E 1) (F 3) (G 1) (H 3) (I 1) (J 3))
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  T    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Algoritmo: DFS 
+  -- Inicio: 17:10:21
+  -- Fim: 17:10:21
+  -- Numero de nós gerados: 8
+  -- Numero de nós expandidos: 6
+  -- Penetrancia: 0.375
+  -- Fator de ramificacao media: 1.59375
+  -- Comprimento da solucao: 3
+  -- Caminho solução: ((B 1) (C 3) (D 5))
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+2    NIL  44   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  T    NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Algoritmo: DFS 
+  -- Inicio: 17:10:58
+  -- Fim: 17:10:58
+  -- Numero de nós gerados: 8
+  -- Numero de nós expandidos: 6
+  -- Penetrancia: 0.375
+  -- Fator de ramificacao media: 1.59375
+  -- Comprimento da solucao: 3
+  -- Caminho solução: ((B 1) (C 3) (D 5))
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+2    NIL  44   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  T    NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Algoritmo: BFS 
+  -- Tempo de execução: 0
+  -- Numero de nós gerados: 51
+  -- Numero de nós expandidos: 50
+  -- Penetrancia: 0.19607843
+  -- Fator de ramificacao media: 1.2451172
+  -- Comprimento da solucao: 10
+  -- Caminho solução: ((A 1) (B 3) (C 1) (D 3) (E 1) (F 3) (G 1) (H 3) (I 1) (J 3))
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  T    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Algoritmo: BFS 
+  -- Tempo de execução: 26
+  -- Numero de nós gerados: 29867
+  -- Numero de nós expandidos: 28491
+  -- Penetrancia: 0.0006361536
+  -- Fator de ramificacao media: 1.6235533
+  -- Comprimento da solucao: 19
+  -- Caminho solução: ((F 1) (D 2) (F 3) (D 4) (F 5) (D 6) (F 7) (D 8) (F 9) (H 10) (J 9) (H 8) (J 7) (H 6) (J 5) (H 4) (J 3) (H 2) (J 1))
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+NIL  5    NIL  NIL  NIL  NIL  NIL  NIL  NIL  T    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  4    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  2    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  1    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  10   NIL  NIL  NIL  NIL  NIL  NIL  
+
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Algoritmo: DFS 
+  -- Tempo de execução: <1 sec
+  -- Numero de nós gerados: 8
+  -- Numero de nós expandidos: 6
+  -- Penetrancia: 0.375
+  -- Fator de ramificacao media: 1.59375
+  -- Comprimento da solucao: 3
+  -- Caminho solução: ((B 1) (C 3) (D 5))
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+2    NIL  44   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  T    NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+
+--------------------------------------------------
+
+

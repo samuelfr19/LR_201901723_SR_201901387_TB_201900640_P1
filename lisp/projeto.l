@@ -143,20 +143,20 @@
           (ecase opt
             (1    
               (let* ((maxDepth (choose-depth problem))
-                (solution (list (get-time) (dfs (node-from-problem problem) maxDepth) (get-time) 'DFS)))
+                (solution (list (get-universal-time) (dfs (node-from-problem problem) maxDepth) (get-universal-time) 'DFS)))
                 (progn (final-results solution) solution)  
               )
             )
             (2  
               (let
-                ((solution (list (get-time) (bfs  (node-from-problem problem)) (get-time) 'BFS)))
+                ((solution (list (get-universal-time) (bfs  (node-from-problem problem)) (get-universal-time) 'BFS)))
                 (progn (final-results solution) solution)
               )
             )
             (3  
               (let* (
                   (heuristic (choose-heuristic problem))
-                  (solution (list (get-time) (a-star (node-from-problem problem)) (get-time) 'A*))
+                  (solution (list (get-universal-time) (a-star (node-from-problem problem)) (get-universal-time) 'A*))
                 )
                 (progn (final-results solution) solution)  
               )
@@ -230,8 +230,10 @@
     (progn 
       (format type "~t RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:~%")
       (format type "~%~t -- Algoritmo: ~a " search)
-      (format type "~%~t -- Inicio: ~a:~a:~a" (first start-time) (second start-time) (third start-time))
-      (format type "~%~t -- Fim: ~a:~a:~a" (first end-time) (second end-time) (third end-time))
+      (if (< (- end-time start-time) 1)
+        (format type "~%~t -- Tempo de execução: <1 sec")
+        (format type "~%~t -- Tempo de execução: ~a sec" (- end-time start-time))
+      )
       (format type "~%~t -- Numero de nós gerados: ~a" (generated-nodes solution-node))
       (format type "~%~t -- Numero de nós expandidos: ~a" (third solution-Node))
       (format type "~%~t -- Penetrancia: ~F" (penetrance solution-Node))
@@ -298,7 +300,6 @@
 )
     
     
-
 (defun get-time() 
   "Retorna o tempo atual em forma de lista"
   (multiple-value-bind (s m h) (get-decoded-time)
