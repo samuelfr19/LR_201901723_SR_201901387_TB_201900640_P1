@@ -1,7 +1,5 @@
 ;; Código relacionado com o problema.
 
-;; ola
-;; ^^^^Contribuicao do batista :)
 
 ; ------------------------------------------------- Test Boards
 ; ---------- IF WE APPLY THE NUMBER RULES THERE IS NO POSSIBLE ANSWER TO PROBLEM E
@@ -338,6 +336,8 @@
 "Creates a random board" 
  (cond
   ((null board) nil)
-  (t (cons (subseq board 0 n) (random-board (subseq board n) n)))
+  (t (cons (subseq board 0 n) (random-board (subseq board n) n))
  )
 )
+)
+

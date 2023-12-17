@@ -82,6 +82,14 @@
 
 ; -------------------------------------------------- Menu Navigation
 
+(defun first-start ()
+  "Funcao que inicia pela primeira vez o programa, permite gerar um novo tabuleiro para cada vez que é iniciado o programa"
+  (progn 
+    (new-file)
+    (start)
+  )
+)
+
 (defun start ()
 "Funcao que inicia todo o processo do programa, apresenta as opcoes iniciais e pede ao utilizador para escolher 
   a opcao para avancar para o proximo passo"
@@ -228,6 +236,7 @@
       (format type "~%~t -- Penetrancia: ~F" (penetrance solution-Node))
       (format type "~%~t -- Fator de ramificacao media: ~F" (average-branching-fator solution-Node))
       (format type "~%~t -- Comprimento da solucao: ~a" (solution-lenght solution-node))
+      (format type "~%~t -- Caminho solução: ~a" (first solution-node))
       (format type "~%~t -- Tabuleiro Final: ~%")
       (format type "--------------------------------------------------~%~%")
       (print-board (final-node solution-node) type)
@@ -308,7 +317,58 @@
   )
 )
 
-;@samuel milisegundos.
+(defun write-problem (problem stream)
+  (progn
+    (format stream "~%(~w ~w~%~t(~%" (car problem) (cadr problem))
+    (mapcar 
+      (lambda (line)  
+        (progn
+          (format stream "~2t(")
+          (mapcar 
+            (lambda (cel)
+              (format stream "~5a" cel)
+            ) 
+            line)
+          (format stream ")~%")
+        )
+      )
+      (car (last problem)))
+    (format stream "~t)~%)~%~%")
+  )
+)
+
+(defun f-to-file ()
+  (let* (
+      (problems (get-problems))
+      (problem-f (find-if (lambda (problem) (string= "F" (car problem))) problems))
+    )
+    (cond
+      (problem-f
+        (let* (
+            (updated-problems 
+              (mapcar 
+                (lambda (problem) 
+                  (if (string= (car problem) "F") 
+                    (list (car problem) (cadr problem) (random-board))
+                    problem
+                  )
+                ) 
+                problems 
+              )
+            )
+          )
+          (with-open-file (output-stream "problemas.dat" :direction :output)
+            (mapcar (lambda (problem) (write-problem problem output-stream)) updated-problems)
+          )
+          updated-problems
+        )
+      )
+      (t "Didn't find problem f")
+    )
+  )
+)
+
+    
 (defun get-time() 
   "Retorna o tempo atual em forma de lista"
   (multiple-value-bind (s m h) (get-decoded-time)
@@ -316,4 +376,5 @@
   )
 )
  
-(start)
+
+(first-start)
