@@ -204,8 +204,8 @@
   )
 )
 
-(defun our-heuristic (node)
-  
+(defun calculate-heuristic-proprietary (node)
+  (apply-heuristic node 0)
 )
 
 ;todo nossa heuristica

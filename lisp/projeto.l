@@ -72,8 +72,8 @@
     (format t "~%~% -----------------------------------------")
     (format t "~%|      Escolha a Heuristica desejada      |")
     (format t "~%|        para executar o algoritmo        |")
-    (format t "~%|     1   Heuristica Personalizada        |")
-    (format t "~%|     2        Heuristica Base            |")
+    (format t "~%|     1        Heuristica Base            |")
+    (format t "~%|     2   Heuristica Personalizada        |")
     (format t "~%|     0             voltar                |")
     (format t "~%|                                         |")
     (format t "~% -----------------------------------------~%~%> ")
@@ -85,7 +85,7 @@
 (defun first-start ()
   "Funcao que inicia pela primeira vez o programa, permite gerar um novo tabuleiro para cada vez que é iniciado o programa"
   (progn 
-    (new-file)
+    (f-to-file)
     (start)
   )
 )
@@ -107,7 +107,6 @@
 
 (defun choose-problem ()
   (progn 
-    (f-to-file)
     (show-problems)
     (choose-problem-message)
     (let ((opt (read)))
@@ -136,14 +135,14 @@
   (progn (choose-algorithm-message)
     (let ((opt (read)))
       (cond 
-        ((not (numberp opt)) (progn (format t "Insira uma opcao valida!!") (choose-algorithm)))
-        ((or (> opt 3) (< opt 0)) (progn (format t "Insira uma opcao valida!!") (choose-algorithm)))
+        ((not (numberp opt)) (progn (format t "Insira uma opcao valida!!") (choose-algorithm problem)))
+        ((or (> opt 3) (< opt 0)) (progn (format t "Insira uma opcao valida!!") (choose-algorithm problem)))
         ((eq opt 0) (choose-problem))
         (T
           (ecase opt
             (1    
               (let* ((maxDepth (choose-depth problem))
-                (solution (list (get-internal-real-time) (dfs (node-from-problem problem) maxDepth) (get-internal-real-time) 'DFS)))
+                (solution (list (get-internal-real-time) (dfs (node-from-problem problem) maxDepth) (get-internal-real-time) 'DFS maxdepth)))
                 (progn (final-results solution) solution)  
               )
             )
@@ -156,7 +155,7 @@
             (3  
               (let* (
                   (heuristic (choose-heuristic problem))
-                  (solution (list (get-internal-real-time) (a-star (node-from-problem problem)) (get-internal-real-time) 'A*))
+                  (solution (list (get-internal-real-time) (a-star (node-from-problem problem) heuristic) (get-internal-real-time) 'A* heuristic) )
                 )
                 (progn (final-results solution) solution)  
               )
@@ -173,7 +172,7 @@
     (let ((opt (read)))
         (cond 
           ((eq opt '0) (choose-algorithm problem))
-          ((or (not (numberp opt)) (< opt 0)) (progn (format t "Insira uma opcao valida!!")) (choose-depth))
+          ((or (not (numberp opt)) (< opt 0)) (progn (format t "Insira uma opcao valida!!")) (choose-depth problem))
           (T opt)
         )
     )
@@ -191,6 +190,8 @@
             (choose-heuristic problem)
           )
         )
+        ((eq opt '1) 'calculate-heuristic-default)
+        ((eq opt '2) 'calculate-heuristic-proprietary)
         (T opt)
       )
     )
@@ -226,11 +227,20 @@
       (solution-node (second solution))
       (end-time (third solution))
       (search (fourth solution))
+      (elapsed-time (* (/ (float (- end-time start-time)) internal-time-units-per-second) 1000))
+      (seconds (truncate (/ elapsed-time 1000)))
+      (miliseconds (mod (round elapsed-time) 1000))
     ) 
     (progn 
       (format type "~t RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:~%")
       (format type "~%~t -- Algoritmo: ~a " search)
-      (format type "~%~t -- Milisegundos: ~F" (* (/ (float (- end-time start-time)) internal-time-units-per-second) 1000))
+      (if (equal search 'A*)
+        (format type "~%~t -- Heuristica: ~a " (car (last solution)))
+      )
+      (if (equal search 'DFS)
+        (format type "~%~t -- Profundidade Maxima: ~a " (car (last solution)))
+      )
+      (format type "~%~t -- Tempo Demorado: ~w.~w" seconds miliseconds)
       (format type "~%~t -- Numero de nós gerados: ~a" (generated-nodes solution-node))
       (format type "~%~t -- Numero de nós expandidos: ~a" (third solution-Node))
       (format type "~%~t -- Penetrancia: ~F" (penetrance solution-Node))
@@ -336,38 +346,6 @@
     (format stream "~t)~%)~%~%")
   )
 )
-
-(defun f-to-file ()
-  (let* (
-      (problems (get-problems))
-      (problem-f (find-if (lambda (problem) (string= "F" (car problem))) problems))
-    )
-    (cond
-      (problem-f
-        (let* (
-            (updated-problems 
-              (mapcar 
-                (lambda (problem) 
-                  (if (string= (car problem) "F") 
-                    (list (car problem) (cadr problem) (random-board))
-                    problem
-                  )
-                ) 
-                problems 
-              )
-            )
-          )
-          (with-open-file (output-stream "problemas.dat" :direction :output)
-            (mapcar (lambda (problem) (write-problem problem output-stream)) updated-problems)
-          )
-          updated-problems
-        )
-      )
-      (t "Didn't find problem f")
-    )
-  )
-)
-
     
 (defun get-time() 
   "Retorna o tempo atual em forma de lista"
@@ -375,6 +353,5 @@
     (list h m s)
   )
 )
- 
 
 (first-start)
