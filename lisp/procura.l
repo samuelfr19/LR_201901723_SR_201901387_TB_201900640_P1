@@ -284,6 +284,7 @@
 
 ;------------------------ a-star
 (defun order-queue (queue)
+"Função auxiliar do a* que ordena a lista de abertos"
   (cond
     ((null queue) nil)
     (t 
