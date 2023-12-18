@@ -2,7 +2,7 @@
 
 ; ------------------------------------------------- Test Boards
 ; ---------- IF WE APPLY THE NUMBER RULES THERE IS NO POSSIBLE ANSWER TO PROBLEM E
-(setq aplicar-regras nil)
+(setq aplicar-regras t)
 
 (defun tabuleiro-teste ()
 "Tabuleiro de teste sem nenhuma jogada realizada"

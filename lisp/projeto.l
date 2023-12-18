@@ -143,13 +143,13 @@
             (1    
               (let* ((maxDepth (choose-depth problem))
                 (solution (list problem (get-internal-real-time) (dfs (node-from-problem problem) maxDepth) (get-internal-real-time) 'DFS maxdepth)))
-                (progn (final-results solution) solution)  
+                (final-results solution)
               )
             )
             (2  
               (let
                 ((solution (list problem (get-internal-real-time) (bfs  (node-from-problem problem)) (get-internal-real-time) 'BFS)))
-                (progn (final-results solution) solution)
+                (final-results solution)
               )
             )
             (3  
@@ -157,7 +157,7 @@
                   (heuristic (choose-heuristic problem))
                   (solution (list problem (get-internal-real-time) (a-star (node-from-problem problem) heuristic) (get-internal-real-time) 'A* heuristic) )
                 )
-                (progn (final-results solution) solution)  
+                (final-results solution) 
               )
             )
           )
@@ -240,18 +240,18 @@
       (if (equal search 'DFS)
         (format type "~%~t -- Profundidade Maxima: ~a " (car (last solution)))
       )
-      (format type "~%~t -- Tempo Demorado: ~w.~w" seconds miliseconds)
+      (format type "~%~t -- Tempo Demorado: ~w.~w segundos" seconds miliseconds)
       (format type "~%~t -- Numero de nós gerados: ~a" (generated-nodes solution-node))
       (format type "~%~t -- Numero de nós expandidos: ~a" (third solution-Node))
       (format type "~%~t -- Penetrancia: ~F" (penetrance solution-Node))
       (format type "~%~t -- Fator de ramificacao media: ~F" (average-branching-fator solution-Node))
-      (format type "~%~t -- Comprimento da solucao: ~a" (solution-lenght solution-node))
+      (format type "~%~t -- Profundidade da solucao: ~a" (solution-lenght solution-node))
       (format type "~%~t -- Caminho solução: ~a" (first solution-node))
       (format type "~%~%~t -- Tabuleiro Inicial: ~%")
-      (format type "--------------------------------------------------~%")
+      (format type "--------------------------------------------------")
       (print-node-individual (first-node solution-node) type)
       (format type "~%~t -- Tabuleiro Final: ~%")
-      (format type "--------------------------------------------------~%")
+      (format type "--------------------------------------------------")
       (print-node-individual (final-node solution-node) type)
       (format type "~%~%")
       (if (equal type t)
@@ -260,7 +260,7 @@
     )
   )
 )
-
+;;(start)
 ; -------------------------------------------------- File management
 
 (defun get-problems ()
