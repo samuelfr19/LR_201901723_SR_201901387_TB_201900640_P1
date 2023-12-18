@@ -132,8 +132,8 @@ Após a abertura e de por o projeto em funcionamento o mesmo executa a função 
     
     > A escolha da heurística é importante pois impacta a eficiência e eficácia do algoritmo A*.
     > 
-    > - Heurística Base → $$ h(x) = {{O(x) \over M(x)}} $$ onde $O(x)$ é o número de pontos que falta parta atingir a pontuação alvo e onde o $M(x)$ é a média de pontos por casa.
-    > - Heurística Personalizada → $$ h(x) = {{S(x) * A(x)}\over {S{max}*A{max}}} $$ onde $S(x)$ é a pontuação da casa, $A(x)$ é o numero de jogadas possíveis, $S{max}(x)$ é a maior pontuação no tabuleiro e $A{max}(x)$
+    > - Heurística Base → onde O(x) é o número de pontos que falta parta atingir a pontuação alvo e onde o M(x) é a média de pontos por casa.$$ h(x) = {{O(x) \over M(x)}} $$
+    > - Heurística Personalizada → onde S(x) é a pontuação da casa, A(x) é o numero de jogadas possíveis, Smax é a maior pontuação no tabuleiro e Amax é o número máximo de jogadas de um cavalo.$$ h(x) = {{S(x) * A(x)}\over {S{max}*A{max}}} $$
 
 ---
 
@@ -141,7 +141,7 @@ Após a abertura e de por o projeto em funcionamento o mesmo executa a função 
 
 ### Resultados Finais
 
-> Os resultados do problema serão apresentados em forma de print com o propósito de tornar os dados em informação de fácil entendimento, onde as informações apresentadas seguem a regra de “Título: Informação”.
+> Os resultados do problema serão apresentados em forma de print com o propósito de tornar os dados em informação de fácil entendimento, onde as informações apresentadas seguem a regra de “Título: Informação”. 
 > 
 
 ![Untitled](Manual_Utilizador_pngs/Untitled%207.png)
