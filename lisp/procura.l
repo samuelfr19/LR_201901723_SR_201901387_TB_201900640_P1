@@ -67,6 +67,7 @@
 )
 
 (defun first-node (node)
+"Devolve primeiro nó pai"
   (cond
     ((null (node-parent node)) node)
     (t (first-node (node-parent node)))
@@ -76,26 +77,32 @@
 ; ------------------------------------------------- Solution Node 
 
 (defun create-solution-node (node size-of-queue size-of-visited)
+"Cria um nó solução"
   (list (node-to-movements node) size-of-queue size-of-visited node)
 )
 
 (defun solution-node-path (solution-node)
+"Devolve a lista de jogadas até ao nó solução"
   (nth 0 solution-node)
 )
 
 (defun solution-node-size-queue (solution-node)
+"Devolve o numero de nós na lista de abertos"
   (nth 1 solution-node)
 )
 
 (defun solution-node-size-visited (solution-node)
+"Devolve o numero de nós na lista de fechados"
   (nth 2 solution-node)
 )
 
 (defun solution-node-node (solution-node)
+"Devolve o nó solução"
   (nth 3 solution-node)
 )
 
 (defun generated-nodes (solution)
+"Devolve o total de nós gerados tanto na lista de abertos como na de fechados"
   (+ (solution-node-size-queue solution) (solution-node-size-visited solution))
 )
 
@@ -167,10 +174,12 @@
 ; ------------------------------------------------- Calculations
 
 (defun is-solution (node)
+"Devolve true ou nill dependendo se é um nó solução"
   (<= (node-final-score node) (node-score node))
 )
 
 (defun calculate-score (current-score previous-board new-board)
+"Atualiza a pontuação atual"
   (let* (
       (pos (current-position new-board))
       (value (cell previous-board (car pos) (cadr pos)))
@@ -180,7 +189,8 @@
 )
 
 (defun apply-heuristic (node heuristic-value)
-  (create-node  ; this wasn't my favorite implementation but the only one i could find at this point :c
+"Devolve uma cópia de uma nó com o valor heristico e com a função de avaliação"
+  (create-node 
     (node-board node)
     (node-score node)
     (node-final-score node)
@@ -192,6 +202,7 @@
 )
 
 (defun calculate-heuristic-default (node)
+"Calcula a heuristca de um nó com base na fornecida"
   (cond
     ((= 0 (total-available-squares (node-board node))) 0)
     ((= 0 (/ (float (total-points (node-board node))) (total-available-squares (node-board node)))) 0)
@@ -208,6 +219,7 @@
 )
 
 (defun calculate-heuristic-proprietary (node) 
+"Calcula o valor heuristico de nó usando a heuristica personalizada"
   (let ((sum-squares-left (apply #'+ (remove nil (apply #'append (node-board node))))))
     (cond
       ((eq sum-squares-left 0) most-positive-fixnum)
@@ -219,6 +231,7 @@
 ; ------------------------------------------------- Algorythms
 ; was getting stack overflow on recursive functions so added iterative aproach to mitigate them
 (defun fs-recursive (node b &optional (queue nil) (visited nil))
+"Base do algoritmo BFS e DFS implementado recursivamente"
   (cond
     ((is-solution node) (prog2 (print-node node) visited))
     ((null node) visited)
@@ -234,6 +247,7 @@
 )
 
 (defun fs (node b &optional (maximum-depth most-positive-fixnum))
+"Base do algoritmo BFS e DFS implementado com recurso a iteração"
   (let (
       (queue (list node))
       (visited '())
@@ -259,10 +273,12 @@
 )
 
 (defun bfs (node)
+"Aplica o bfs a um nó"
   (fs node T)
 )
 
 (defun dfs (node &optional (max-depth most-positive-fixnum))
+"Aplica o dfs a um nó"
   (fs node NIL max-depth)
 )
 
@@ -281,6 +297,7 @@
 )
 
 (defun a-star (node &optional (heuristic-function 'calculate-heuristic-default))
+"Aplica o a* a um nó"
   (let ((queue (list node))
       (visited '()))
     (loop while queue do
