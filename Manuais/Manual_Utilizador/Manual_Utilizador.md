@@ -132,8 +132,8 @@ Após a abertura e de por o projeto em funcionamento o mesmo executa a função 
     
     > A escolha da heurística é importante pois impacta a eficiência e eficácia do algoritmo A*.
     > 
-    > - Heurística Base → h(x) = o(x)/m(x) onde o(x) é o número de pontos que falta parta atingir a pontuação alvo e onde o m(x) é a média de pontos por casa.
-    > - Heurística Personalizada →
+    > - Heurística Base → $$ h(x) = {{O(x) \over M(x)}} $$ onde $O(x)$ é o número de pontos que falta parta atingir a pontuação alvo e onde o $M(x)$ é a média de pontos por casa.
+    > - Heurística Personalizada → $$ h(x) = {{S(x) * A(x)}\over {S{max}*A{max}}} $$ onde $S(x)$ é a pontuação da casa, $A(x)$ é o numero de jogadas possíveis, $S{max}(x)$ é a maior pontuação no tabuleiro e $A{max}(x)$
 
 ---
 
