@@ -56,7 +56,7 @@
 (defun print-board (board &optional (stream-to-write-to t))
 "Prints the *board* in a clean and proper way"
   (cond
-    ((not (car board)) (format stream-to-write-to "~%--------------------------------------------------~%"))
+    ((not (car board)) (format stream-to-write-to "--------------------------------------------------~%"))
     (T 
       (progn
         (print-row (car board) stream-to-write-to)

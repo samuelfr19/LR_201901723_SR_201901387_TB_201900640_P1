@@ -59,7 +59,7 @@
 )
 
 (defun final-node (node)
-  (node-board (car(last node)))
+  (car(last node))
 )
 
 (defun solution-lenght (node)
