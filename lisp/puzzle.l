@@ -3,7 +3,7 @@
 ; ------------------------------------------------- Test Boards
 
 ; ---- Com as regras aplicadas não há resolução possivel para o problema E
-(setq aplicar-regras t)
+(setq aplicar-regras nil)
 
 
 ; ------------------------------------------------- Movements and operations

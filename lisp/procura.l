@@ -345,8 +345,8 @@
 ;; ------------------------------------------ Branching Fator
 
 (defun average-branching-fator (solution &optional (depth (node-depth (solution-node-node solution))) (generatedNodes (generated-nodes solution))
-"Função para calcular e definir o fator de ramificação média da solução final"
   (tolerance 0.1) (min 0) (max (generated-nodes solution)))
+  "Função para calcular e definir o fator de ramificação média da solução final"
   (let ((average (/ ( + min max) 2)))
        (cond 
         ((< (- max min) tolerance) (/ (+ max min) 2))

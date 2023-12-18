@@ -1,0 +1,89 @@
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 4
+  -- Algoritmo: BFS 
+  -- Tempo Demorado: 0.124 segundos
+  -- Numero de nós gerados: 240
+  -- Numero de nós expandidos: 229
+  -- Penetrancia: 0.041666668
+  -- Fator de ramificacao media: 1.5527344
+  -- Comprimento da solucao: 10
+  -- Caminho solução: ((I 1) (G 2) (E 1) (C 2) (A 1) (B 3) (C 5) (D 7) (E 9) (G 10))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+
+Score: 0/600 | Depth: 0 98   97   96   95   94   93   92   91   90   89   
+1    2    3    4    5    55   6    7    8    9    
+NIL  66   NIL  NIL  NIL  NIL  NIL  NIL  NIL  11   
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  22   NIL  NIL  NIL  NIL  NIL  33   NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  88   NIL  NIL  NIL  44   NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  77   NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  99   NIL  NIL  NIL  
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+
+Score: 643/600 | Depth: 10 NIL  97   96   95   NIL  93   92   91   NIL  NIL  
+1    2    NIL  4    5    NIL  NIL  7    8    9    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  T    NIL  NIL  NIL  
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 1
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-DEFAULT 
+  -- Tempo Demorado: 0.3 segundos
+  -- Numero de nós gerados: 7
+  -- Numero de nós expandidos: 5
+  -- Penetrancia: 0.42857143
+  -- Fator de ramificacao media: 1.5039062
+  -- Comprimento da solucao: 3
+  -- Caminho solução: ((B 1) (C 3) (D 5))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+
+Score: 0/70 | Depth: 0 2    20   44   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    30   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  22   NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+
+Score: 72/70 | Depth: 3 2    NIL  44   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  T    NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+
