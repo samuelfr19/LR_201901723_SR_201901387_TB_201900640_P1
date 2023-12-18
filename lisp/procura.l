@@ -54,8 +54,8 @@
 )
 
 (defun final-node (node)
-  (node-board (car(last node)))
-  )
+  (car(last node))
+)
 
 (defun solution-lenght (node)
  (length (car node))
@@ -105,14 +105,14 @@
 (defun print-node (node &optional (stream-to-write-to t))
   (progn
     (if (node-parent node) (print-node (node-parent node) stream-to-write-to) nil)
-    (format stream-to-write-to "~%~%Score: ~a/~a | Depth: ~a | Heuristic: ~a~%~%" (node-score node) (node-final-score node) (node-depth node) (node-heuristic node))
+    (format stream-to-write-to "Score: ~a/~a | Depth: ~a | Heuristic: ~a~%~%" (node-score node) (node-final-score node) (node-depth node) (node-heuristic node))
     (print-board (node-board node) stream-to-write-to)
   )
 )
 
 (defun print-node-individual (node &optional (stream-to-write-to t))
   (progn
-    (format stream-to-write-to "~%~%Score: ~a/~a | Depth: ~a | Heuristic: ~a~%~%" (node-score node) (node-final-score node) (node-depth node) (node-heuristic node))
+    (format stream-to-write-to "Score: ~a/~a | Depth: ~a | Heuristic: ~a~%~%" (node-score node) (node-final-score node) (node-depth node) (node-heuristic node))
     (print-board (node-board node) stream-to-write-to)
   )
 )
