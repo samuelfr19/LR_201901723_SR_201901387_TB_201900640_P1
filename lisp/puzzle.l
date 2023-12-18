@@ -1,7 +1,5 @@
 ;; Código relacionado com o problema.
 
-; ------------------------------------------------- Test Boards
-
 ; ---- Com as regras aplicadas não há resolução possivel para o problema E
 (setq aplicar-regras nil)
 

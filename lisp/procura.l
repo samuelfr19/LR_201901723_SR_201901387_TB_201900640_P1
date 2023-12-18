@@ -124,7 +124,7 @@
 
 (defun print-node-individual (node &optional (stream-to-write-to t))
   (progn
-    (format stream-to-write-to "~%~%Score: ~a/~a | Depth: ~a " (node-score node) (node-final-score node) (node-depth node) )
+    (format stream-to-write-to "~%~%Score: ~a/~a | Depth: ~a ~%~%" (node-score node) (node-final-score node) (node-depth node) )
     (print-board (node-board node) stream-to-write-to)
   )
 )
@@ -218,18 +218,42 @@
   )
 )
 
-(defun calculate-heuristic-proprietary (node) 
+(defun calculate-heuristic-proprietary (node)
 "Calcula o valor heuristico de nó usando a heuristica personalizada"
-  (let ((sum-squares-left (apply #'+ (remove nil (apply #'append (node-board node))))))
+  (if (remove t (remove nil (apply #'append (node-board node))))
+    (let* (
+        (score              (- (node-final-score node) (node-score node))                             )
+        (accessibility      (length (all-possible-movements (node-board node)))                       )
+        (max-score          (apply #'max (remove t (remove nil (apply #'append (node-board node)))))  )
+        (max-accessibility  8                                                                         )
+        (divisor            (* max-score max-accessibility)                                           )
+        (dividend           (float (* score accessibility))                                           )
+      )
+      (if (/= 0 divisor)
+        (/ dividend divisor)
+        (- most-positive-fixnum dividend)
+      )
+    )
+    0
+  )
+
+#| ; THIS WAS A PREVIOUS OPTION
+
+  (let ((sum-squares-left (apply #'+ (remove t (remove nil (apply #'append (node-board node)))))))
     (cond
-      ((eq sum-squares-left 0) most-positive-fixnum)
-      (t (/))
+      ((eq sum-squares-left 0) (- (node-depth node) most-positive-fixnum))
+      (t (/ 
+        (- (node-final-score node) (nodf-score node)) 
+        sum-squares-left
+      ))
     )
   )
+
+|#
 )
 
 ; ------------------------------------------------- Algorythms
-; was getting stack overflow on recursive functions so added iterative aproach to mitigate them
+
 (defun fs-recursive (node b &optional (queue nil) (visited nil))
 "Base do algoritmo BFS e DFS implementado recursivamente"
   (cond
@@ -283,6 +307,7 @@
 )
 
 ;------------------------ a-star
+
 (defun order-queue (queue)
 "Função auxiliar do a* que ordena a lista de abertos"
   (cond
