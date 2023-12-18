@@ -1,7 +1,7 @@
 ;; Código relacionado com o problema.
 
 ; ---- Com as regras aplicadas não há resolução possivel para o problema E
-(setq aplicar-regras nil)
+(setq aplicar-regras T)
 
 
 ; ------------------------------------------------- Movements and operations
