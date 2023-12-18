@@ -245,14 +245,14 @@
       (format type "~%~t -- Numero de nós expandidos: ~a" (third solution-Node))
       (format type "~%~t -- Penetrancia: ~F" (penetrance solution-Node))
       (format type "~%~t -- Fator de ramificacao media: ~F" (average-branching-fator solution-Node))
-      (format type "~%~t -- Profundidade da solucao: ~a" (solution-lenght solution-node))
+      (format type "~%~t -- Comprimento da solucao: ~a" (node-depth (solution-node-node solution-node)))
       (format type "~%~t -- Caminho solução: ~a" (first solution-node))
       (format type "~%~%~t -- Tabuleiro Inicial: ~%")
       (format type "--------------------------------------------------")
       (print-node-individual (first-node solution-node) type)
       (format type "~%~t -- Tabuleiro Final: ~%")
-      (format type "--------------------------------------------------")
-      (print-node-individual (final-node solution-node) type)
+      (format type "--------------------------------------------------~%")
+      (print-node-individual (solution-node-node solution-node) type)
       (format type "~%~%")
       (if (equal type t)
         (format t "Obrigado por jogar!~%~%Escreva a instrucao (start) para comecar de novo.")
@@ -310,7 +310,7 @@
       (problem-f (find-if (lambda (problem) (string= "F" (car problem))) problems))
     )
     (cond
-      (problem-f
+      (problem-f 
         (let* (
             (updated-problems 
               (mapcar 

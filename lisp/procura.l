@@ -66,20 +66,6 @@
   (nth 6 node)
 )
 
-(defun final-node (node)
-"Devolve o nó final"
-  (car(last node))
-)
-
-(defun solution-lenght (node)
-"Devolve o a profundidade da solução encontrada"
- (length (car node))
-)
-
-(defun generated-nodes (solution)
-  (+ (second solution) (third solution))
-)
-
 (defun first-node (node)
   (cond
     ((null (node-parent node)) node)
@@ -109,6 +95,10 @@
   (nth 3 solution-node)
 )
 
+(defun generated-nodes (solution)
+  (+ (solution-node-size-queue solution) (solution-node-size-visited solution))
+)
+
 ; ------------------------------------------------- Aux Functions
 
 (defun node-from-problem (&optional (problem-number 0))
@@ -127,7 +117,7 @@
 
 (defun print-node-individual (node &optional (stream-to-write-to t))
   (progn
-    (format stream-to-write-to "~%Score: ~a/~a | Depth: ~a | Heuristic: ~a | F: ~a~%~%" (node-score node) (node-final-score node) (node-depth node) (node-heuristic node) (node-f node))
+    (format stream-to-write-to "~%~%Score: ~a/~a | Depth: ~a " (node-score node) (node-final-score node) (node-depth node) )
     (print-board (node-board node) stream-to-write-to)
   )
 )
@@ -218,17 +208,11 @@
 )
 
 (defun calculate-heuristic-proprietary (node) 
-  (if (node-parent node)
-    (let (
-        (score-square (- (node-score node) (node-score (node-parent node))))
-        (number-moves (movements-from-square (node-board node)))
-      )
-      (if (eq number-moves 0) 
-        (- most-positive-fixnum score-square )
-        (/ number-moves score-square)
-      )
+  (let ((sum-squares-left (apply #'+ (remove nil (apply #'append (node-board node))))))
+    (cond
+      ((eq sum-squares-left 0) most-positive-fixnum)
+      (t (/))
     )
-    0
   )
 )
 
@@ -263,7 +247,7 @@
             (if b
               (setq queue (append (cdr queue) (generate-children current-node)))
               (if (> (1+ (node-depth current-node)) maximum-depth)
-                (return (create-solution-node nil (length queue) (length visited)))
+                nil
                 (setq queue (append (generate-children current-node) (cdr queue)))
               )
             )
@@ -312,12 +296,12 @@
                 )
                 (cond
                   (found-in-queue 
-                    (if (> (node-heuristic found-in-queue) (node-heuristic child)) 
+                    (if (> (node-f found-in-queue) (node-f child)) 
                       (setq queue (order-queue (cons child (remove found-in-queue queue))))
                     )
                   )
                   (found-in-visited 
-                    (if (> (node-heuristic found-in-visited) (node-heuristic child)) 
+                    (if (> (node-f found-in-visited) (node-f child)) 
                       (setq visited (remove found-in-visited visited) queue (order-queue (cons child queue)))
                     )
                   )
@@ -335,14 +319,14 @@
 
 ;; ------------------------------------------ Penetrance
 
-(defun penetrance (solution)
+(defun penetrance (solution-node)
  "Funcao para calcular e definir a penetrancia da solucao final"
-    (coerce (/ (solution-lenght solution) (generated-nodes solution)) 'float)
+    (coerce (/ (node-depth (solution-node-node solution-node)) (generated-nodes solution-node)) 'float)
 ) 
 
 ;; ------------------------------------------ Branching Fator
 
-(defun average-branching-fator (solution &optional (depth (solution-lenght solution)) (generatedNodes (generated-nodes solution))
+(defun average-branching-fator (solution &optional (depth (node-depth (solution-node-node solution))) (generatedNodes (generated-nodes solution))
   (tolerance 0.1) (min 0) (max (generated-nodes solution)))
   (let ((average (/ ( + min max) 2)))
        (cond 
