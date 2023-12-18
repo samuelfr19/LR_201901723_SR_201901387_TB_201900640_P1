@@ -54,7 +54,7 @@
 ; ------------------------------------------------- Movements and operations
 
 (defun print-board (board &optional (stream-to-write-to t))
-"Prints the *board* in a clean and proper way"
+"Dá print do tabuleiro de maneira limpa e legivel"
   (cond
     ((not (car board)) (format stream-to-write-to "--------------------------------------------------~%"))
     (T 
@@ -67,7 +67,7 @@
 )
 
 (defun print-row (row &optional (stream-to-write-to t) (column 9) )
-"Prints a *row* of the board in a clean and proper way"
+"Dá print da linha de um tabuleiro de maneira limpa e legivel"
   (cond 
     ((> 0 column) (format stream-to-write-to "~%"))
     (t 
@@ -80,12 +80,12 @@
 )
 
 (defun cell (board row column)
-  "returns what is in the *column*, of the row number *row* of *board*"
+"Devolve o atomo que está numa certa coluna, no numero da linha do tabuleiro"
   (nth column (nth row board))
 )
 
 (defun current-position (board &optional (value-to-find t) (row 0) (column 0) )
-"Returns the current position of the horse - where in the board is T"
+"Devolve a posição atual do cavalo, onde está no tabuleiro (T)"
   (cond
     ((null board) nil)
     ((eq value-to-find (cell board row column)) (list row column))
@@ -96,7 +96,7 @@
 )
 
 (defun place (row column board &optional (value nil))
-"Places a *value* into the *board* in the position (*row*, *column*) with origin in the top left"
+"Coloca um certo valor no tabuleiro na posição fornecida (linha, culuna) em origem no topo esquerdo"
   (cond
     ((null (car board)) nil)
     ((eq row 0) (cons (place-list column (car board) value) (cdr board)))
@@ -105,7 +105,7 @@
 )
 
 (defun place-list (position row &optional (value nil))
-"Places a *value* into a list *row* in the *position*"
+"Coloca um valor na lista (linha) na posição dada"
   (cond
     ((eq position 0) (cons value (cdr row)))
     (T 
@@ -120,6 +120,7 @@
 ; ------------------------------------------------- Operators
 
 (defun apply-number-rules (board val)
+
   (remove-reverse-number (remove-double-number board val) val)
 )
 
@@ -177,6 +178,7 @@
 )
 
 (defun all-horse-start-positions (board &optional (column 0))
+"Coloca o cavalo em toda a primeira linha do tabuleiro para a geração dos primeiros nós"
   (cond 
     ((current-position board) nil)
     (T (let ((first-row (car board)))
@@ -252,7 +254,7 @@
 )
 
 (defun move (board amount-row amount-column)
-"Move the horse (T) on the *board* by *amount-row* and *amount-column"
+"Move o cavalo (T) no tabuleiro pela quantidade de linhas e colunas possiveis"
   (let 
     ((horse-position (current-position board)))
     (cond 
