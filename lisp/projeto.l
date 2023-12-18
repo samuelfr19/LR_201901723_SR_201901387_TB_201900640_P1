@@ -223,7 +223,7 @@
 
 (defun write-final-results (solution type)
   (let* (
-      (problem (first solution))
+      (problem (+ 1 (first solution)))
       (start-time (second solution))
       (solution-node (third solution))
       (end-time (fourth solution))
