@@ -109,7 +109,7 @@
 
 (defun print-node-individual (node &optional (stream-to-write-to t))
   (progn
-    (format stream-to-write-to "~%~%Score: ~a/~a | Depth: ~a " (node-score node) (node-final-score node) (node-depth node) )
+    (format stream-to-write-to "~%~%Score: ~a/~a | Depth: ~a ~%~%" (node-score node) (node-final-score node) (node-depth node) )
     (print-board (node-board node) stream-to-write-to)
   )
 )
@@ -199,13 +199,37 @@
   )
 )
 
-(defun calculate-heuristic-proprietary (node) 
-  (let ((sum-squares-left (apply #'+ (remove nil (apply #'append (node-board node))))))
+(defun calculate-heuristic-proprietary (node)
+  (if (remove t (remove nil (apply #'append (node-board node))))
+    (let* (
+        (score              (- (node-final-score node) (node-score node))                             )
+        (accessibility      (length (all-possible-movements (node-board node)))                       )
+        (max-score          (apply #'max (remove t (remove nil (apply #'append (node-board node)))))  )
+        (max-accessibility  8                                                                         )
+        (divisor            (* max-score max-accessibility)                                           )
+        (dividend           (float (* score accessibility))                                           )
+      )
+      (if (/= 0 divisor)
+        (/ dividend divisor)
+        (- most-positive-fixnum dividend)
+      )
+    )
+    0
+  )
+
+#| ; THIS WAS A PREVIOUS OPTION
+
+  (let ((sum-squares-left (apply #'+ (remove t (remove nil (apply #'append (node-board node)))))))
     (cond
-      ((eq sum-squares-left 0) most-positive-fixnum)
-      (t (/))
+      ((eq sum-squares-left 0) (- (node-depth node) most-positive-fixnum))
+      (t (/ 
+        (- (node-final-score node) (nodf-score node)) 
+        sum-squares-left
+      ))
     )
   )
+
+|#
 )
 
 ; ------------------------------------------------- Algorythms
