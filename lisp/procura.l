@@ -27,42 +27,52 @@
 )
 
 (defun create-node (board score final-score parent &optional (d 0) (h 0) (f 0))
+"Cria um nó"
   (list board score final-score parent d h f)
 )
 
 (defun node-board (node)
+"Devolve o tabuleiro do nó"
   (nth 0 node)
 )
 
 (defun node-score (node)
+"Devolve a pontuação atual do nó"
   (nth 1 node)
 )
 
 (defun node-final-score (node)
+"Devolve a pontuação objetivo do nó"
   (nth 2 node)
 )
 
 (defun node-parent (node)
+"Devolve o nó pai do nó"
   (nth 3 node)
 )
 
 (defun node-depth (node)
+"Devolve a profundidade do nó"
   (nth 4 node)
 )
 
 (defun node-heuristic (node)
+"Devolve o valor heurístico do nó"
   (nth 5 node)
 )
 
 (defun node-f (node)
+"Devolve o valor da função de avaliação"
   (nth 6 node)
 )
 
 (defun final-node (node)
+"Devolve o nó final"
   (car(last node))
 )
 
 (defun solution-lenght (node)
+"Devolve o a profundidade da solução encontrada"
  (length (car node))
 )
 

@@ -82,3 +82,733 @@ NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL
 --------------------------------------------------
 
 
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 4
+  -- Algoritmo: BFS 
+  -- Tempo Demorado: 0.71
+  -- Numero de nós gerados: 307
+  -- Numero de nós expandidos: 280
+  -- Penetrancia: 0.03257329
+  -- Fator de ramificacao media: 1.6114502
+  -- Comprimento da solucao: 10
+  -- Caminho solução: ((I 1) (G 2) (E 1) (C 2) (A 1) (B 3) (C 5) (D 7) (E 9) (G 10))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+
+
+Score: 0/600 | Depth: 0 | Heuristic: 0 | F: 0
+
+98   97   96   95   94   93   92   91   90   89   
+1    2    3    4    5    55   6    7    8    9    
+NIL  66   NIL  NIL  NIL  NIL  NIL  NIL  NIL  11   
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  22   NIL  NIL  NIL  NIL  NIL  33   NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  88   NIL  NIL  NIL  44   NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  77   NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  99   NIL  NIL  NIL  
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+
+Score: 643/600 | Depth: 10 | Heuristic: 0 | F: 0
+
+NIL  97   96   95   NIL  93   92   91   NIL  89   
+1    2    NIL  4    5    55   NIL  7    8    9    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  11   
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  33   NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  44   NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  T    NIL  NIL  NIL  
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 2
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-DEFAULT 
+  -- Tempo Demorado: 0.18
+  -- Numero de nós gerados: 50
+  -- Numero de nós expandidos: 50
+  -- Penetrancia: 0.2
+  -- Fator de ramificacao media: 1.3183594
+  -- Comprimento da solucao: 10
+  -- Caminho solução: ((A 1) (B 3) (C 1) (D 3) (E 1) (F 3) (G 1) (H 3) (I 1) (J 3))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+
+
+Score: 0/60 | Depth: 0 | Heuristic: 0 | F: 0
+
+2    NIL  4    NIL  6    NIL  8    NIL  10   NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  5    NIL  7    NIL  9    NIL  10   
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+
+Score: 64/60 | Depth: 10 | Heuristic: 0 | F: 10
+
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  T    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 2
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
+  -- Tempo Demorado: 0.20
+  -- Numero de nós gerados: 50
+  -- Numero de nós expandidos: 46
+  -- Penetrancia: 0.2
+  -- Fator de ramificacao media: 1.3183594
+  -- Comprimento da solucao: 10
+  -- Caminho solução: ((A 1) (B 3) (C 1) (D 3) (E 1) (F 3) (G 1) (H 3) (I 1) (J 3))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+
+
+Score: 0/60 | Depth: 0 | Heuristic: 0 | F: 0
+
+2    NIL  4    NIL  6    NIL  8    NIL  10   NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  5    NIL  7    NIL  9    NIL  10   
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+
+Score: 64/60 | Depth: 10 | Heuristic: 281474976710645 | F: 281474976710655
+
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  T    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 2
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
+  -- Tempo Demorado: 0.20
+  -- Numero de nós gerados: 50
+  -- Numero de nós expandidos: 46
+  -- Penetrancia: 0.2
+  -- Fator de ramificacao media: 1.3183594
+  -- Comprimento da solucao: 10
+  -- Caminho solução: ((A 1) (B 3) (C 1) (D 3) (E 1) (F 3) (G 1) (H 3) (I 1) (J 3))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+
+
+Score: 0/60 | Depth: 0 | Heuristic: 0 | F: 0
+
+2    NIL  4    NIL  6    NIL  8    NIL  10   NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  5    NIL  7    NIL  9    NIL  10   
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+
+Score: 64/60 | Depth: 10 | Heuristic: 281474976710645 | F: 281474976710655
+
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  T    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 3
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-DEFAULT 
+  -- Tempo Demorado: 0.10
+  -- Numero de nós gerados: 34
+  -- Numero de nós expandidos: 27
+  -- Penetrancia: 0.20588236
+  -- Fator de ramificacao media: 1.4277344
+  -- Comprimento da solucao: 7
+  -- Caminho solução: ((D 1) (B 2) (D 3) (C 1) (B 3) (D 4) (C 2))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+
+
+Score: 0/270 | Depth: 0 | Heuristic: 0 | F: 0
+
+1    12   3    23   NIL  88   NIL  NIL  NIL  NIL  
+21   45   43   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  56   NIL  78   NIL  NIL  NIL  NIL  NIL  NIL  
+89   NIL  99   54   NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+
+Score: 302/270 | Depth: 7 | Heuristic: -0.61935484 | F: 6.3806453
+
+1    12   NIL  NIL  NIL  88   NIL  NIL  NIL  NIL  
+21   NIL  T    NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+89   NIL  99   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 3
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
+  -- Tempo Demorado: 0.19
+  -- Numero de nós gerados: 46
+  -- Numero de nós expandidos: 27
+  -- Penetrancia: 0.1521739
+  -- Fator de ramificacao media: 1.4824219
+  -- Comprimento da solucao: 7
+  -- Caminho solução: ((D 1) (B 2) (D 3) (C 1) (B 3) (D 4) (C 2))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+
+
+Score: 0/270 | Depth: 0 | Heuristic: 0 | F: 0
+
+1    12   3    23   NIL  88   NIL  NIL  NIL  NIL  
+21   45   43   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  56   NIL  78   NIL  NIL  NIL  NIL  NIL  NIL  
+89   NIL  99   54   NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+
+Score: 302/270 | Depth: 7 | Heuristic: 1/43 | F: 302/43
+
+1    12   NIL  NIL  NIL  88   NIL  NIL  NIL  NIL  
+21   NIL  T    NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+89   NIL  99   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 4
+  -- Algoritmo: BFS 
+  -- Tempo Demorado: 0.75
+  -- Numero de nós gerados: 307
+  -- Numero de nós expandidos: 280
+  -- Penetrancia: 0.03257329
+  -- Fator de ramificacao media: 1.6114502
+  -- Comprimento da solucao: 10
+  -- Caminho solução: ((I 1) (G 2) (E 1) (C 2) (A 1) (B 3) (C 5) (D 7) (E 9) (G 10))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+
+
+Score: 0/600 | Depth: 0 | Heuristic: 0 | F: 0
+
+98   97   96   95   94   93   92   91   90   89   
+1    2    3    4    5    55   6    7    8    9    
+NIL  66   NIL  NIL  NIL  NIL  NIL  NIL  NIL  11   
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  22   NIL  NIL  NIL  NIL  NIL  33   NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  88   NIL  NIL  NIL  44   NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  77   NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  99   NIL  NIL  NIL  
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+
+Score: 643/600 | Depth: 10 | Heuristic: 0 | F: 0
+
+NIL  97   96   95   NIL  93   92   91   NIL  89   
+1    2    NIL  4    5    55   NIL  7    8    9    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  11   
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  33   NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  44   NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  T    NIL  NIL  NIL  
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 6
+  -- Algoritmo: DFS 
+  -- Profundidade Maxima: 10000 
+  -- Tempo Demorado: 0.35
+  -- Numero de nós gerados: 135
+  -- Numero de nós expandidos: 36
+  -- Penetrancia: 0.26666668
+  -- Fator de ramificacao media: 1.0876465
+  -- Comprimento da solucao: 36
+  -- Caminho solução: ((A 1) (B 3) (A 5) (B 7) (A 9) (C 10) (E 9) (G 10) (I 9) (J 7) (I 5) (H 7) (G 9) (I 10) (J 8) (I 6) (H 8) (J 9) (I 7) (H 9) (J 10) (I 8) (H 10) (G 8) (F 10) (E 8) (D 10) (F 9) (G 7) (H 5) (J 6) (I 4) (H 6) (J 5) (I 3) (J 1))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+
+
+Score: 0/2000 | Depth: 0 | Heuristic: 0 | F: 0
+
+1    28   35   67   26   38   15   79   0    98   
+55   62   77   17   13   29   71   8    2    64   
+25   89   91   4    94   70   7    85   72   20   
+75   46   73   30   33   81   36   12   61   65   
+11   59   95   24   18   96   78   54   88   82   
+47   14   10   22   92   48   53   83   84   93   
+52   37   68   51   5    3    80   42   41   86   
+56   9    66   74   40   76   43   87   27   16   
+34   39   31   44   45   19   57   50   99   21   
+69   49   23   97   6    90   32   60   63   58   
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+
+Score: 2063/2000 | Depth: 36 | Heuristic: 0 | F: 0
+
+NIL  28   35   67   26   38   15   79   0    T    
+55   62   77   17   13   29   71   8    2    64   
+25   NIL  91   4    94   70   7    85   NIL  20   
+75   46   73   30   33   81   36   12   NIL  65   
+NIL  59   95   24   18   96   78   NIL  NIL  NIL  
+47   14   10   22   92   48   53   NIL  NIL  NIL  
+52   NIL  68   51   5    3    NIL  NIL  NIL  NIL  
+56   9    66   74   NIL  76   NIL  NIL  NIL  NIL  
+NIL  39   31   44   NIL  NIL  NIL  NIL  NIL  NIL  
+69   49   NIL  NIL  6    NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 6
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-DEFAULT 
+  -- Tempo Demorado: 0.348
+  -- Numero de nós gerados: 133
+  -- Numero de nós expandidos: 26
+  -- Penetrancia: 0.19548872
+  -- Fator de ramificacao media: 1.1364746
+  -- Comprimento da solucao: 26
+  -- Caminho solução: ((J 1) (I 3) (J 5) (H 6) (F 5) (E 3) (C 2) (B 4) (A 2) (C 3) (A 4) (C 5) (E 6) (F 4) (H 3) (I 5) (J 7) (I 9) (G 8) (F 10) (H 9) (G 7) (I 6) (H 8) (I 10) (G 9))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+
+
+Score: 0/2000 | Depth: 0 | Heuristic: 0 | F: 0
+
+1    28   35   67   26   38   15   79   0    98   
+55   62   77   17   13   29   71   8    2    64   
+25   89   91   4    94   70   7    85   72   20   
+75   46   73   30   33   81   36   12   61   65   
+11   59   95   24   18   96   78   54   88   82   
+47   14   10   22   92   48   53   83   84   93   
+52   37   68   51   5    3    80   42   41   86   
+56   9    66   74   40   76   43   87   27   16   
+34   39   31   44   45   19   57   50   99   21   
+69   49   23   97   6    90   32   60   63   58   
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+
+Score: 2049/2000 | Depth: 26 | Heuristic: -1.2499138 | F: 24.750086
+
+1    28   35   67   26   38   15   79   0    NIL  
+NIL  62   NIL  17   13   29   71   8    2    64   
+25   89   NIL  4    NIL  70   7    NIL  NIL  20   
+NIL  NIL  73   30   33   NIL  36   12   61   65   
+11   59   NIL  24   18   NIL  78   54   NIL  NIL  
+47   14   10   22   NIL  48   53   NIL  NIL  93   
+52   37   68   51   5    3    NIL  42   41   NIL  
+56   9    66   74   40   76   NIL  NIL  27   16   
+34   39   31   44   45   19   T    NIL  NIL  21   
+69   49   23   97   6    NIL  32   60   NIL  58   
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 6
+  -- Algoritmo: DFS 
+  -- Profundidade Maxima: 1000 
+  -- Tempo Demorado: 0.35
+  -- Numero de nós gerados: 135
+  -- Numero de nós expandidos: 36
+  -- Penetrancia: 0.26666668
+  -- Fator de ramificacao media: 1.0876465
+  -- Comprimento da solucao: 36
+  -- Caminho solução: ((A 1) (B 3) (A 5) (B 7) (A 9) (C 10) (E 9) (G 10) (I 9) (J 7) (I 5) (H 7) (G 9) (I 10) (J 8) (I 6) (H 8) (J 9) (I 7) (H 9) (J 10) (I 8) (H 10) (G 8) (F 10) (E 8) (D 10) (F 9) (G 7) (H 5) (J 6) (I 4) (H 6) (J 5) (I 3) (J 1))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+
+
+Score: 0/2000 | Depth: 0 | Heuristic: 0 | F: 0
+
+1    28   35   67   26   38   15   79   0    98   
+55   62   77   17   13   29   71   8    2    64   
+25   89   91   4    94   70   7    85   72   20   
+75   46   73   30   33   81   36   12   61   65   
+11   59   95   24   18   96   78   54   88   82   
+47   14   10   22   92   48   53   83   84   93   
+52   37   68   51   5    3    80   42   41   86   
+56   9    66   74   40   76   43   87   27   16   
+34   39   31   44   45   19   57   50   99   21   
+69   49   23   97   6    90   32   60   63   58   
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+
+Score: 2063/2000 | Depth: 36 | Heuristic: 0 | F: 0
+
+NIL  28   35   67   26   38   15   79   0    T    
+55   62   77   17   13   29   71   8    2    64   
+25   NIL  91   4    94   70   7    85   NIL  20   
+75   46   73   30   33   81   36   12   NIL  65   
+NIL  59   95   24   18   96   78   NIL  NIL  NIL  
+47   14   10   22   92   48   53   NIL  NIL  NIL  
+52   NIL  68   51   5    3    NIL  NIL  NIL  NIL  
+56   9    66   74   NIL  76   NIL  NIL  NIL  NIL  
+NIL  39   31   44   NIL  NIL  NIL  NIL  NIL  NIL  
+69   49   NIL  NIL  6    NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 6
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-DEFAULT 
+  -- Tempo Demorado: 0.339
+  -- Numero de nós gerados: 133
+  -- Numero de nós expandidos: 26
+  -- Penetrancia: 0.19548872
+  -- Fator de ramificacao media: 1.1364746
+  -- Comprimento da solucao: 26
+  -- Caminho solução: ((J 1) (I 3) (J 5) (H 6) (F 5) (E 3) (C 2) (B 4) (A 2) (C 3) (A 4) (C 5) (E 6) (F 4) (H 3) (I 5) (J 7) (I 9) (G 8) (F 10) (H 9) (G 7) (I 6) (H 8) (I 10) (G 9))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+
+
+Score: 0/2000 | Depth: 0 | Heuristic: 0 | F: 0
+
+1    28   35   67   26   38   15   79   0    98   
+55   62   77   17   13   29   71   8    2    64   
+25   89   91   4    94   70   7    85   72   20   
+75   46   73   30   33   81   36   12   61   65   
+11   59   95   24   18   96   78   54   88   82   
+47   14   10   22   92   48   53   83   84   93   
+52   37   68   51   5    3    80   42   41   86   
+56   9    66   74   40   76   43   87   27   16   
+34   39   31   44   45   19   57   50   99   21   
+69   49   23   97   6    90   32   60   63   58   
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+
+Score: 2049/2000 | Depth: 26 | Heuristic: -1.2499138 | F: 24.750086
+
+1    28   35   67   26   38   15   79   0    NIL  
+NIL  62   NIL  17   13   29   71   8    2    64   
+25   89   NIL  4    NIL  70   7    NIL  NIL  20   
+NIL  NIL  73   30   33   NIL  36   12   61   65   
+11   59   NIL  24   18   NIL  78   54   NIL  NIL  
+47   14   10   22   NIL  48   53   NIL  NIL  93   
+52   37   68   51   5    3    NIL  42   41   NIL  
+56   9    66   74   40   76   NIL  NIL  27   16   
+34   39   31   44   45   19   T    NIL  NIL  21   
+69   49   23   97   6    NIL  32   60   NIL  58   
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 3
+  -- Algoritmo: BFS 
+  -- Tempo Demorado: 0.13 segundos
+  -- Numero de nós gerados: 43
+  -- Numero de nós expandidos: 37
+  -- Penetrancia: 0.13953489
+  -- Fator de ramificacao media: 1.6376953
+  -- Profundidade da solucao: 6
+  -- Caminho solução: ((A 1) (B 3) (C 1) (D 3) (B 2) (A 4))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+Score: 0/270 | Depth: 0 | Heuristic: 0 | F: 0
+
+1    12   3    23   NIL  88   NIL  NIL  NIL  NIL  
+21   45   43   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  56   NIL  78   NIL  NIL  NIL  NIL  NIL  NIL  
+89   NIL  99   54   NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+Score: 272/270 | Depth: 6 | Heuristic: 0 | F: 0
+
+NIL  12   NIL  23   NIL  88   NIL  NIL  NIL  NIL  
+21   NIL  43   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+T    NIL  99   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 2
+  -- Algoritmo: DFS 
+  -- Profundidade Maxima: 40 
+  -- Tempo Demorado: 0.5 segundos
+  -- Numero de nós gerados: 15
+  -- Numero de nós expandidos: 10
+  -- Penetrancia: 0.6666667
+  -- Fator de ramificacao media: 1.0839844
+  -- Profundidade da solucao: 10
+  -- Caminho solução: ((A 1) (B 3) (C 1) (D 3) (E 1) (F 3) (G 1) (H 3) (I 1) (J 3))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+Score: 0/60 | Depth: 0 | Heuristic: 0 | F: 0
+
+2    NIL  4    NIL  6    NIL  8    NIL  10   NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  5    NIL  7    NIL  9    NIL  10   
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+Score: 64/60 | Depth: 10 | Heuristic: 0 | F: 0
+
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  T    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 2
+  -- Algoritmo: BFS 
+  -- Tempo Demorado: 0.14 segundos
+  -- Numero de nós gerados: 51
+  -- Numero de nós expandidos: 50
+  -- Penetrancia: 0.19607843
+  -- Fator de ramificacao media: 1.2451172
+  -- Profundidade da solucao: 10
+  -- Caminho solução: ((A 1) (B 3) (C 1) (D 3) (E 1) (F 3) (G 1) (H 3) (I 1) (J 3))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+Score: 0/60 | Depth: 0 | Heuristic: 0 | F: 0
+
+2    NIL  4    NIL  6    NIL  8    NIL  10   NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  5    NIL  7    NIL  9    NIL  10   
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+Score: 64/60 | Depth: 10 | Heuristic: 0 | F: 0
+
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  T    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Problema: 2
+  -- Algoritmo: DFS 
+  -- Profundidade Maxima: 20 
+  -- Tempo Demorado: 0.5 segundos
+  -- Numero de nós gerados: 15
+  -- Numero de nós expandidos: 10
+  -- Penetrancia: 0.6666667
+  -- Fator de ramificacao media: 1.0839844
+  -- Profundidade da solucao: 10
+  -- Caminho solução: ((A 1) (B 3) (C 1) (D 3) (E 1) (F 3) (G 1) (H 3) (I 1) (J 3))
+
+  -- Tabuleiro Inicial: 
+--------------------------------------------------
+Score: 0/60 | Depth: 0 | Heuristic: 0 | F: 0
+
+2    NIL  4    NIL  6    NIL  8    NIL  10   NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  5    NIL  7    NIL  9    NIL  10   
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+  -- Tabuleiro Final: 
+--------------------------------------------------
+Score: 64/60 | Depth: 10 | Heuristic: 0 | F: 0
+
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  T    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+--------------------------------------------------
+
+
