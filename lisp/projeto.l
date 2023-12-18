@@ -142,20 +142,20 @@
           (ecase opt
             (1    
               (let* ((maxDepth (choose-depth problem))
-                (solution (list (get-internal-real-time) (dfs (node-from-problem problem) maxDepth) (get-internal-real-time) 'DFS maxdepth)))
+                (solution (list problem (get-internal-real-time) (dfs (node-from-problem problem) maxDepth) (get-internal-real-time) 'DFS maxdepth)))
                 (progn (final-results solution) solution)  
               )
             )
             (2  
               (let
-                ((solution (list (get-internal-real-time) (bfs  (node-from-problem problem)) (get-internal-real-time) 'BFS)))
+                ((solution (list problem (get-internal-real-time) (bfs  (node-from-problem problem)) (get-internal-real-time) 'BFS)))
                 (progn (final-results solution) solution)
               )
             )
             (3  
               (let* (
                   (heuristic (choose-heuristic problem))
-                  (solution (list (get-internal-real-time) (a-star (node-from-problem problem) heuristic) (get-internal-real-time) 'A* heuristic) )
+                  (solution (list problem (get-internal-real-time) (a-star (node-from-problem problem) heuristic) (get-internal-real-time) 'A* heuristic) )
                 )
                 (progn (final-results solution) solution)  
               )
@@ -223,16 +223,18 @@
 
 (defun write-final-results (solution type)
   (let* (
-      (start-time (first solution))
-      (solution-node (second solution))
-      (end-time (third solution))
-      (search (fourth solution))
+      (problem (first solution))
+      (start-time (second solution))
+      (solution-node (third solution))
+      (end-time (fourth solution))
+      (search (fifth solution))
       (elapsed-time (* (/ (float (- end-time start-time)) internal-time-units-per-second) 1000))
       (seconds (truncate (/ elapsed-time 1000)))
       (miliseconds (mod (round elapsed-time) 1000))
     ) 
     (progn 
       (format type "~t RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:~%")
+      (format type "~%~t -- Problema: ~a" problem)
       (format type "~%~t -- Algoritmo: ~a " search)
       (if (equal search 'A*)
         (format type "~%~t -- Heuristica: ~a " (car (last solution)))
