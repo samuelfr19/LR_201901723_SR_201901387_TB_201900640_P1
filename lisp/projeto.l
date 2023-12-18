@@ -260,7 +260,7 @@
     )
   )
 )
-;;(start)
+
 ; -------------------------------------------------- File management
 
 (defun get-problems ()

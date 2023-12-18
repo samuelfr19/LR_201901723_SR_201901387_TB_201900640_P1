@@ -229,7 +229,7 @@
 )
 
 ; ------------------------------------------------- Algorythms
-; was getting stack overflow on recursive functions so added iterative aproach to mitigate them
+
 (defun fs-recursive (node b &optional (queue nil) (visited nil))
 "Base do algoritmo BFS e DFS implementado recursivamente"
   (cond
@@ -283,6 +283,7 @@
 )
 
 ;------------------------ a-star
+
 (defun order-queue (queue)
 "Função auxiliar do a* que ordena a lista de abertos"
   (cond
@@ -345,8 +346,8 @@
 ;; ------------------------------------------ Branching Fator
 
 (defun average-branching-fator (solution &optional (depth (node-depth (solution-node-node solution))) (generatedNodes (generated-nodes solution))
-"Função para calcular e definir o fator de ramificação média da solução final"
   (tolerance 0.1) (min 0) (max (generated-nodes solution)))
+  "Função para calcular e definir o fator de ramificação média da solução final"
   (let ((average (/ ( + min max) 2)))
        (cond 
         ((< (- max min) tolerance) (/ (+ max min) 2))
