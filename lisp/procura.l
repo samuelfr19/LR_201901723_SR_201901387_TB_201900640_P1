@@ -27,38 +27,47 @@
 )
 
 (defun create-node (board score final-score parent &optional (d 0) (h 0) (f 0))
+"Cria um nó"
   (list board score final-score parent d h f)
 )
 
 (defun node-board (node)
+"Devolve o tabuleiro do nó"
   (nth 0 node)
 )
 
 (defun node-score (node)
+"Devolve a pontuação atual do nó"
   (nth 1 node)
 )
 
 (defun node-final-score (node)
+"Devolve a pontuação objetivo do nó"
   (nth 2 node)
 )
 
 (defun node-parent (node)
+"Devolve o nó pai do nó"
   (nth 3 node)
 )
 
 (defun node-depth (node)
+"Devolve a profundidade do nó"
   (nth 4 node)
 )
 
 (defun node-heuristic (node)
+"Devolve o valor heurístico do nó"
   (nth 5 node)
 )
 
 (defun node-f (node)
+"Devolve o valor da função de avaliação"
   (nth 6 node)
 )
 
 (defun first-node (node)
+"Devolve primeiro nó pai"
   (cond
     ((null (node-parent node)) node)
     (t (first-node (node-parent node)))
@@ -68,26 +77,32 @@
 ; ------------------------------------------------- Solution Node 
 
 (defun create-solution-node (node size-of-queue size-of-visited)
+"Cria um nó solução"
   (list (node-to-movements node) size-of-queue size-of-visited node)
 )
 
 (defun solution-node-path (solution-node)
+"Devolve a lista de jogadas até ao nó solução"
   (nth 0 solution-node)
 )
 
 (defun solution-node-size-queue (solution-node)
+"Devolve o numero de nós na lista de abertos"
   (nth 1 solution-node)
 )
 
 (defun solution-node-size-visited (solution-node)
+"Devolve o numero de nós na lista de fechados"
   (nth 2 solution-node)
 )
 
 (defun solution-node-node (solution-node)
+"Devolve o nó solução"
   (nth 3 solution-node)
 )
 
 (defun generated-nodes (solution)
+"Devolve o total de nós gerados tanto na lista de abertos como na de fechados"
   (+ (solution-node-size-queue solution) (solution-node-size-visited solution))
 )
 
@@ -159,10 +174,12 @@
 ; ------------------------------------------------- Calculations
 
 (defun is-solution (node)
+"Devolve true ou nill dependendo se é um nó solução"
   (<= (node-final-score node) (node-score node))
 )
 
 (defun calculate-score (current-score previous-board new-board)
+"Atualiza a pontuação atual"
   (let* (
       (pos (current-position new-board))
       (value (cell previous-board (car pos) (cadr pos)))
@@ -172,7 +189,8 @@
 )
 
 (defun apply-heuristic (node heuristic-value)
-  (create-node  ; this wasn't my favorite implementation but the only one i could find at this point :c
+"Devolve uma cópia de uma nó com o valor heristico e com a função de avaliação"
+  (create-node 
     (node-board node)
     (node-score node)
     (node-final-score node)
@@ -184,6 +202,7 @@
 )
 
 (defun calculate-heuristic-default (node)
+"Calcula a heuristca de um nó com base na fornecida"
   (cond
     ((= 0 (total-available-squares (node-board node))) 0)
     ((= 0 (/ (float (total-points (node-board node))) (total-available-squares (node-board node)))) 0)
@@ -200,6 +219,7 @@
 )
 
 (defun calculate-heuristic-proprietary (node)
+"Calcula o valor heuristico de nó usando a heuristica personalizada"
   (if (remove t (remove nil (apply #'append (node-board node))))
     (let* (
         (score              (- (node-final-score node) (node-score node))                             )
@@ -233,8 +253,9 @@
 )
 
 ; ------------------------------------------------- Algorythms
-; was getting stack overflow on recursive functions so added iterative aproach to mitigate them
+
 (defun fs-recursive (node b &optional (queue nil) (visited nil))
+"Base do algoritmo BFS e DFS implementado recursivamente"
   (cond
     ((is-solution node) (prog2 (print-node node) visited))
     ((null node) visited)
@@ -250,6 +271,7 @@
 )
 
 (defun fs (node b &optional (maximum-depth most-positive-fixnum))
+"Base do algoritmo BFS e DFS implementado com recurso a iteração"
   (let (
       (queue (list node))
       (visited '())
@@ -275,15 +297,19 @@
 )
 
 (defun bfs (node)
+"Aplica o bfs a um nó"
   (fs node T)
 )
 
 (defun dfs (node &optional (max-depth most-positive-fixnum))
+"Aplica o dfs a um nó"
   (fs node NIL max-depth)
 )
 
 ;------------------------ a-star
+
 (defun order-queue (queue)
+"Função auxiliar do a* que ordena a lista de abertos"
   (cond
     ((null queue) nil)
     (t 
@@ -297,6 +323,7 @@
 )
 
 (defun a-star (node &optional (heuristic-function 'calculate-heuristic-default))
+"Aplica o a* a um nó"
   (let ((queue (list node))
       (visited '()))
     (loop while queue do
@@ -336,7 +363,7 @@
 ;; ------------------------------------------ Penetrance
 
 (defun penetrance (solution-node)
- "Funcao para calcular e definir a penetrancia da solucao final"
+"Funcao para calcular e definir a penetrancia da solucao final"
     (coerce (/ (node-depth (solution-node-node solution-node)) (generated-nodes solution-node)) 'float)
 ) 
 
@@ -344,6 +371,7 @@
 
 (defun average-branching-fator (solution &optional (depth (node-depth (solution-node-node solution))) (generatedNodes (generated-nodes solution))
   (tolerance 0.1) (min 0) (max (generated-nodes solution)))
+  "Função para calcular e definir o fator de ramificação média da solução final"
   (let ((average (/ ( + min max) 2)))
        (cond 
         ((< (- max min) tolerance) (/ (+ max min) 2))
