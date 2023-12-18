@@ -240,7 +240,7 @@
       (if (equal search 'DFS)
         (format type "~%~t -- Profundidade Maxima: ~a " (car (last solution)))
       )
-      (format type "~%~t -- Tempo Demorado: ~w.~w" seconds miliseconds)
+      (format type "~%~t -- Tempo Demorado: ~w.~w segundos" seconds miliseconds)
       (format type "~%~t -- Numero de nós gerados: ~a" (generated-nodes solution-node))
       (format type "~%~t -- Numero de nós expandidos: ~a" (third solution-Node))
       (format type "~%~t -- Penetrancia: ~F" (penetrance solution-Node))
@@ -248,7 +248,7 @@
       (format type "~%~t -- Comprimento da solucao: ~a" (node-depth (solution-node-node solution-node)))
       (format type "~%~t -- Caminho solução: ~a" (first solution-node))
       (format type "~%~%~t -- Tabuleiro Inicial: ~%")
-      (format type "--------------------------------------------------~%")
+      (format type "--------------------------------------------------")
       (print-node-individual (first-node solution-node) type)
       (format type "~%~t -- Tabuleiro Final: ~%")
       (format type "--------------------------------------------------~%")
@@ -260,7 +260,7 @@
     )
   )
 )
-
+;;(start)
 ; -------------------------------------------------- File management
 
 (defun get-problems ()
