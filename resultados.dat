@@ -1,5 +1,6 @@
   RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
 
+<<<<<<< HEAD
   -- Problema: 4
   -- Algoritmo: BFS 
   -- Tempo Demorado: 0.124 segundos
@@ -93,6 +94,12 @@ NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL
   -- Algoritmo: A* 
   -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
   -- Tempo Demorado: 0.4 segundos
+=======
+  -- Problema: 1
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
+  -- Tempo Demorado: 0.17 segundos
+>>>>>>> 65972e35d404cbf502bc6ee2cf66e033e596b9d4
   -- Numero de nós gerados: 9
   -- Numero de nós expandidos: 8
   -- Penetrancia: 0.33333334
@@ -105,9 +112,15 @@ NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL
 
 Score: 72/70 | Depth: 3 
 
+<<<<<<< HEAD
 2    NIL  44   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  3    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+=======
+2    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+>>>>>>> 65972e35d404cbf502bc6ee2cf66e033e596b9d4
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  T    NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
@@ -123,7 +136,11 @@ NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL
   -- Problema: 2
   -- Algoritmo: A* 
   -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
+<<<<<<< HEAD
   -- Tempo Demorado: 0.20 segundos
+=======
+  -- Tempo Demorado: 0.47 segundos
+>>>>>>> 65972e35d404cbf502bc6ee2cf66e033e596b9d4
   -- Numero de nós gerados: 50
   -- Numero de nós expandidos: 50
   -- Penetrancia: 0.2
@@ -151,6 +168,7 @@ NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL
 
   RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
 
+<<<<<<< HEAD
   -- Problema: 2
   -- Algoritmo: A* 
   -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
@@ -161,27 +179,84 @@ NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL
   -- Fator de ramificacao media: 1.3183594
   -- Comprimento da solucao: 10
   -- Caminho solução: ((A 1) (B 3) (C 1) (D 3) (E 1) (F 3) (G 1) (H 3) (I 1) (J 3))
+=======
+  -- Problema: 3
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
+  -- Tempo Demorado: 0.42 segundos
+  -- Numero de nós gerados: 42
+  -- Numero de nós expandidos: 37
+  -- Penetrancia: 0.14285715
+  -- Fator de ramificacao media: 1.5996094
+  -- Comprimento da solucao: 6
+  -- Caminho solução: ((A 1) (B 3) (C 1) (D 3) (B 2) (C 4))
+>>>>>>> 65972e35d404cbf502bc6ee2cf66e033e596b9d4
   -- Tabuleiro Final: 
 --------------------------------------------------
 
 
+<<<<<<< HEAD
 Score: 64/60 | Depth: 10 
 
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  T    
+=======
+Score: 282/270 | Depth: 6 
+
+NIL  12   NIL  23   NIL  NIL  NIL  NIL  NIL  NIL  
+21   NIL  43   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+89   NIL  T    NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+>>>>>>> 65972e35d404cbf502bc6ee2cf66e033e596b9d4
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+<<<<<<< HEAD
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+=======
 --------------------------------------------------
 
 
   RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
 
+  -- Problema: 4
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
+  -- Tempo Demorado: 0.388 segundos
+  -- Numero de nós gerados: 233
+  -- Numero de nós expandidos: 222
+  -- Penetrancia: 0.042918455
+  -- Fator de ramificacao media: 1.564331
+  -- Comprimento da solucao: 10
+  -- Caminho solução: ((I 1) (G 2) (E 1) (C 2) (A 1) (B 3) (C 5) (D 7) (E 9) (G 10))
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+
+Score: 643/600 | Depth: 10 
+
+NIL  97   96   95   NIL  93   92   91   NIL  NIL  
+1    2    NIL  4    5    NIL  NIL  7    8    9    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  T    NIL  NIL  NIL  
+>>>>>>> 65972e35d404cbf502bc6ee2cf66e033e596b9d4
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+<<<<<<< HEAD
   -- Problema: 3
   -- Algoritmo: A* 
   -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
@@ -192,10 +267,23 @@ NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL
   -- Fator de ramificacao media: 1.6376953
   -- Comprimento da solucao: 6
   -- Caminho solução: ((A 1) (B 3) (C 1) (D 3) (B 2) (C 4))
+=======
+  -- Problema: 1
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
+  -- Tempo Demorado: 0.16 segundos
+  -- Numero de nós gerados: 9
+  -- Numero de nós expandidos: 8
+  -- Penetrancia: 0.33333334
+  -- Fator de ramificacao media: 1.6523437
+  -- Comprimento da solucao: 3
+  -- Caminho solução: ((B 1) (C 3) (D 5))
+>>>>>>> 65972e35d404cbf502bc6ee2cf66e033e596b9d4
   -- Tabuleiro Final: 
 --------------------------------------------------
 
 
+<<<<<<< HEAD
 Score: 282/270 | Depth: 6 
 
 NIL  12   NIL  23   NIL  88   NIL  NIL  NIL  NIL  
@@ -204,6 +292,16 @@ NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL
 89   NIL  T    54   NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+=======
+Score: 72/70 | Depth: 3 
+
+2    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  T    NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+>>>>>>> 65972e35d404cbf502bc6ee2cf66e033e596b9d4
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
@@ -213,6 +311,7 @@ NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL
 
   RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
 
+<<<<<<< HEAD
   -- Problema: 4
   -- Algoritmo: A* 
   -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
@@ -223,10 +322,23 @@ NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL
   -- Fator de ramificacao media: 1.5765381
   -- Comprimento da solucao: 10
   -- Caminho solução: ((I 1) (G 2) (E 1) (C 2) (A 1) (B 3) (C 5) (D 7) (E 9) (G 10))
+=======
+  -- Problema: 1
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
+  -- Tempo Demorado: 0.10 segundos
+  -- Numero de nós gerados: 9
+  -- Numero de nós expandidos: 8
+  -- Penetrancia: 0.33333334
+  -- Fator de ramificacao media: 1.6523437
+  -- Comprimento da solucao: 3
+  -- Caminho solução: ((B 1) (C 3) (D 5))
+>>>>>>> 65972e35d404cbf502bc6ee2cf66e033e596b9d4
   -- Tabuleiro Final: 
 --------------------------------------------------
 
 
+<<<<<<< HEAD
 Score: 643/600 | Depth: 10 
 
 NIL  97   96   95   NIL  93   92   91   NIL  89   
@@ -239,6 +351,20 @@ NIL  NIL  NIL  NIL  NIL  NIL  NIL  44   NIL  NIL
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
 NIL  NIL  NIL  NIL  NIL  NIL  T    NIL  NIL  NIL  
+=======
+Score: 72/70 | Depth: 3 
+
+2    NIL  44   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  T    NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+>>>>>>> 65972e35d404cbf502bc6ee2cf66e033e596b9d4
 --------------------------------------------------
 
 
