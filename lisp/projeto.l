@@ -143,13 +143,13 @@
             (1    
               (let* ((maxDepth (choose-depth problem))
                 (solution (list problem (get-internal-real-time) (dfs (node-from-problem problem) maxDepth) (get-internal-real-time) 'DFS maxdepth)))
-                (progn (final-results solution) solution)  
+                (final-results solution)
               )
             )
             (2  
               (let
                 ((solution (list problem (get-internal-real-time) (bfs  (node-from-problem problem)) (get-internal-real-time) 'BFS)))
-                (progn (final-results solution) solution)
+                (final-results solution)
               )
             )
             (3  
@@ -157,7 +157,7 @@
                   (heuristic (choose-heuristic problem))
                   (solution (list problem (get-internal-real-time) (a-star (node-from-problem problem) heuristic) (get-internal-real-time) 'A* heuristic) )
                 )
-                (progn (final-results solution) solution)  
+                (final-results solution) 
               )
             )
           )
@@ -245,14 +245,14 @@
       (format type "~%~t -- Numero de nós expandidos: ~a" (third solution-Node))
       (format type "~%~t -- Penetrancia: ~F" (penetrance solution-Node))
       (format type "~%~t -- Fator de ramificacao media: ~F" (average-branching-fator solution-Node))
-      (format type "~%~t -- Comprimento da solucao: ~a" (solution-lenght solution-node))
+      (format type "~%~t -- Comprimento da solucao: ~a" (node-depth (solution-node-node solution-node)))
       (format type "~%~t -- Caminho solução: ~a" (first solution-node))
       (format type "~%~%~t -- Tabuleiro Inicial: ~%")
       (format type "--------------------------------------------------~%")
       (print-node-individual (first-node solution-node) type)
       (format type "~%~t -- Tabuleiro Final: ~%")
       (format type "--------------------------------------------------~%")
-      (print-node-individual (final-node solution-node) type)
+      (print-node-individual (solution-node-node solution-node) type)
       (format type "~%~%")
       (if (equal type t)
         (format t "Obrigado por jogar!~%~%Escreva a instrucao (start) para comecar de novo.")
@@ -310,7 +310,7 @@
       (problem-f (find-if (lambda (problem) (string= "F" (car problem))) problems))
     )
     (cond
-      (problem-f
+      (problem-f 
         (let* (
             (updated-problems 
               (mapcar 

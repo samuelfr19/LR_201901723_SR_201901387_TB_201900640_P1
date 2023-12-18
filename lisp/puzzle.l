@@ -2,7 +2,7 @@
 
 ; ------------------------------------------------- Test Boards
 ; ---------- IF WE APPLY THE NUMBER RULES THERE IS NO POSSIBLE ANSWER TO PROBLEM E
-(setq aplicar-regras nil)
+(setq aplicar-regras t)
 
 (defun tabuleiro-teste ()
 "Tabuleiro de teste sem nenhuma jogada realizada"
@@ -131,7 +131,10 @@
           (double-digit-numbers (find-double-digit-numbers board))
           (position-to-remove (car double-digit-numbers)) ; the smallest value will always be extracted like this
         )
-        (place (car position-to-remove) (cadr position-to-remove) board)
+        (if position-to-remove
+          (place (car position-to-remove) (cadr position-to-remove) board)
+          board
+        )
       )
     )
     (t board)
@@ -301,15 +304,6 @@
 
 (defun total-available-squares (board)
   (length (remove t (remove nil(apply #'append board))))
-)
-
-(defun average-operators-score (board)
-  (/ (mapcar (lambda (child) (calculate-score 0 board child)) (all-possible-movements board))
-  )
-)
-
-(defun movements-from-square (board)
-  (length (all-possible-movements board))
 )
 
 ; ------------------------------------------------- Generating a board
