@@ -7,13 +7,14 @@
 ; ------------------------------------------------- Node 
 (defun is-node (node)
   (cond
-    ((= 6 (length node)) 
+    ((= 7 (length node)) 
       (cond 
         ((and 
           (numberp (node-score node)) 
           (numberp (node-final-score node)) 
           (numberp (node-depth node))
           (numberp (node-heuristic node))
+          (numberp (node-f node))
           (= 10 (length (node-board node)))
         )
         t
@@ -25,8 +26,8 @@
   )
 )
 
-(defun create-node (board score final-score parent &optional (d 0) (h 0))
-  (list board score final-score parent d h)
+(defun create-node (board score final-score parent &optional (d 0) (h 0) (f 0))
+  (list board score final-score parent d h f)
 )
 
 (defun node-board (node)
@@ -53,16 +54,20 @@
   (nth 5 node)
 )
 
+(defun node-f (node)
+  (nth 6 node)
+)
+
 (defun final-node (node)
   (node-board (car(last node)))
-  )
+)
 
 (defun solution-lenght (node)
  (length (car node))
 )
 
-(defun generated-nodes (node)
-  (+ (second node) (third node))
+(defun generated-nodes (solution)
+  (+ (second solution) (third solution))
 )
 
 (defun first-node (node)
@@ -105,14 +110,14 @@
 (defun print-node (node &optional (stream-to-write-to t))
   (progn
     (if (node-parent node) (print-node (node-parent node) stream-to-write-to) nil)
-    (format stream-to-write-to "~%~%Score: ~a/~a | Depth: ~a | Heuristic: ~a~%~%" (node-score node) (node-final-score node) (node-depth node) (node-heuristic node))
+    (format stream-to-write-to "~%~%Score: ~a/~a | Depth: ~a | Heuristic: ~a | F: ~a~%~%" (node-score node) (node-final-score node) (node-depth node) (node-heuristic node) (node-f node))
     (print-board (node-board node) stream-to-write-to)
   )
 )
 
 (defun print-node-individual (node &optional (stream-to-write-to t))
   (progn
-    (format stream-to-write-to "~%~%Score: ~a/~a | Depth: ~a | Heuristic: ~a~%~%" (node-score node) (node-final-score node) (node-depth node) (node-heuristic node))
+    (format stream-to-write-to "~%~%Score: ~a/~a | Depth: ~a | Heuristic: ~a | F: ~a~%~%" (node-score node) (node-final-score node) (node-depth node) (node-heuristic node) (node-f node))
     (print-board (node-board node) stream-to-write-to)
   )
 )
@@ -182,33 +187,40 @@
     (node-parent node)
     (node-depth node)
     heuristic-value
+    (+ (node-depth node) heuristic-value)
   )
 )
 
 (defun calculate-heuristic-default (node)
   (cond
-    ((= 0 (total-available-squares (node-board node))) node)
-    ((= 0 (/ (float (total-points (node-board node))) (total-available-squares (node-board node)))) node)
+    ((= 0 (total-available-squares (node-board node))) 0)
+    ((= 0 (/ (float (total-points (node-board node))) (total-available-squares (node-board node)))) 0)
     (t 
-      (apply-heuristic
-        node
-        (/
-          (- (node-final-score node) (node-score node))
-          (/ 
-            (float (total-points (node-board node))) 
-            (total-available-squares (node-board node))
-          )
+      (/
+        (- (node-final-score node) (node-score node))
+        (/ 
+          (float (total-points (node-board node))) 
+          (total-available-squares (node-board node))
         )
       )
     )
   )
 )
 
-(defun calculate-heuristic-proprietary (node)
-  (apply-heuristic node 0)
+(defun calculate-heuristic-proprietary (node) 
+  (if (node-parent node)
+    (let (
+        (score-square (- (node-score node) (node-score (node-parent node))))
+        (number-moves (movements-from-square (node-board node)))
+      )
+      (if (eq number-moves 0) 
+        (- most-positive-fixnum score-square )
+        (/ number-moves score-square)
+      )
+    )
+    0
+  )
 )
-
-;todo nossa heuristica
 
 ; ------------------------------------------------- Algorythms
 ; was getting stack overflow on recursive functions so added iterative aproach to mitigate them
@@ -266,9 +278,9 @@
     ((null queue) nil)
     (t 
       (append 
-        (order-queue (remove-if (lambda (node) (> (node-heuristic node) (node-heuristic (car queue)))) (cdr queue)))
+        (order-queue (remove-if (lambda (node) (> (node-f node) (node-f (car queue)))) (cdr queue)))
         (list (car queue))
-        (order-queue (remove-if (lambda (node) (<= (node-heuristic node) (node-heuristic (car queue)))) (cdr queue)))
+        (order-queue (remove-if (lambda (node) (<= (node-f node) (node-f (car queue)))) (cdr queue)))
       )
     )
   )
@@ -284,7 +296,7 @@
           (progn
             (do* ((children (generate-children current) (cdr children))) ((null children)) 
               (let* (
-                  (child (funcall heuristic-function (car children)))
+                  (child (apply-heuristic (car children) (funcall heuristic-function (car children))))
                   (found-in-queue (find child queue :key #'node-board))
                   (found-in-visited (find child visited :key #'node-board))
                 )
@@ -311,16 +323,12 @@
   )
 )
 
-;; ------------------------------------------ GONCALO  COMO ASSIM GONCALO? AHAHAHAH
-
-
 ;; ------------------------------------------ Penetrance
 
 (defun penetrance (solution)
  "Funcao para calcular e definir a penetrancia da solucao final"
     (coerce (/ (solution-lenght solution) (generated-nodes solution)) 'float)
 ) 
-
 
 ;; ------------------------------------------ Branching Fator
 

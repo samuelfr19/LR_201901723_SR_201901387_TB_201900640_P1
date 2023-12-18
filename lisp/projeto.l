@@ -212,14 +212,12 @@
 )
 
 (defun final-results (solution)
-  (with-open-file (stream "./lisp/resultados.dat" :direction :output :if-exists :append :if-does-not-exist :create)
-    (progn 
-      (write-final-results solution t)
-      (write-final-results solution stream)
-    )
+  (with-open-file (stream "./resultados.dat" :direction :output :if-exists :append :if-does-not-exist :create)
+    (write-final-results solution stream)
+    (close stream)
   )
+  (write-final-results solution t)
 )
-
 
 (defun write-final-results (solution type)
   (let* (
@@ -252,8 +250,7 @@
       (print-board (final-node solution-node) type)
       (format type "~%~%")
       (if (equal type t)
-        (format t "Obrigado por jogar!~%~%")
-        (quit)
+        (format t "Obrigado por jogar!~%~%Escreva a instrucao (start) para comecar de novo.")
       )
     )
   )
@@ -267,7 +264,13 @@
         (result nil (cons next result))
         (next (read stream nil 'eof) (read stream nil 'eof))
       )
-      ((equal next 'eof) (reverse result))
+      ((equal next 'eof)
+        (progn
+          (finish-output stream)
+          (close stream)
+          (reverse result)
+        )
+      )
     )
   )
 )
@@ -317,7 +320,11 @@
             )
           )
           (with-open-file (output-stream "problemas.dat" :direction :output)
-            (mapcar (lambda (problem) (write-problem problem output-stream)) updated-problems)
+            (progn
+              (mapcar (lambda (problem) (write-problem problem output-stream)) updated-problems)
+              (finish-output output-stream)
+              (close output-stream)
+            )
           )
           updated-problems
         )

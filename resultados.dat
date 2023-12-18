@@ -1,0 +1,84 @@
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
+  -- Tempo Demorado: 0.10
+  -- Numero de nós gerados: 9
+  -- Numero de nós expandidos: 8
+  -- Penetrancia: 0.33333334
+  -- Fator de ramificacao media: 1.6523437
+  -- Comprimento da solucao: 3
+  -- Caminho solução: ((B 1) (C 3) (D 5))
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+2    NIL  44   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  T    NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
+  -- Tempo Demorado: 0.12
+  -- Numero de nós gerados: 9
+  -- Numero de nós expandidos: 8
+  -- Penetrancia: 0.33333334
+  -- Fator de ramificacao media: 1.6523437
+  -- Comprimento da solucao: 3
+  -- Caminho solução: ((B 1) (C 3) (D 5))
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+2    NIL  44   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  3    NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  T    NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+
+--------------------------------------------------
+
+
+  RESULTADOS FINAIS DA RESOLUCAO DO TABULEIRO:
+
+  -- Algoritmo: A* 
+  -- Heuristica: CALCULATE-HEURISTIC-PROPRIETARY 
+  -- Tempo Demorado: 0.35
+  -- Numero de nós gerados: 50
+  -- Numero de nós expandidos: 46
+  -- Penetrancia: 0.2
+  -- Fator de ramificacao media: 1.3183594
+  -- Comprimento da solucao: 10
+  -- Caminho solução: ((A 1) (B 3) (C 1) (D 3) (E 1) (F 3) (G 1) (H 3) (I 1) (J 3))
+  -- Tabuleiro Final: 
+--------------------------------------------------
+
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  T    
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+
+--------------------------------------------------
+
+

@@ -1,6 +1,5 @@
 ;; Código relacionado com o problema.
 
-
 ; ------------------------------------------------- Test Boards
 ; ---------- IF WE APPLY THE NUMBER RULES THERE IS NO POSSIBLE ANSWER TO PROBLEM E
 (setq aplicar-regras nil)
@@ -307,6 +306,10 @@
 (defun average-operators-score (board)
   (/ (mapcar (lambda (child) (calculate-score 0 board child)) (all-possible-movements board))
   )
+)
+
+(defun movements-from-square (board)
+  (length (all-possible-movements board))
 )
 
 ; ------------------------------------------------- Generating a board
