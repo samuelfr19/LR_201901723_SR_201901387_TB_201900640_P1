@@ -1,60 +1,15 @@
 ;; Código relacionado com o problema.
 
 ; ------------------------------------------------- Test Boards
-; ---------- IF WE APPLY THE NUMBER RULES THERE IS NO POSSIBLE ANSWER TO PROBLEM E
+
+; ---- Com as regras aplicadas não há resolução possivel para o problema E
 (setq aplicar-regras t)
 
-(defun tabuleiro-teste ()
-"Tabuleiro de teste sem nenhuma jogada realizada"
-  '(
-    (94  25  54  89  21  nil 36  14  41  96) 
-    (78  47  56  23  5   49  13  12  26  60) 
-    (0   27  17  83  34  93  74  52  45  80) 
-    (69  9   77  95  55  39  91  73  57  30) 
-    (24  15  22  86  1   11  68  79  76  72) 
-    (81  48  32  2   64  16  50  37  29  71) 
-    (99  51  6   18  53  28  7   63  10  88) 
-    (59  42  46  85  90  75  87  43  20  31) 
-    (3   61  58  44  65  82  19  4   35  62) 
-    (33  70  84  40  66  38  92  67  98  97)
-  )
-)
-
-(defun tabuleiro-jogado ()
-"Tabuleiro de teste igual ao anterior mas tendo sido colocado o cavalo na posi��o: i=0 e j=0"
-  '(
-    (T   25  54  89  21  8   36  14  41  96) 
-    (78  47  56  23  5   NIL 13  12  26  60) 
-    (0   27  17  83  34  93  74  52  45  80) 
-    (69  9   77  95  55  39  91  73  57  30) 
-    (24  15  22  86  1   11  68  79  76  72) 
-    (81  48  32  2   64  16  50  37  29  71) 
-    (99  51  6   18  53  28  7   63  10  88) 
-    (59  42  46  85  90  75  87  43  20  31) 
-    (3   61  58  44  65  82  19  4   35  62) 
-    (33  70  84  40  66  38  92  67  98  97)
-  )
-)
-
-(defun test-board()
-'(
-  (nil  nil  nil  nil  nil  nil  nil  nil  nil  nil )
-  (nil  nil  nil  nil  nil  nil  nil  nil  nil  nil )
-  (nil  nil  nil  60   nil  50   nil  nil  nil  nil )
-  (nil  nil  70   nil  nil  nil  40   nil  nil  nil )
-  (nil  nil  nil  nil  T    nil  nil  nil  nil  nil )
-  (nil  nil  80   nil  nil  nil  30   nil  nil  nil )
-  (nil  nil  nil  10   nil  20   nil  nil  nil  nil )
-  (nil  nil  nil  nil  nil  nil  nil  nil  nil  nil )
-  (nil  nil  nil  nil  nil  nil  nil  nil  nil  nil )
-  (nil  nil  nil  nil  nil  nil  nil  nil  nil  nil )
- )
-)
 
 ; ------------------------------------------------- Movements and operations
 
 (defun print-board (board &optional (stream-to-write-to t))
-"Prints the *board* in a clean and proper way"
+"Dá print do tabuleiro de maneira limpa e legivel"
   (cond
     ((not (car board)) (format stream-to-write-to "--------------------------------------------------~%"))
     (T 
@@ -67,7 +22,7 @@
 )
 
 (defun print-row (row &optional (stream-to-write-to t) (column 9) )
-"Prints a *row* of the board in a clean and proper way"
+"Dá print da linha de um tabuleiro de maneira limpa e legivel"
   (cond 
     ((> 0 column) (format stream-to-write-to "~%"))
     (t 
@@ -80,12 +35,12 @@
 )
 
 (defun cell (board row column)
-  "returns what is in the *column*, of the row number *row* of *board*"
+"Devolve o atomo que está numa certa coluna, no numero da linha do tabuleiro"
   (nth column (nth row board))
 )
 
 (defun current-position (board &optional (value-to-find t) (row 0) (column 0) )
-"Returns the current position of the horse - where in the board is T"
+"Devolve a posição atual do cavalo, onde está no tabuleiro (T)"
   (cond
     ((null board) nil)
     ((eq value-to-find (cell board row column)) (list row column))
@@ -96,7 +51,7 @@
 )
 
 (defun place (row column board &optional (value nil))
-"Places a *value* into the *board* in the position (*row*, *column*) with origin in the top left"
+"Coloca um certo valor no tabuleiro na posição fornecida (linha, culuna) em origem no topo esquerdo"
   (cond
     ((null (car board)) nil)
     ((eq row 0) (cons (place-list column (car board) value) (cdr board)))
@@ -105,7 +60,7 @@
 )
 
 (defun place-list (position row &optional (value nil))
-"Places a *value* into a list *row* in the *position*"
+"Coloca um valor na lista (linha) na posição dada"
   (cond
     ((eq position 0) (cons value (cdr row)))
     (T 
@@ -120,16 +75,18 @@
 ; ------------------------------------------------- Operators
 
 (defun apply-number-rules (board val)
+"Aplica as regras de corte das casas"
   (remove-reverse-number (remove-double-number board val) val)
 )
 
 (defun remove-double-number (board val) 
+"Remove o valor duplo mais baixo"
   (cond
     ((not (numberp val)))
     ((= val (reverse-digits val))
       (let* (
           (double-digit-numbers (find-double-digit-numbers board))
-          (position-to-remove (car double-digit-numbers)) ; the smallest value will always be extracted like this
+          (position-to-remove (car double-digit-numbers))
         )
         (if position-to-remove
           (place (car position-to-remove) (cadr position-to-remove) board)
@@ -142,6 +99,7 @@
 )
 
 (defun remove-reverse-number (board val)
+"Remove da tabela o numero contrario ao recebido no parametro e troca por NIL"
   (let ((pos (current-position board (reverse-digits val))))
     (cond
       ((null pos) board)
@@ -151,6 +109,7 @@
 )
 
 (defun find-double-digit-numbers (board &optional (value 1))
+"Encontra números no tabuleiro com o mesmo numero"
   (cond
     ((> value 9) '())
     ((current-position board (* value 11)) 
@@ -164,9 +123,10 @@
 )
 
 (defun reverse-digits (n)
+"Troca os dois digitos de um numero"
   (cond
-    ((not (numberp n)) nil) ; we shouldnt get a non number here
-    ((> n 99) nil) ; numbers cant be greater then 99
+    ((not (numberp n)) nil) 
+    ((> n 99) nil) 
     ((< n 10) (* n 10))
     (t 
       (let (
@@ -180,6 +140,7 @@
 )
 
 (defun all-horse-start-positions (board &optional (column 0))
+"Coloca o cavalo em toda a primeira linha do tabuleiro para a geração dos primeiros nós"
   (cond 
     ((current-position board) nil)
     (T (let ((first-row (car board)))
@@ -195,6 +156,7 @@
 )
 
 (defun set-horse-start-position (board &optional (pos 0))
+"Coloca o cavalo numa certa posição do tabuleiro"
   (cond
     ((current-position board) board)
     (T (place 0 pos board T))
@@ -202,6 +164,7 @@
 )
 
 (defun all-possible-movements (board)
+"Lista de todas as possiveis movimentações"
   (remove nil (list 
     (move-1 board) 
     (move-2 board) 
@@ -255,7 +218,7 @@
 )
 
 (defun move (board amount-row amount-column)
-"Move the horse (T) on the *board* by *amount-row* and *amount-column"
+"Move o cavalo (T) no tabuleiro pela quantidade de linhas e colunas possiveis"
   (let 
     ((horse-position (current-position board)))
     (cond 
@@ -299,17 +262,19 @@
 ; ------------------------------------------------- Calculations
 
 (defun total-points (board)
+"Pontos totais no tabuleiro"
   (apply #'+ (remove t (remove nil(apply #'append board))))
 )
 
 (defun total-available-squares (board)
+"Quantidade de casas ainda disponiveis no tabuleiro"
   (length (remove t (remove nil(apply #'append board))))
 )
 
 ; ------------------------------------------------- Generating a board
 
 (defun shuffle (board)
-"Shuffles a list"
+"Mistura a lista de posições"
   (cond
     ((car board) (let (
           (n (nth (random (length board)) board))
@@ -322,7 +287,7 @@
 )
 
 (defun list-numbers (&optional (n 100))
-"Creates a list with numbers from 0 to *n* (excluded)"
+"Cria uma lista de numeros de 0 até 100"
   (cond 
     ((= n 1) (list 0))
     (T (append (list (1- n)) (list-numbers (1- n))))
@@ -330,7 +295,7 @@
 )
 
 (defun random-board (&optional (board (shuffle (list-numbers))) (n 10))
-"Creates a random board" 
+"Cria um tabuleiro aleatório"
  (cond
   ((null board) nil)
   (t (cons (subseq board 0 n) (random-board (subseq board n) n))
