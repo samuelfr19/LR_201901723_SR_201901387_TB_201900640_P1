@@ -1,0 +1,96 @@
+
+("A" 70
+ (
+  (2    20   44   NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  3    30   NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  22   NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+ )
+)
+
+
+("B" 60
+ (
+  (2    NIL  4    NIL  6    NIL  8    NIL  10   NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  3    NIL  5    NIL  7    NIL  9    NIL  10   )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+ )
+)
+
+
+("C" 270
+ (
+  (1    12   3    23   NIL  88   NIL  NIL  NIL  NIL  )
+  (21   45   43   NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  56   NIL  78   NIL  NIL  NIL  NIL  NIL  NIL  )
+  (89   NIL  99   54   NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+ )
+)
+
+
+("D" 600
+ (
+  (98   97   96   95   94   93   92   91   90   89   )
+  (1    2    3    4    5    55   6    7    8    9    )
+  (NIL  66   NIL  NIL  NIL  NIL  NIL  NIL  NIL  11   )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  22   NIL  NIL  NIL  NIL  NIL  33   NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  88   NIL  NIL  NIL  44   NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  77   NIL  NIL  NIL  NIL  NIL  )
+  (NIL  NIL  NIL  NIL  NIL  NIL  99   NIL  NIL  NIL  )
+ )
+)
+
+
+("E" 300
+ (
+  (NIL  5    NIL  NIL  NIL  15   NIL  NIL  NIL  25   )
+  (NIL  NIL  NIL  6    NIL  NIL  NIL  16   NIL  NIL  )
+  (NIL  4    NIL  NIL  NIL  14   NIL  NIL  NIL  24   )
+  (NIL  NIL  NIL  7    NIL  NIL  NIL  17   NIL  NIL  )
+  (NIL  3    NIL  NIL  NIL  13   NIL  NIL  NIL  23   )
+  (NIL  NIL  NIL  8    NIL  NIL  NIL  18   NIL  NIL  )
+  (NIL  2    NIL  NIL  NIL  12   NIL  NIL  NIL  22   )
+  (NIL  NIL  NIL  9    NIL  NIL  NIL  19   NIL  NIL  )
+  (NIL  1    NIL  NIL  NIL  11   NIL  NIL  NIL  21   )
+  (NIL  NIL  NIL  10   NIL  NIL  NIL  20   NIL  NIL  )
+ )
+)
+
+
+("F" 2000
+ (
+  (87   67   70   41   58   65   93   6    38   20   )
+  (82   34   30   11   50   13   66   99   75   18   )
+  (25   53   91   88   22   7    8    83   23   40   )
+  (77   81   5    59   68   80   43   39   74   26   )
+  (98   96   79   21   92   14   29   31   86   36   )
+  (24   12   15   16   47   0    62   69   51   32   )
+  (78   85   3    56   33   55   17   57   48   95   )
+  (71   9    10   42   97   44   28   45   52   19   )
+  (46   49   27   90   72   54   84   4    61   1    )
+  (37   35   64   94   76   89   60   63   2    73   )
+ )
+)
+
