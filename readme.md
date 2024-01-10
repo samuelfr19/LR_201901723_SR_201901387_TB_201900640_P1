@@ -1,2 +1,2 @@
 To run:
-clisp -repl ./lisp/projeto.l
+clisp -repl ./lisp/interact.l
