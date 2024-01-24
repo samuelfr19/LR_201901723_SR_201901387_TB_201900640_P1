@@ -1,9 +1,47 @@
+;====================================== MOVEMENT-RESULT
+; for handling each movemnt, returns (score board)
+
+(defun create-movement-result (score player board)
+  (list score player board)
+)
+
+(defun movement-result-score (movement-result)
+  (car movement-result)
+)
+
+(defun movement-result-player (movement-result)
+  (cadr movement-result)
+)
+
+(defun movement-result-board (movement-result)
+  (caddr movement-result)
+)
+
+(defun movement-result-print (movement-result &optional (stream-to-write-to T))
+  (progn
+    (format stream-to-write-to "~%______________________________________________________~%~%")
+    (format stream-to-write-to "SCORE: ~15a~t~15aPLAYER: ~a~%~%"
+      (movement-result-score movement-result) (code-char 124) (movement-result-player movement-result))
+    (print-board (movement-result-board movement-result))
+  )
+)
+
+;======================================  AUXILIARIES
+
 (defun print-board (board &optional (stream-to-write-to t))
 "Dá print do tabuleiro de maneira limpa e legivel"
   (cond
-    ((not (car board)) (format stream-to-write-to "--------------------------------------------------~%"))
+    ((not (car board)) (format stream-to-write-to "______________________________________________________~%"))
     (T 
       (progn
+        (if (= 10 (length board)) 
+          (progn
+            (format stream-to-write-to "~5t~4,2a~4,2a~4,2a~4,2a~4,2a~4,2a~4,2a~4,2a~4,2a~4,2a~%"
+                0 1 2 3 4 5 6 7 8 9)
+            (format stream-to-write-to "~5,9t________________________________________________~%")
+          )
+        )
+        (format stream-to-write-to "~4a|" (- 9 (1- (length board))))
         (print-row (car board) stream-to-write-to)
         (print-board (cdr board) stream-to-write-to)
       )
@@ -24,19 +62,40 @@
   )
 )
 
+(defun shuffle (board)
+"Mistura a lista de posições"
+  (cond
+    ((car board) (let (
+          (n (nth (random (length board)) board))
+        )
+        (append (cons n nil) (shuffle (remove n board)))
+      )
+    )
+    (T '())
+  )
+)
+
+(defun list-numbers (&optional (n 100))
+"Cria uma lista de numeros de 0 até 100"
+  (cond 
+    ((= n 1) (list 0))
+    (T (append (list (1- n)) (list-numbers (1- n))))
+  )
+)
+
 (defun cell (board row column)
 "Devolve o atomo que está numa certa coluna, no numero da linha do tabuleiro"
   (nth column (nth row board))
 )
 
-(defun current-position (board &optional (value-to-find -1) (row 0) (column 0) )
-"Devolve a posição atual do cavalo, onde está no tabuleiro (T)"
+(defun find-value (board &optional (value-to-find *player-one*) (row 0) (column 0) )
+"Devolve a posição atual do cavalo, onde está no tabuleiro (T)" 
   (cond
     ((null board) nil)
     ((eq value-to-find (cell board row column)) (list row column))
     ((< 9 row) nil)
-    ((< 9 column) (current-position board  value-to-find (1+ row)))
-    (t (current-position board value-to-find row (1+ column)))
+    ((< 9 column) (find-value board  value-to-find (1+ row)))
+    (t (find-value board value-to-find row (1+ column)))
   )
 )
 
@@ -62,35 +121,25 @@
   )
 )
 
-; ------------------------------------------------- Operators
-
-(defun apply-number-rules (board val)
-"Aplica as regras de corte das casas"
-  (remove-reverse-number (remove-double-number board val) val)
-)
-
-(defun remove-double-number (board val) 
-"Remove o maior valor duplo por defeito"
+(defun remove-double-number (board val)
+"Remove o *val* do tabuleiro"
   (cond
-    ((not (numberp val)))
+    ((not (numberp val)) nil)
     ((= val (reverse-digits val))
-      (let* (
-          (double-digit-numbers (find-double-digit-numbers board))
-          (position-to-remove (car double-digit-numbers))
-        )
+      (let ((position-to-remove (find-value board val)))
         (if position-to-remove
           (place (car position-to-remove) (cadr position-to-remove) board)
-          board
+          nil
         )
       )
     )
-    (t board)
+    (t nil)
   )
 )
 
 (defun remove-reverse-number (board val)
 "Remove da tabela o numero contrario ao recebido no parametro e troca por NIL"
-  (let ((pos (current-position board (reverse-digits val))))
+  (let ((pos (find-value board (reverse-digits val))))
     (cond
       ((null pos) board)
       (t (place (car pos) (cadr pos) board))
@@ -102,9 +151,9 @@
 "Encontra números no tabuleiro com o mesmo numero"
   (cond
     ((> value 9) '())
-    ((current-position board (* value 11)) 
+    ((find-value board (* value 11)) 
       (append 
-        (list (current-position board (* value 11)))
+        (list (find-value board (* value 11)))
         (find-double-digit-numbers board (1+ value))
       )
     )
@@ -129,88 +178,157 @@
   )
 )
 
-(defun all-horse-start-positions (board &optional (column 0))
+;==================================================  OPERATORS
+
+(defun all-horse-start-positions (board player &optional (column 0))
 "Coloca o cavalo em toda a primeira linha do tabuleiro para a geração dos primeiros nós"
   (cond 
-    ((current-position board) nil)
-    (T (let ((first-row (car board)))
-      (cond
-        ((> column 9) '())
-        ((nth column first-row) 
-          (append (list (set-horse-start-position board column)) (all-horse-start-positions board (1+ column)))
+    ((not (numberp player)) nil)
+    ((find-value board player) nil)
+    ((= player *player-one*)
+      (let ((first-row (car board)))
+        (cond
+          ((> column 9) '())
+          ((nth column first-row) 
+            (append 
+              (list 
+                (create-movement-result (cell board 0 column) player (set-horse-start-position board player column))
+              ) 
+              (all-horse-start-positions board player (1+ column))
+            )
+          )
+          (t (all-horse-start-positions board player (1+ column)))
         )
-        (t (all-horse-start-positions board (1+ column)))
       )
-    ))
+    )
+    ((= player *player-two*)
+      (let ((last-row (car (last board))))
+        (cond
+          ((> column 9) '())
+          ((nth column last-row) 
+            (append 
+              (list 
+                (create-movement-result (cell board 9 column) player (set-horse-start-position board player column))
+              ) 
+              (all-horse-start-positions board player (1+ column))
+            )
+          )
+          (t (all-horse-start-positions board player (1+ column)))
+        )
+      )
+    )
+    (T nil)
   )
 )
 
-(defun set-horse-start-position (board &optional (pos 0))
+(defun set-horse-start-position (board player &optional (pos 0))
 "Coloca o cavalo numa certa posição do tabuleiro"
   (cond
-    ((current-position board) board)
-    (T (place 0 pos board T))
+    ((not (numberp player)) board)
+    ((find-value board player) board)
+    ((= player *player-one*) 
+      (remove-reverse-number (place 0 pos board player) (cell board 0 pos))
+    )
+    ((= player *player-two*)
+      (remove-reverse-number (place 9 pos board player) (cell board 9 pos)) 
+    )
+    (T board)
+  )
+)
+
+(defun move (board row column player)
+  (cond
+    ((or 
+      (not (numberp column))
+      (not (numberp row))
+      (not (numberp player))
+    ) nil)
+    (
+      (or (and (/= player *player-one*) (/= player *player-two*))
+        (< row 0) (> row 9)
+        (< column 0) (> column 9)
+      )
+      nil
+    )
+    (t 
+      (let ((possible-movements (all-possible-movements board player)))
+        (if possible-movements
+          (car (remove nil (mapcar 
+            (lambda (movement-result) 
+              (if (equal (find-value (movement-result-board movement-result) player) (list row column))
+                movement-result
+                nil
+              )
+            ) 
+          possible-movements)))
+          nil
+        )
+      )
+    )
   )
 )
 
 (defun all-possible-movements (board player)
 "Lista de todas as possiveis movimentações"
-  (remove nil (list 
-    (move-1 board player) 
-    (move-2 board player) 
-    (move-3 board player) 
-    (move-4 board player) 
-    (move-5 board player)
-    (move-6 board player) 
-    (move-7 board player) 
-    (move-8 board player) 
-  ))
+  (if (find-value board player)
+    (remove nil (list 
+      (move-1 board player) 
+      (move-2 board player) 
+      (move-3 board player) 
+      (move-4 board player) 
+      (move-5 board player)
+      (move-6 board player) 
+      (move-7 board player) 
+      (move-8 board player) 
+    ))
+    (all-horse-start-positions board player)
+  )
 )
 
 (defun move-1 (board player)
 "1st operator"
-  (move board 2 -1 player)
+  (move-ammount board 2 -1 player)
 )
 
 (defun move-2 (board player)
 "2nd operator"
-  (move board 2 1 player)
+  (move-ammount board 2 1 player)
 )
 
 (defun move-3 (board player)
 "3rd operator"
-  (move board 1 2 player)
+  (move-ammount board 1 2 player)
 )
 
 (defun move-4 (board player)
 "4th operator"
-  (move board -1 2 player)
+  (move-ammount board -1 2 player)
 )
 
 (defun move-5 (board player)
 "5th operator"
-  (move board -2 1 player)
+  (move-ammount board -2 1 player)
 )
 
 (defun move-6 (board player)
 "6th operator"
-  (move board -2 -1 player)
+  (move-ammount board -2 -1 player)
 )
 
 (defun move-7 (board player)
 "7th operator"
-  (move board -1 -2 player)
+  (move-ammount board -1 -2 player)
 )
 
 (defun move-8 (board player)
 "8th operator"
-  (move board 1 -2 player)
+  (move-ammount board 1 -2 player)
 )
 
-(defun move (board amount-row amount-column player)
-"Move o cavalo (T) no tabuleiro pela quantidade de linhas e colunas possiveis" ;todo update
+(defun move-ammount (board amount-row amount-column player)
+"Move o cavalo (T) no tabuleiro pela quantidade de linhas e colunas possiveis"
   (let 
-    ((horse-position (current-position board player)))
+    ((horse-position (find-value board player)))
     (cond
       ((null horse-position)
         nil
@@ -226,14 +344,19 @@
           ((value-at (cell board (+ amount-row (car horse-position)) (+ amount-column (cadr horse-position)) )))
           (cond 
             ((not (numberp value-at)) nil)
-            ((or (= value-at -1) (= value-at -2)))
-            (T ;todo rethink this luis, u can do better
-              (apply-number-rules (place 
-                (+ amount-row (car horse-position))
-                (+ amount-column (cadr horse-position)) 
-                (place (car horse-position) (cadr horse-position) board)
-                T
-              ) value-at)
+            ((or (= value-at *player-one*) (= value-at *player-two*)) nil)
+            (T 
+              (create-movement-result value-at player
+                (remove-reverse-number
+                  (place 
+                    (+ amount-row (car horse-position))
+                    (+ amount-column (cadr horse-position)) 
+                    (place (car horse-position) (cadr horse-position) board)
+                    player
+                  )
+                  value-at
+                )
+              )
             )
           )
         )
@@ -242,28 +365,7 @@
   )
 )
 
-; ------------------------------------------------- Generating a board
-
-(defun shuffle (board)
-"Mistura a lista de posições"
-  (cond
-    ((car board) (let (
-          (n (nth (random (length board)) board))
-        )
-        (append (cons n nil) (shuffle (remove n board)))
-      )
-    )
-    (T '())
-  )
-)
-
-(defun list-numbers (&optional (n 100))
-"Cria uma lista de numeros de 0 até 100"
-  (cond 
-    ((= n 1) (list 0))
-    (T (append (list (1- n)) (list-numbers (1- n))))
-  )
-)
+;==================================================  GENERATING BOARD
 
 (defun random-board (&optional (board (shuffle (list-numbers))) (n 10))
 "Cria um tabuleiro aleatório"
