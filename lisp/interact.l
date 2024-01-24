@@ -1,8 +1,8 @@
 (defparameter *player-one* -1)
 (defparameter *player-two* -2)
 
-(load "./lisp/jogo.l")
-(load "./lisp/algoritmo.l")
+(load "./jogo.l")
+(load "./algoritmo.l")
 
 
 ;;  processo:
@@ -50,10 +50,6 @@
 ; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡯⠀⠀⠀⠀⠀⠀⠀
 
-(defun test-node ()
-  (create-node 0 0 *player-one* (random-board))
-)
-
 ;;==========================================    INTERFACE MESSAGES FOR INTERFACE    ==========================================
 
 (defun start-message ()
@@ -82,10 +78,9 @@
       (if (or (not (numberp in)) (> in 2) (< in 0)) (start))
       (cond
         ((eq in 1) (first-player))
-        )
-        ((eq in 2) ;;PROXIMO COMPUTADOR
-        )
+        ((eq in 2) (time-play))
         ((eq in 0) (progn (format t "Obrigado!")(quit)))
+      )
     )
   )
 )
@@ -108,17 +103,17 @@
   )
 )
 
-(defun first-player ()
+(defun first-player()
   (progn
     (first-player-message)
     (let ((in (read)))
       (if (or (not (numberp in)) (> in 2) (< in 0)) (first-player-message))
       (cond
-        ((eq in 1) ;;PRIMEIRO O UTILIZADOR
-        )
-        ((eq in 2) ;;PRIMEIRO O COMPUTADOR
-        )
-        ((eq in 0) ((start)))
+        ((eq in 1) (time-play 1))
+        
+        ((eq in 2) (time-play 2))
+        
+        ((eq in 0) (start))
       )
     )
   )
@@ -140,18 +135,16 @@
   )
 )
 
-(defun time-play ()
+(defun time-play(&optional (first nil))
   (progn
     (time-play-message)
     (let ((in (read)))
-      (if (or (not (numberp in)) (> in 5000) (< in 1000) (!= in 0)) (time-play-message))
-      (cond
-        ((eq in 0) ((first-player)))
-        ;;COMEÇAR JOGO
-      )
+    (if (and (numberp in) (= 0 in)) (start)
+      (if (or (not (numberp in)) (> in 5000) (< in 1000)) (time-play first)
+        (format t "COMEÇAR JOGO COM ~d E ~d" in first)
+      ))
     )
   )
 )
 
-
-;(start)
+(start)
