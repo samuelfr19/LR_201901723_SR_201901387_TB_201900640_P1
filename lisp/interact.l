@@ -7,6 +7,8 @@
 ;;  loop: realiza jogada > print numeros duplos se for o caso para escolher qual quer remover (se for o pc escolhe o maior e nao da print)
 ;;  
 
+;;==========================================    INTERFACE MESSAGES FOR INTERFACE    ==========================================
+
 (defun start-message ()
 "Mostra as opções iniciais"
   (progn
@@ -21,5 +23,88 @@
     (format t "~%╚═════════════════════════════════════╝   ~%~%> ")
   )
 )
+
+
+
+(defun start ()
+"Funcao que inicia todo o processo do programa, apresenta as opcoes iniciais e pede ao utilizador para escolher 
+  a opcao para avancar para o proximo passo"
+  (progn
+    (start-message)
+    (let ((in (read)))
+      (if (or (not (numberp in)) (> in 2) (< in 0)) (start))
+      (cond
+        ((eq in 1) (first-player))
+        )
+        ((eq in 2) ;;PROXIMO COMPUTADOR
+        )
+        ((eq in 0) (progn (format t "Obrigado!")(quit)))
+    )
+  )
+)
+  
+
+(defun first-player-message ()
+"Mostra as opções de quem joga primeiro"
+  (progn
+    (run-program "clear")
+    (format t "~%╔═════════════════════════════════════╗")
+    (format t "~%║           Jogo do Cavalo            ║")
+    (format t "~%║                                     ║")
+    (format t "~%║         Quem joga primeiro?         ║")
+    (format t "~%║                                     ║")
+    (format t "~%║   1. Utilizador                     ║")
+    (format t "~%║   2. Computador                     ║")
+    (format t "~%║   0. Voltar                         ║")
+    (format t "~%║                                     ║")
+    (format t "~%╚═════════════════════════════════════╝   ~%~%> ")
+  )
+)
+
+(defun first-player ()
+  (progn
+    (first-player-message)
+    (let ((in (read)))
+      (if (or (not (numberp in)) (> in 2) (< in 0)) (first-player-message))
+      (cond
+        ((eq in 1) ;;PRIMEIRO O UTILIZADOR
+        )
+        ((eq in 2) ;;PRIMEIRO O COMPUTADOR
+        )
+        ((eq in 0) ((start)))
+      )
+    )
+  )
+)
+
+(defun time-play-message ()
+"Mostra as opções de quanto tempo ha por jogada"
+  (progn
+    (run-program "clear")
+    (format t "~%╔═════════════════════════════════════╗")
+    (format t "~%║           Jogo do Cavalo            ║")
+    (format t "~%║                                     ║")
+    (format t "~%║   Defina o tempo para cada jogada   ║")
+    (format t "~%║         Entre 1000 a 5000 ms        ║")
+    (format t "~%║                                     ║")
+    (format t "~%║   0. Voltar                         ║")
+    (format t "~%║                                     ║")
+    (format t "~%╚═════════════════════════════════════╝   ~%~%> ")
+  )
+)
+
+(defun time-play ()
+  (progn
+    (time-play-message)
+    (let ((in (read)))
+      (if (or (not (numberp in)) (> in 5000) (< in 1000) (!= in 0)) (time-play-message))
+      (cond
+        ((eq in 0) ((first-player)))
+        ;;COMEÇAR JOGO
+      )
+    )
+  )
+)
+
 
 ;(start)
