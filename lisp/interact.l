@@ -146,6 +146,36 @@
   )
 )
 
+
+(defun player-game (node)
+  (progn 
+    (node-print node)
+    
+  )
+)
+
+
+(defun double-n-message (n)
+"Mostra as opções de numeros a retirar"
+  (progn
+    (format t "Escolheu um número duplo, escolha outro para apagar:")
+    (format t "~%~d~%~%" n)
+  )
+)
+
+(defun double-n (node)
+  (progn
+    (node-print node)
+    (double-n-message (mapcar (lambda (x) (cell (node-board node) (car x) (cadr x))) (find-double-digit-numbers (node-board node))))
+     (let ((in (read)))
+      (if (and (= in (reverse-digits in))  (remove-double-number (node-board node) in))
+        (progn (format t "Número ~d retirado ~%~%" in) (node-print (node-change-board node (remove-double-number (node-board node) in))))
+        (progn (format t "Número ~d invalido, escolha outro~%" in) (double-n node))
+      )
+     )
+  )
+)
+
 (defun test-node1 ()
   (create-node 17 84 *player-one* 
     '(
@@ -163,27 +193,5 @@
   )
 )
 
-(defun double-n-message (n)
-"Mostra as opções de numeros a retirar"
-  (progn
-    (format t "Escolheu um número duplo, escolha outro para apagar:")
-    (format t "~%~d~%~%" n)
-  )
-)
-
-(defun double-n (node)
-  (progn
-    (node-print node)
-    (double-n-message (mapcar (lambda (x) (cell (node-board node) (car x) (cadr x))) (find-double-digit-numbers (node-board node))))
-     (let ((in (read)))
-      (if (and (= in (reverse-digits in))  (remove-double-number (node-board node) in))
-        (progn (format t "Número ~d retirado ~%~%" in) (print-board (remove-double-number (node-board node) in)))
-        (progn (format t "Número ~d invalido, escolha outro~%" in) (double-n node))
-      )
-     )
-  )
-)
-
-
 (double-n  (test-node1))
-
+;;(start)

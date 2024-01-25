@@ -41,6 +41,11 @@
   )
 )
 
+;;@LUIS OLHA AQUI PARA MUDAR 
+(defun node-change-board(node new-board)
+    (create-node (node-score-one node) (node-score-two node) (node-turn-player node) new-board (node-parent node))
+)
+
 ;======================================  SOLUTION-NODE STRUCTURE
 ; o número de nós analisados,
 ; o número de cortes efetuados (de cada tipo), 
