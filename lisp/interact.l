@@ -1,6 +1,15 @@
 (defparameter *player-one* -1)
 (defparameter *player-two* -2)
 
+(defun oposite-player (player)
+  (cond 
+    ((not (numberp player)) nil)
+    ((= *player-one* player) *player-two*)
+    ((= *player-two* player) *player-one*)
+    (t nil)
+  )
+)
+
 (load "./lisp/jogo.l")
 (load "./lisp/algoritmo.l")
 
@@ -50,9 +59,6 @@
 ; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡯⠀⠀⠀⠀⠀⠀⠀
 
-(defun test-node ()
-  (create-node 0 0 *player-one* (random-board))
-)
 
 (defun start-message ()
 "Mostra as opções iniciais"
