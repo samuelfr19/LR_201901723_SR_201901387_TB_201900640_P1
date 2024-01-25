@@ -1,8 +1,8 @@
 (defparameter *player-one* -1)
 (defparameter *player-two* -2)
 
-(load "./jogo.l")
-(load "./algoritmo.l")
+(load "./lisp/jogo.l")
+(load "./lisp/algoritmo.l")
 
 
 ;;  processo:
@@ -59,14 +59,13 @@
     (format t "~%╔═════════════════════════════════════╗")
     (format t "~%║           Jogo do Cavalo            ║")
     (format t "~%║                                     ║")
-    (format t "~%║   1. Utilizador VS Computador       ║")
+    (format t "~%║   1. Jogador VS Computador          ║")
     (format t "~%║   2. Computador VS Computador       ║")
     (format t "~%║   0. Sair                           ║")
     (format t "~%║                                     ║")
     (format t "~%╚═════════════════════════════════════╝   ~%~%> ")
   )
 )
-
 
 
 (defun start ()
@@ -95,7 +94,7 @@
     (format t "~%║                                     ║")
     (format t "~%║         Quem joga primeiro?         ║")
     (format t "~%║                                     ║")
-    (format t "~%║   1. Utilizador                     ║")
+    (format t "~%║   1. Jogador                        ║")
     (format t "~%║   2. Computador                     ║")
     (format t "~%║   0. Voltar                         ║")
     (format t "~%║                                     ║")
@@ -147,4 +146,44 @@
   )
 )
 
-(start)
+(defun test-node1 ()
+  (create-node 17 84 *player-one* 
+    '(
+      (92  42  31  96  7   -1  80  3   52  72 )
+      (97  76  30  nil 87  89  93  19  0   78 )
+      (46  88  61  79  60  57  32  50  83  47 )
+      (9   25  36  49  21  74  85  55  54  4  )
+      (68  82  34  73  13  16  22  14  27  64 )
+      (59  29  39  28  94  43  51  95  6   10 )
+      (20  33  99  81  5   69  67  2   58  37 )
+      (15  98  8   53  18  90  63  26  62  35 )
+      (nil 86  40  66  65  23  77  44  1   4 )
+      (70  75  41  91  -2  12  45  24  56  38 )
+    )
+  )
+)
+
+(defun double-n-message (n)
+"Mostra as opções de numeros a retirar"
+  (progn
+    (format t "Escolheu um número duplo, escolha outro para apagar:")
+    (format t "~%~d~%~%" n)
+  )
+)
+
+(defun double-n (node)
+  (progn
+    (node-print node)
+    (double-n-message (mapcar (lambda (x) (cell (node-board node) (car x) (cadr x))) (find-double-digit-numbers (node-board node))))
+     (let ((in (read)))
+      (if (and (= in (reverse-digits in))  (remove-double-number (node-board node) in))
+        (progn (format t "Número ~d retirado ~%~%" in) (print-board (remove-double-number (node-board node) in)))
+        (progn (format t "Número ~d invalido, escolha outro~%" in) (double-n node))
+      )
+     )
+  )
+)
+
+
+(double-n  (test-node1))
+
