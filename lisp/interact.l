@@ -19,6 +19,9 @@
 ;;  loop: realiza jogada > print numeros duplos se for o caso para escolher qual quer remover (se for o pc escolhe o maior e nao da print)
 ;______________________________________________________________________________________________________________________
 ;   Fazer a verificação se é possivel o jogador se mexer sequer antes de existir uma jogada
+;   Se for o input 2 chamar primeiro a função do algoritmo com o turn-player player-one
+;   Se for o input 1 chamar primeiro a função do player com o turn-player player-one
+;   a partir dai é gerar um loop para ele ir trocando de jogador para computador
 
 ; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀  ⢠⣾⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀           
 ; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀ ⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣥⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀          
@@ -149,6 +152,42 @@
 )
 
 
+(defun start-game (time first)
+  (if (= first 1)
+    (player-game (create-node 0 0 *player-one* (random-board)))
+  )
+  (if (= first 2)
+    (player-game (create-node 0 0 *player-two* (random-board)))
+    (format t "COMPUTADOR VS COMPUTADOR")
+  )
+  
+)
+
+
+
+;;==========================================    PLAYER MOVE    ==========================================
+
+(defun double-n-message (n)
+"Mostra as opções de numeros a retirar"
+  (progn
+    (format t "Escolheu um número duplo, escolha outro para apagar:")
+    (format t "~%~d~%~%" n)
+  )
+)
+
+(defun double-n (node)
+  (progn
+    (node-print node)
+    (double-n-message (mapcar (lambda (x) (cell (node-board node) (car x) (cadr x))) (find-double-digit-numbers (node-board node))))
+     (let ((in (read)))
+      (if (and (= in (reverse-digits in))  (remove-double-number (node-board node) in))
+        (progn (format t "Número ~d retirado ~%~%" in) (node-change-board node (remove-double-number (node-board node) in)))
+        (progn (format t "Número ~d invalido, escolha outro~%" in) (double-n node))
+      )
+     )
+  )
+)
+
 (defun read-position-input (a)
 "Ler input do utilizador quando para mudar de posição, tanto para linha como coluna"
   (format t "~a: " a)
@@ -174,30 +213,34 @@
           (c (read-position-input "Coluna")) 
         )
         (if (some (lambda (e) (equal e (list l c))) list)      
-          (player-game (next-node-player node l c))
+          (player-game (next-node-player node l c)) ;MUDAR PARA O ALGORITMO
           (progn (format t "Não é possivel mover para a posição insira outra!~%") (player-game node))
         )
       )
     )
     (progn 
-      (format t "Torno passado por não haver jogada possivel!") 
-      ;JOGADA DO ADVERSÁRIO
+      (format t "Turno passado por não haver jogada possivel!") 
+      (setf (node-turn-player node) (oposite-player (node-turn-player node)))
+      (player-game node) ;MUDAR PARA O ALGORITMO
     )
   )
 )
 )
 
+
 (defun next-node-player (node l c)
   (let ((result (move (node-board node) l c (node-turn-player node))))
     (if result
       (let* ((score-one (if (= (node-turn-player node) *player-one*) 
-                (+ (movement-result-score result) (node-score-one node))))
+                (+ (movement-result-score result) (node-score-one node))
+                (node-score-one node)))
               (score-two (if (= (node-turn-player node) *player-two*) 
-                (+ (movement-result-score result) (node-score-two node))))
-            )
+                (+ (movement-result-score result) (node-score-two node))
+                (node-score-two node)))
+              )
         (if (= (movement-result-score result) (reverse-digits (movement-result-score result)))
-          (double-n (create-node score-one score-two *player-one* (movement-result-board result) node))  
-          (create-node score-one score-two *player-one* (movement-result-board result) node)
+          (double-n (create-node score-one score-two (oposite-player (node-turn-player node)) (movement-result-board result) node))  
+          (create-node score-one score-two (oposite-player (node-turn-player node)) (movement-result-board result) node)
         )
       )
       (progn (format t "Movimento não é possivel, escolha outro!") (player-game node))
@@ -205,29 +248,5 @@
   )
 )
 
-;(concatenate 'string (write-to-string numero1) (write-to-string numero2))
 ;(player-game (test-node1))
-
-(defun double-n-message (n)
-"Mostra as opções de numeros a retirar"
-  (progn
-    (format t "Escolheu um número duplo, escolha outro para apagar:")
-    (format t "~%~d~%~%" n)
-  )
-)
-
-(defun double-n (node)
-  (progn
-    (node-print node)
-    (double-n-message (mapcar (lambda (x) (cell (node-board node) (car x) (cadr x))) (find-double-digit-numbers (node-board node))))
-     (let ((in (read)))
-      (if (and (= in (reverse-digits in))  (remove-double-number (node-board node) in))
-        (progn (format t "Número ~d retirado ~%~%" in) (node-change-board node (remove-double-number (node-board node) in)))
-        (progn (format t "Número ~d invalido, escolha outro~%" in) (double-n node))
-      )
-     )
-  )
-)
-
-
 
