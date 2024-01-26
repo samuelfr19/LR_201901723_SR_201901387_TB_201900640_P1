@@ -36,14 +36,10 @@
 ;;  start > user - pc ou pc - pc > quem joga primeiro > quanto tempo por jogada 1000 - 5000 ms
 ;;  loop: realiza jogada > print numeros duplos se for o caso para escolher qual quer remover (se for o pc escolhe o maior e nao da print)
 ;______________________________________________________________________________________________________________________
-;  IMPORTANTE @SHANUEL quando for feito um moviemnto e o valor for (= 0 (mod valor 11)) mostrar os numeros por apagar
-;  (mapcar (lambda (x) (cell board (car x) (cadr x))) (find-double-digit-numbers <board>))
-;  dar print dos numeros duplos que ainda estao na tabela (11 33 55 99)
-;  introduza um destes numeros para remover:
-;  opcao 1: nao e' um numero duplo           -     (= <valor> (reverse-digits <valor>)) -> nil
-;  opcao 2: nao esta na tabela               -     (remove-double-number <board> <valor>) -> nil
-;  opcao 3: tudo valido e numero removido    -     <board-sem-<valor>>
-
+;   Fazer a verificação se é possivel o jogador se mexer sequer antes de existir uma jogada
+;   Se for o input 2 chamar primeiro a função do algoritmo com o turn-player player-one
+;   Se for o input 1 chamar primeiro a função do player com o turn-player player-one
+;   a partir dai é gerar um loop para ele ir trocando de jogador para computador
 
 ; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀  ⢠⣾⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀           
 ; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀ ⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣥⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀          
@@ -173,6 +169,22 @@
   )
 )
 
+(defun start-game (time first)
+  (if (= first 1)
+    (player-game (create-node 0 0 *player-one* (random-board)))
+  )
+  (if (= first 2)
+    (player-game (create-node 0 0 *player-two* (random-board)))
+    (format t "COMPUTADOR VS COMPUTADOR")
+  )
+  
+)
+
+
+
+;;==========================================    PLAYER MOVE    ==========================================
+
+
 (defun double-n-message (n)
 "Mostra as opções de numeros a retirar"
   (progn
@@ -187,13 +199,72 @@
     (double-n-message (mapcar (lambda (x) (cell (node-board node) (car x) (cadr x))) (find-double-digit-numbers (node-board node))))
      (let ((in (read)))
       (if (and (= in (reverse-digits in))  (remove-double-number (node-board node) in))
-        (progn (format t "Número ~d retirado ~%~%" in) (print-board (remove-double-number (node-board node) in)))
+        (progn (format t "Número ~d retirado ~%~%" in) (node-change-board node (remove-double-number (node-board node) in)))
         (progn (format t "Número ~d invalido, escolha outro~%" in) (double-n node))
       )
      )
   )
 )
 
+(defun read-position-input (a)
+"Ler input do utilizador quando para mudar de posição, tanto para linha como coluna"
+  (format t "~a: " a)
+  (let ((in (read)))
+    (if (and (numberp in) (<= 0 in 9))
+      in
+      (progn
+        (format t "Entrada inválida. Tente novamente.~%")
+        (read-position-input a)
+      )
+    )
+  )
+)
 
-; (double-n  (test-node1))
+(defun player-game (node)
+  (let ((list (list-possible-movements (node-board node) (node-turn-player node))))
+  (if list
+    (progn
+      (node-print-singular node)
+      (format t "Escolha a proxima posição do cavalo~%")
+      (let* ( 
+          (l (read-position-input "Linha")) 
+          (c (read-position-input "Coluna")) 
+        )
+        (if (some (lambda (e) (equal e (list l c))) list)      
+          (player-game (next-node-player node l c)) ;MUDAR PARA O ALGORITMO
+          (progn (format t "Não é possivel mover para a posição insira outra!~%") (player-game node))
+        )
+      )
+    )
+    (progn 
+      (format t "Turno passado por não haver jogada possivel!") 
+      (setf (node-turn-player node) (oposite-player (node-turn-player node)))
+      (player-game node) ;MUDAR PARA O ALGORITMO
+    )
+  )
+)
+)
+
+
+(defun next-node-player (node l c)
+  (let ((result (move (node-board node) l c (node-turn-player node))))
+    (if result
+      (let* ((score-one (if (= (node-turn-player node) *player-one*) 
+                (+ (movement-result-score result) (node-score-one node))
+                (node-score-one node)))
+              (score-two (if (= (node-turn-player node) *player-two*) 
+                (+ (movement-result-score result) (node-score-two node))
+                (node-score-two node)))
+              )
+        (if (= (movement-result-score result) (reverse-digits (movement-result-score result)))
+          (double-n (create-node score-one score-two (oposite-player (node-turn-player node)) (movement-result-board result) node))  
+          (create-node score-one score-two (oposite-player (node-turn-player node)) (movement-result-board result) node)
+        )
+      )
+      (progn (format t "Movimento não é possivel, escolha outro!") (player-game node))
+     )
+  )
+)
+
+;(player-game (test-node1))
 

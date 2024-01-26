@@ -6,12 +6,12 @@
   (create-node 17 84 *player-one* 
     '(
       (92  42  31  96  7   -1  80  3   52  72 )
-      (97  76  30  nil 87  89  93  19  0   78 )
+      (97  76  30  nil 87  89  93  99  0   78 )
       (46  88  61  79  60  57  32  50  83  47 )
       (9   25  36  49  21  74  85  55  54  4  )
       (68  82  34  73  13  16  22  14  27  64 )
       (59  29  39  28  94  43  51  95  6   10 )
-      (20  33  99  81  5   69  67  2   58  37 )
+      (20  33  19  81  5   69  67  2   58  37 )
       (15  98  8   53  18  90  63  26  62  35 )
       (nil 86  40  66  65  23  77  44  1   11 )
       (70  75  41  91  -2  12  45  24  56  38 )
@@ -46,6 +46,11 @@
   )
 )
 
+
+(defun node-change-board(node new-board)
+    (create-node (node-score-one node) (node-score-two node) (node-turn-player node) new-board (node-parent node))
+)
+
 (defun node-print (node &optional (stream-to-write-to t))
   (if (node-parent node) (node-print (node-parent node) stream-to-write-to))
   (format stream-to-write-to "~%SCORE: ~5a | ~5a|TURN: ~5a~%~%" (node-score-one node) (node-score-two node) (node-turn-player node))
@@ -62,6 +67,7 @@
 ; o número de nós analisados,
 ; o número de cortes efetuados (de cada tipo), 
 ; o tempo gasto em cada jogada e o tabuleiro atual
+
 (defstruct solution-node
   optimal-move 
   evaluation 
