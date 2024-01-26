@@ -14,15 +14,16 @@
 (load "./lisp/algoritmo.l")
 
 (defun initial-status ()
+"Funcao para determinar o estado inicial do primeiro nó com o board gerado e os cavalos colocados nas melhores posições"
   (let* (
-      (initial-board (random-board))
-      (movement-result-player-one (set-horse initial-board *player-one*))
+      (movement-result-player-one (set-horse (random-board) *player-one*))
       (score-player-one (movement-result-score movement-result-player-one))
       (board-after-player-one (movement-result-board movement-result-player-one))
       (movement-result-player-two (set-horse board-after-player-one *player-two*))
       (final-board (movement-result-board movement-result-player-two))
       (score-player-two (movement-result-score movement-result-player-two))
     )
+    
     (create-node
       score-player-one
       score-player-two
@@ -32,47 +33,6 @@
     )
   )
 )
-;;  processo:
-;;  start > user - pc ou pc - pc > quem joga primeiro > quanto tempo por jogada 1000 - 5000 ms
-;;  loop: realiza jogada > print numeros duplos se for o caso para escolher qual quer remover (se for o pc escolhe o maior e nao da print)
-;______________________________________________________________________________________________________________________
-;   Fazer a verificação se é possivel o jogador se mexer sequer antes de existir uma jogada
-;   Se for o input 2 chamar primeiro a função do algoritmo com o turn-player player-one
-;   Se for o input 1 chamar primeiro a função do player com o turn-player player-one
-;   a partir dai é gerar um loop para ele ir trocando de jogador para computador
-
-;
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀  ⢠⣾⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀           
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀ ⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣥⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀          
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀          
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀         
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀        
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀       
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀      
-; ⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣤⠀⠀⠀⠀⠀⠀⠀⠀      
-; ⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡄⠀⠀⠀⠀⠀⠀      
-; ⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠀⠀⠀     
-; ⠀⠀⠀⢠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄⠀⠀⠀    
-; ⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠄⠀   
-; ⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦   
-; ⠻⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛   
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀       
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡯⠀⠀⠀⠀⠀⠀⠀
 
 ;;==========================================    INTERFACE MESSAGES FOR INTERFACE    ==========================================
 
@@ -127,6 +87,7 @@
 )
 
 (defun first-player()
+"Funcao para determinar qual o primeiro a fazer a jogada, entre o jogador e o computador"
   (progn
     (first-player-message)
     (let ((in (read)))
@@ -159,6 +120,7 @@
 )
 
 (defun time-play(&optional (first nil))
+"Funcao para escolher quanto tempo o computador deve ter para fazer a sua jogada"
   (progn
     (time-play-message)
     (let ((in (read)))
@@ -170,7 +132,19 @@
   )
 )
 
+(defun final-results (node)
+"Funcao para escrever no final do jogo qual o vencedor e quais os seus pontos"
+  (if (> (node-score-one node)(node-score-two node))
+      (format t "O jogador 1 ganhou o jogo com ~d pontos.~%Enquanto que o jogador 2 ficou com ~d pontos." (node-score-one node) (node-score-two node))
+      (format t "O jogador 2 ganhou o jogo com ~d pontos.~%Enquanto que o jogador 1 perdeu com ~d pontos." (node-score-two node) (node-score-one node))
+  )
+)
+
+
+;;;;==========================================    GAME STARTER    ==========================================
+
 (defun start-game (time first)
+"Funcao para começar e criar o loop de jogo caso seja jogador vs computador ou so mesmo computador"
   (let ((current-node (initial-status))
        (user (when first (if (= first 1) *player-one* *player-two*))))
     (loop
@@ -180,14 +154,14 @@
             (node-to-first-move-node (solution-node-optimal-move (minimax current-node time 'all-possible-movements)))
           )
           ((= (node-turn-player current-node) user) 
-            (player-game current-node time)
+            (player-move current-node time)
           )
           (t 
             (node-to-first-move-node (solution-node-optimal-move (minimax current-node time 'all-possible-movements)))
           )
         )
       )
-      (when (no-possible-movements (node-board current-node)) (return current-node))
+      (when (no-possible-movements (node-board current-node)) (progn (return current-node) (final-results current-node)))
     )
   )
 )
@@ -205,8 +179,9 @@
 )
 
 (defun double-n (node)
+"Quando ha a existencia de um numero duplo é chamada esta funcao para pedir ao utilizador outro numero duplo para retirar do tabuleiro"
   (progn
-    (node-print node)
+    (node-print-individual node)
     (double-n-message (mapcar (lambda (x) (cell (node-board node) (car x) (cadr x))) (find-double-digit-numbers (node-board node))))
      (let ((in (read)))
       (if (and (= in (reverse-digits in))  (remove-double-number (node-board node) in))
@@ -231,26 +206,27 @@
   )
 )
 
-(defun player-game (node time)
+(defun player-move (node time)
+"Input e movimentação do jogador"
   (let ((list (list-possible-movements (node-board node) (node-turn-player node))))
   (if list
     (progn
-      (node-print-singular node)
+      (node-print-individual node)
       (format t "Escolha a proxima posição do cavalo~%")
       (let* ( 
           (l (read-position-input "Linha")) 
           (c (read-position-input "Coluna")) 
         )
         (if (some (lambda (e) (equal e (list l c))) list)      
-          (next-node-player node l c) ;MUDAR PARA O ALGORITMO
-          (progn (format t "Não é possivel mover para a posição insira outra!~%") (player-game node))
+          (next-node-player node l c) 
+          (progn (format t "Não é possivel mover para a posição insira outra!~%") (player-move node))
         )
       )
     )
     (progn 
       (format t "Turno passado por não haver jogada possivel!") 
       (setf (node-turn-player node) (oposite-player (node-turn-player node)))
-      node ;MUDAR PARA O ALGORITMO
+      node 
     )
   )
 )
@@ -258,6 +234,7 @@
 
 
 (defun next-node-player (node l c)
+"Movimentação e gestao do tipo de movimento"
   (let ((result (move (node-board node) l c (node-turn-player node))))
     (if result
       (let* ((score-one (if (= (node-turn-player node) *player-one*) 
@@ -272,10 +249,32 @@
           (create-node score-one score-two (oposite-player (node-turn-player node)) (movement-result-board result) node)
         )
       )
-      (progn (format t "Movimento não é possivel, escolha outro!") (player-game node))
+      (progn (format t "Movimento não é possivel, escolha outro!") (player-move node))
      )
   )
 )
 
-;(player-game (test-node1))
+;;==========================================    PRINT STATS    ==========================================
 
+(defun solution-node-print  (solution-node type)
+"Dá print das estatisticas de cada jogada tanto para o file como para o terminal"
+  (format type "~%evaluation: ~5a |alpha: ~5a |beta: ~5a | time-elapsed: ~5a~%~%"
+    (solution-node-evaluation solution-node)
+    (solution-node-alpha-cuts solution-node)
+    (solution-node-beta-cuts  solution-node)
+    (solution-node-time-elapsed solution-node)
+  )
+  (node-print-individual (solution-node-optimal-move solution-node) type)
+)
+
+(defun print-move (solution-node)
+"Funcao de gestao de print das estatisticas"
+(progn
+    (with-open-file (stream "./log.dat" :direction :output :if-exists :append :if-does-not-exist :create)
+      (solution-node-print solution-node stream)
+      (close stream)
+    )
+    (solution-node-print solution-node t)
+  )
+
+)

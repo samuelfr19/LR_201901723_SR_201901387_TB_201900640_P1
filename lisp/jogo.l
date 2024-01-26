@@ -189,8 +189,8 @@
 )
 
 (defun no-possible-movements (board)
-  (and (null (list-possible-movements *player-one*)) 
-       (null (list-possible-movements *player-two*)))
+  (and (null (list-possible-movements board *player-one*)) 
+       (null (list-possible-movements board *player-two*)))
 )
 
 (defun possible-movement (board amount-row amount-column player)

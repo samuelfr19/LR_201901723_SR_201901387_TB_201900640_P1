@@ -94,15 +94,6 @@
   )
 )
 
-(defun solution-node-print  (solution-node &optional (stream-to-write-to))
-  (format stream-to-write-to "~%evaluation: ~5a |alpha: ~5a |beta: ~5a | time-elapsed: ~5a~%~%"
-    (solution-node-evaluation solution-node)
-    (solution-node-alpha-cuts solution-node)
-    (solution-node-beta-cuts  solution-node)
-    (solution-node-time-elapsed solution-node)
-  )
-  (node-print-individual (solution-node-optimal-move solution-node) stream-to-write-to)
-)
 
 ;======================================  ALGORITHM
 (defun apply-expanding-function (expanding-function node)
