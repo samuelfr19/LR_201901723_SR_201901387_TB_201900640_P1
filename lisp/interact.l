@@ -23,6 +23,7 @@
 ;   Se for o input 1 chamar primeiro a função do player com o turn-player player-one
 ;   a partir dai é gerar um loop para ele ir trocando de jogador para computador
 
+;
 ; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀  ⢠⣾⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀           
 ; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀ ⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣥⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀          
 ; ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀          
@@ -145,7 +146,7 @@
     (let ((in (read)))
     (if (and (numberp in) (= 0 in)) (start)
       (if (or (not (numberp in)) (> in 5000) (< in 1000)) (time-play first)
-        (format t "COMEÇAR JOGO COM ~d E ~d" in first)
+        (start-game in first)
       ))
     )
   )
@@ -153,16 +154,26 @@
 
 
 (defun start-game (time first)
-  (if (= first 1)
-    (player-game (create-node 0 0 *player-one* (random-board)))
+  (let ((current-node (initial-status))
+       (user (when first (if (= first 1) *player-one* *player-two*))))
+    (loop
+      (setf current-node
+        (cond
+          ((null user)
+            (node-to-first-move-node (solution-node-optimal-move (minimax current-node time 'all-possible-movements)))
+          )
+          ((= (node-turn-player current-node) user) 
+            (player-game current-node time)
+          )
+          (t 
+            (node-to-first-move-node (solution-node-optimal-move (minimax current-node time 'all-possible-movements)))
+          )
+        )
+      )
+      (when (no-possible-movements (node-board current-node)) (return current-node))
+    )
   )
-  (if (= first 2)
-    (player-game (create-node 0 0 *player-two* (random-board)))
-    (format t "COMPUTADOR VS COMPUTADOR")
-  )
-  
 )
-
 
 
 ;;==========================================    PLAYER MOVE    ==========================================
@@ -202,7 +213,7 @@
   )
 )
 
-(defun player-game (node)
+(defun player-game (node time)
   (let ((list (list-possible-movements (node-board node) (node-turn-player node))))
   (if list
     (progn
@@ -213,7 +224,7 @@
           (c (read-position-input "Coluna")) 
         )
         (if (some (lambda (e) (equal e (list l c))) list)      
-          (player-game (next-node-player node l c)) ;MUDAR PARA O ALGORITMO
+          (next-node-player node l c) ;MUDAR PARA O ALGORITMO
           (progn (format t "Não é possivel mover para a posição insira outra!~%") (player-game node))
         )
       )
@@ -221,7 +232,7 @@
     (progn 
       (format t "Turno passado por não haver jogada possivel!") 
       (setf (node-turn-player node) (oposite-player (node-turn-player node)))
-      (player-game node) ;MUDAR PARA O ALGORITMO
+      node ;MUDAR PARA O ALGORITMO
     )
   )
 )
