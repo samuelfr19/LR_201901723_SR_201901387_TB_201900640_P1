@@ -38,15 +38,6 @@
   )
 )
 
-(defun node-next-turn (node)
-  (cond
-    ((not (numberp (node-turn-player node))) nil)
-    ((= *player-one* (node-turn-player node)) *player-two*)
-    ((= *player-two* (node-turn-player node)) *player-one*)
-    (t nil)
-  )
-)
-
 (defun node-to-first-move-node (node)
   (cond 
     ((null (node-parent node)) nil)
@@ -60,6 +51,12 @@
   (format stream-to-write-to "~%SCORE: ~5a | ~5a|TURN: ~5a~%~%" (node-score-one node) (node-score-two node) (node-turn-player node))
   (print-board (node-board node) stream-to-write-to)
 )
+
+(defun node-print-individual (node &optional (stream-to-write-to t))
+  (format stream-to-write-to "~%SCORE: ~5a | ~5a|TURN: ~5a~%~%" (node-score-one node) (node-score-two node) (node-turn-player node))
+  (print-board (node-board node) stream-to-write-to)
+)
+
 
 ;======================================  SOLUTION-NODE STRUCTURE
 ; o número de nós analisados,
@@ -82,78 +79,123 @@
     :time-elapsed time-elapsed)
 )
 
-(defun solution-node-to-move (solution-node) ;;alterar
-  (let* ((node (node-to-first-move-node (solution-node-optimal-move solution-node)))
-         (player (node-next-turn node)))
-    (find-value (node-board node) player)))
+(defun solution-node-to-move (solution-node)
+  (let* (
+      (node (node-to-first-move-node (solution-node-optimal-move solution-node)))
+      (player (oposite-player (node-player node)))
+    )
+    (find-value (node-board node) player)
+  )
+)
 
+(defun solution-node-print  (solution-node &optional (stream-to-write-to))
+  (format stream-to-write-to "~%evaluation: ~5a |alpha: ~5a |beta: ~5a | time-elapsed: ~5a~%~%"
+    (solution-node-evaluation solution-node)
+    (solution-node-alpha-cuts solution-node)
+    (solution-node-beta-cuts  solution-node)
+    (solution-node-time-elapsed solution-node)
+  )
+  (node-print-individual (solution-node-optimal-move solution-node) stream-to-write-to)
+)
 
 ;======================================  ALGORITHM
 (defun apply-expanding-function (expanding-function node)
-  (let* ((player (node-turn-player node))
-         (children (funcall expanding-function (node-board node) player)))
-    (if children
-        (let* ((new-nodes (remove nil 
-          (mapcar (lambda (movement-result)
-                    (let* ((current-board (movement-result-board movement-result))
-                            (val (car (last (find-double-digit-numbers current-board))))
-                            (new-board (if val 
-                                          (remove-double-number current-board 
-                                                                (cell current-board (car val) (cadr val)))
-                                          current-board)))
-                      (if new-board
-                          (let* ((score-one (if (= player *player-one*) (movement-result-score movement-result) 0))
-                                  (score-two (if (= player *player-two*) (movement-result-score movement-result) 0)))
-                            (create-node (+ (node-score-one node) score-one)
-                                          (+ (node-score-two node) score-two)
-                                          (node-next-turn node)
-                                          new-board
-                                          node))
-                          nil)))
-          children)))
-          new-nodes)
-        nil))))
-
+  (let* (
+      (player (node-turn-player node))
+      (children (funcall expanding-function (node-board node) player))
+    )
+    (when children
+      (remove nil 
+        (mapcar (lambda (movement-result)
+          (let* (
+              (current-board (movement-result-board movement-result))
+              (val (car (last (find-double-digit-numbers current-board))))
+              (new-board 
+                (if val 
+                  (remove-double-number current-board (cell current-board (car val) (cadr val)))
+                  current-board
+                )
+              )
+            )
+            (when new-board
+              (let* (
+                  (score-one (if (= player *player-one*) (movement-result-score movement-result) 0))
+                  (score-two (if (= player *player-two*) (movement-result-score movement-result) 0))
+                )
+                (create-node 
+                  (+ (node-score-one node) score-one)
+                  (+ (node-score-two node) score-two)
+                  (oposite-player player)
+                  new-board
+                  node
+                )
+              )
+            )
+          )
+        )children)
+      )
+    )
+  )
+)
 
 (defun evaluate-node (node cpu-player)
-  (when (or (= cpu-player *player-one*) (= cpu-player *player-two*))
-    (- (if (= cpu-player *player-one*) 
-           (node-score-one node) 
-           (node-score-two node))
-       (if (= cpu-player *player-one*) 
-           (node-score-two node) 
-           (node-score-one node)))
-    most-negative-fixnum))
+  (if (= cpu-player *player-one*) 
+    (+ (node-score-one node) (node-score-two node))
+    (+ (node-score-two node) (node-score-one node))
+  )
+)
 
-
-(defun minimax (node max-depth max-time expanding-function)
-  (let* ((children (apply-expanding-function expanding-function node))
-         (maximizing-player (node-next-turn node)))
+(defun minimax (node max-depth max-time expanding-function &optional (maximizing-player (node-turn-player node)))
+  (let ((children (apply-expanding-function expanding-function node)))
     (cond
-      ((or (= max-depth 0) (null children)) 
-       (create-solution-node node
-                             (evaluate-node node maximizing-player)
-                             0 ; alpha cuts
-                             0 ; beta cuts
-                             0 ; time elapsed
-                             ))
+      ((or (= max-depth 0) (null children)) (create-solution-node node (evaluate-node node maximizing-player) 0 0 0))
       ((= (node-turn-player node) maximizing-player)
-       (let ((best-value (create-solution-node nil most-negative-fixnum 0 0 0)))
-         (mapcar (lambda (child)
-                   (let ((minimax-node (minimax child maximizing-player (1- max-depth) max-time expanding-function)))
-                     (setf best-value 
-                           (if (> (solution-node-evaluation best-value) (solution-node-evaluation minimax-node)) 
-                               best-value
-                               minimax-node))))
-                 children)
-         best-value))
-      (t
-       (let ((best-value (create-solution-node nil most-positive-fixnum 0 0 0)))
-         (mapcar (lambda (child)
-                   (let ((minimax-node (minimax child maximizing-player (1- max-depth) max-time expanding-function)))
-                     (setf best-value 
-                           (if (< (solution-node-evaluation best-value) (solution-node-evaluation minimax-node)) 
-                               best-value
-                               minimax-node))))
-                 children)
-         best-value)))))
+        (reduce 
+          (lambda (best-value child)
+            (let ((minimax-node (minimax child (1- max-depth) max-time expanding-function maximizing-player)))
+              (if (> (solution-node-evaluation best-value) (solution-node-evaluation minimax-node))
+                best-value
+                minimax-node
+              )
+            )
+          ) children :initial-value (create-solution-node nil most-negative-fixnum 0 0 0)
+        )
+      )
+      (t (reduce 
+        (lambda (best-value child)
+          (let ((minimax-node (minimax child (1- max-depth) max-time expanding-function maximizing-player)))
+            (if (< (solution-node-evaluation best-value) (solution-node-evaluation minimax-node))
+              best-value
+              minimax-node
+            )
+          )
+        ) children :initial-value (create-solution-node nil most-positive-fixnum 0 0 0)
+      ))
+    )
+  )
+)
+
+(defun minimax-breadth-first (node max-time expanding-function &optional (maximizing-player (node-turn-player node)))
+  (let* ((start-time (get-universal-time))
+         (queue (list node)))
+    (labels ((minimax-bfs-helper (current-queue)
+               (when current-queue
+                 (let* ((current-node (pop current-queue))
+                        (children (apply-expanding-function expanding-function current-node)))
+                   (cond
+                     ((or (null children) (time-limit-exceeded-p start-time max-time))
+                      (create-solution-node current-node (evaluate-node current-node maximizing-player) 0 0 0))
+                     ((= (node-turn-player current-node) maximizing-player)
+                      (mapc #'(lambda (child)
+                                (push child queue))
+                            children))
+                     (t
+                      (mapc #'(lambda (child)
+                                (push child queue))
+                            children))
+                     (minimax-bfs-helper current-queue)))))
+      (minimax-bfs-helper queue))))
+)
+
+(defun time-limit-exceeded-p (start-time max-time)
+  (> (- (get-universal-time) start-time) (/ max-time 1000.0)))

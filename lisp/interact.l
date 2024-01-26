@@ -13,7 +13,25 @@
 (load "./lisp/jogo.l")
 (load "./lisp/algoritmo.l")
 
-
+(defun initial-status ()
+  (let* (
+      (initial-board (random-board))
+      (movement-result-player-one (set-horse initial-board *player-one*))
+      (score-player-one (movement-result-score movement-result-player-one))
+      (board-after-player-one (movement-result-board movement-result-player-one))
+      (movement-result-player-two (set-horse board-after-player-one *player-two*))
+      (final-board (movement-result-board movement-result-player-two))
+      (score-player-two (movement-result-score movement-result-player-two))
+    )
+    (create-node
+      score-player-one
+      score-player-two
+      *player-one*
+      final-board
+      nil
+    )
+  )
+)
 ;;  processo:
 ;;  start > user - pc ou pc - pc > quem joga primeiro > quanto tempo por jogada 1000 - 5000 ms
 ;;  loop: realiza jogada > print numeros duplos se for o caso para escolher qual quer remover (se for o pc escolhe o maior e nao da print)
@@ -155,23 +173,6 @@
   )
 )
 
-(defun test-node1 ()
-  (create-node 17 84 *player-one* 
-    '(
-      (92  42  31  96  7   -1  80  3   52  72 )
-      (97  76  30  nil 87  89  93  19  0   78 )
-      (46  88  61  79  60  57  32  50  83  47 )
-      (9   25  36  49  21  74  85  55  54  4  )
-      (68  82  34  73  13  16  22  14  27  64 )
-      (59  29  39  28  94  43  51  95  6   10 )
-      (20  33  99  81  5   69  67  2   58  37 )
-      (15  98  8   53  18  90  63  26  62  35 )
-      (nil 86  40  66  65  23  77  44  1   4 )
-      (70  75  41  91  -2  12  45  24  56  38 )
-    )
-  )
-)
-
 (defun double-n-message (n)
 "Mostra as opções de numeros a retirar"
   (progn
@@ -194,5 +195,5 @@
 )
 
 
-(double-n  (test-node1))
+; (double-n  (test-node1))
 

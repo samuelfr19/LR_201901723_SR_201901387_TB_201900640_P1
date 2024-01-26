@@ -204,6 +204,27 @@
   )
 )
 
+(defun set-horse (board player)
+  (let* (
+      (horse-start-positions (all-horse-start-positions board player))
+      (initial-value (create-movement-result most-negative-fixnum player nil))
+      (movement-result 
+        (reduce 
+          (lambda (current-max possible-max)
+            (if (> (movement-result-score current-max) (movement-result-score possible-max) )
+              current-max
+              possible-max
+            )
+          )
+          horse-start-positions
+          :initial-value initial-value
+        )
+      )
+    )
+    movement-result
+  )
+)
+
 (defun all-horse-start-positions (board player &optional (column 0))
 "Coloca o cavalo em toda a primeira linha do tabuleiro para a geração dos primeiros nós"
   (cond 
