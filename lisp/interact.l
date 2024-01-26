@@ -13,7 +13,25 @@
 (load "./lisp/jogo.l")
 (load "./lisp/algoritmo.l")
 
-
+(defun initial-status ()
+  (let* (
+      (initial-board (random-board))
+      (movement-result-player-one (set-horse initial-board *player-one*))
+      (score-player-one (movement-result-score movement-result-player-one))
+      (board-after-player-one (movement-result-board movement-result-player-one))
+      (movement-result-player-two (set-horse board-after-player-one *player-two*))
+      (final-board (movement-result-board movement-result-player-two))
+      (score-player-two (movement-result-score movement-result-player-two))
+    )
+    (create-node
+      score-player-one
+      score-player-two
+      *player-one*
+      final-board
+      nil
+    )
+  )
+)
 ;;  processo:
 ;;  start > user - pc ou pc - pc > quem joga primeiro > quanto tempo por jogada 1000 - 5000 ms
 ;;  loop: realiza jogada > print numeros duplos se for o caso para escolher qual quer remover (se for o pc escolhe o maior e nao da print)
@@ -152,7 +170,6 @@
   )
 )
 
-
 (defun start-game (time first)
   (let ((current-node (initial-status))
        (user (when first (if (= first 1) *player-one* *player-two*))))
@@ -177,6 +194,7 @@
 
 
 ;;==========================================    PLAYER MOVE    ==========================================
+
 
 (defun double-n-message (n)
 "Mostra as opções de numeros a retirar"
