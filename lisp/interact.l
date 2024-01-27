@@ -135,8 +135,20 @@
 (defun final-results (node)
 "Funcao para escrever no final do jogo qual o vencedor e quais os seus pontos"
   (if (> (node-score-one node)(node-score-two node))
-      (format t "O jogador 1 ganhou o jogo com ~d pontos.~%Enquanto que o jogador 2 ficou com ~d pontos." (node-score-one node) (node-score-two node))
-      (format t "O jogador 2 ganhou o jogo com ~d pontos.~%Enquanto que o jogador 1 perdeu com ~d pontos." (node-score-two node) (node-score-one node))
+      (format t "O jogador 1 ganhou o jogo com ~d pontos.~%Enquanto que o jogador 2 ficou com ~d pontos.~%" (node-score-one node) (node-score-two node))
+      (format t "O jogador 2 ganhou o jogo com ~d pontos.~%Enquanto que o jogador 1 perdeu com ~d pontos.~%" (node-score-two node) (node-score-one node))
+  )
+  (restart-game)
+)
+
+(defun restart-game()
+"Funcao para recomeçar jogo"
+ (format t "Introduza 0 para começar um novo jogo~%")
+  (let ((in (read)))
+    (if (= in 0)
+      (start)
+      (restart-game)
+    )
   )
 )
 
@@ -145,7 +157,7 @@
 
 (defun start-game (time first)
 "Funcao para começar e criar o loop de jogo caso seja jogador vs computador ou so mesmo computador"
-  (let ((current-node (initial-status))
+  (let ((current-node (test-node1))
        (user (when first (if (= first 1) *player-one* *player-two*))))
     (loop
       (setf current-node
@@ -157,11 +169,12 @@
             (player-move current-node time)
           )
           (t 
-            (node-to-first-move-node (solution-node-optimal-move (minimax current-node time 'all-possible-movements)))
+            ;;(node-to-first-move-node (solution-node-optimal-move (minimax current-node time 'all-possible-movements)))
+            (player-move current-node time)
           )
         )
       )
-      (when (no-possible-movements (node-board current-node)) (progn (return current-node) (final-results current-node)))
+      (when (no-possible-movements (node-board current-node)) (progn (node-print-individual current-node) (final-results current-node)))
     )
   )
 )
@@ -218,8 +231,8 @@
           (c (read-position-input "Coluna")) 
         )
         (if (some (lambda (e) (equal e (list l c))) list)      
-          (next-node-player node l c) 
-          (progn (format t "Não é possivel mover para a posição insira outra!~%") (player-move node))
+          (next-node-player node l c time) 
+          (progn (format t "Movimento não é possivel, escolha outro!~%") (player-move node time))
         )
       )
     )
@@ -232,8 +245,7 @@
 )
 )
 
-
-(defun next-node-player (node l c)
+(defun next-node-player (node l c time)
 "Movimentação e gestao do tipo de movimento"
   (let ((result (move (node-board node) l c (node-turn-player node))))
     (if result
@@ -244,12 +256,12 @@
                 (+ (movement-result-score result) (node-score-two node))
                 (node-score-two node)))
               )
-        (if (= (movement-result-score result) (reverse-digits (movement-result-score result)))
+        (if (and (/= 0 (movement-result-score result))(= (movement-result-score result) (reverse-digits (movement-result-score result))))
           (double-n (create-node score-one score-two (oposite-player (node-turn-player node)) (movement-result-board result) node))  
           (create-node score-one score-two (oposite-player (node-turn-player node)) (movement-result-board result) node)
         )
       )
-      (progn (format t "Movimento não é possivel, escolha outro!") (player-move node))
+      (progn (format t "Movimento não é possivel, escolha outro!") (player-move node time))
      )
   )
 )
