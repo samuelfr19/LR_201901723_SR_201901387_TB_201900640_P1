@@ -3,7 +3,7 @@
 )
 
 (defun test-node1 ()
-  (create-node 17 84 *player-one* 
+  (create-node 17 84 *player-one*
     '(
       (92  42  31  96  7   -1  80  3   52  72 )
       (97  76  30  nil 87  89  93  0   99  78 )
@@ -24,31 +24,26 @@
   score-one
   score-two 
   turn-player
-  board 
+  depth
+  board  
+  evaluation 
   parent
 )
 
-(defun create-node (score-one score-two turn-player board &optional (parent nil))
+(defun create-node (score-one score-two turn-player board &optional (depth 0) (evaluation most-negative-fixnum) (parent nil))
   (make-node
     :score-one score-one
     :score-two score-two
     :turn-player turn-player
+    :depth depth
+    :evaluation evaluation
     :board board 
     :parent parent
   )
 )
 
-(defun node-to-first-move-node (node)
-  (cond 
-    ((null (node-parent node)) nil)
-    ((null (node-parent (node-parent node))) node)
-    (t (node-to-first-move-node (node-parent node)))
-  )
-)
-
-
-(defun node-change-board(node new-board)
-    (create-node (node-score-one node) (node-score-two node) (node-turn-player node) new-board (node-parent node))
+(defun node-change-board (node new-board)
+  (setf (node-board node) new-board)
 )
 
 (defun node-print (node &optional (stream-to-write-to t))
@@ -70,19 +65,19 @@
 
 (defstruct solution-node
   optimal-move 
-  evaluation 
-  alpha-cuts 
+  alfa-cuts 
   beta-cuts 
   time-elapsed
+  analized-nodes
 )
 
-(defun create-solution-node (optimal-move evaluation alpha-cuts beta-cuts time-elapsed)
+(defun create-solution-node (optimal-move alfa-cuts beta-cuts time-elapsed &optional (analized-nodes 0))
   (make-solution-node 
     :optimal-move optimal-move 
-    :evaluation evaluation 
-    :alpha-cuts alpha-cuts 
+    :alfa-cuts alfa-cuts 
     :beta-cuts beta-cuts 
-    :time-elapsed time-elapsed)
+    :time-elapsed time-elapsed
+    :analized-nodes analized-nodes)
 )
 
 (defun solution-node-to-move (solution-node)
@@ -94,11 +89,20 @@
   )
 )
 
+(defun solution-node-print  (solution-node type)
+"Dá print das estatisticas de cada jogada tanto para o file como para o terminal"
+  (format type "~%evaluation: ~5a |alpha: ~5a |beta: ~5a | time-elapsed: ~5a~%~%"
+    (solution-node-evaluation solution-node)
+    (solution-node-alpha-cuts solution-node)
+    (solution-node-beta-cuts  solution-node)
+    (solution-node-time-elapsed solution-node)
+  )
+  (node-print-individual (solution-node-optimal-move solution-node) type)
+)
 
 ;======================================  ALGORITHM
-(defun apply-expanding-function (expanding-function node)
+(defun apply-expanding-function (expanding-function node player)
   (let* (
-      (player (node-turn-player node))
       (children (funcall expanding-function (node-board node) player))
     )
     (when children
@@ -116,16 +120,19 @@
             )
             (when new-board
               (let* (
-                  (score-one (if (= player *player-one*) (movement-result-score movement-result) 0))
-                  (score-two (if (= player *player-two*) (movement-result-score movement-result) 0))
+                  (score-one (if (= (node-turn-player node) *player-one*) (movement-result-score movement-result) 0))
+                  (score-two (if (= (node-turn-player node) *player-two*) (movement-result-score movement-result) 0))
+                  (current-node (create-node 
+                    (+ (node-score-one node) score-one)
+                    (+ (node-score-two node) score-two)
+                    (oposite-player (node-turn-player node))
+                    new-board
+                    (1+ (node-depth node))
+                    most-negative-fixnum
+                    node
+                  ))
                 )
-                (create-node 
-                  (+ (node-score-one node) score-one)
-                  (+ (node-score-two node) score-two)
-                  (oposite-player player)
-                  new-board
-                  node
-                )
+                current-node
               )
             )
           )
@@ -136,63 +143,136 @@
 )
 
 (defun evaluate-node (node cpu-player)
-  (if (= cpu-player *player-one*) 
-    (+ (node-score-one node) (node-score-two node))
-    (+ (node-score-two node) (node-score-one node))
-  )
-)
-
-(defun minimax (node max-depth max-time expanding-function &optional (maximizing-player (node-turn-player node)))
-  (let ((children (apply-expanding-function expanding-function node)))
-    (cond
-      ((or (= max-depth 0) (null children)) (create-solution-node node (evaluate-node node maximizing-player) 0 0 0))
-      ((= (node-turn-player node) maximizing-player)
-        (reduce 
-          (lambda (best-value child)
-            (let ((minimax-node (minimax child (1- max-depth) max-time expanding-function maximizing-player)))
-              (if (> (solution-node-evaluation best-value) (solution-node-evaluation minimax-node))
-                best-value
-                minimax-node
-              )
-            )
-          ) children :initial-value (create-solution-node nil most-negative-fixnum 0 0 0)
+  (setf (node-evaluation node ) 
+    (let ((maximizing (= cpu-player (node-turn-player node))))
+      (if (null (node-board node))
+        (if maximizing
+          most-negative-fixnum
+          most-positive-fixnum
+        )
+        (if maximizing 
+          (- (node-score-one node) (node-score-two node))
+          (- (node-score-two node) (node-score-one node))
         )
       )
-      (t (reduce 
-        (lambda (best-value child)
-          (let ((minimax-node (minimax child (1- max-depth) max-time expanding-function maximizing-player)))
-            (if (< (solution-node-evaluation best-value) (solution-node-evaluation minimax-node))
-              best-value
-              minimax-node
-            )
-          )
-        ) children :initial-value (create-solution-node nil most-positive-fixnum 0 0 0)
-      ))
     )
+  )
+  node
+)
+
+(defun order-queue-of-nodes (list-of-nodes symb)
+  (let* (
+      (sorted-evaluation 
+        (sort list-of-nodes
+          #'(lambda (x y)
+            (funcall symb (node-evaluation x) (node-evaluation y))
+          )
+        )
+      )
+    )
+    sorted-evaluation
   )
 )
 
-(defun minimax-breadth-first (node max-time expanding-function &optional (maximizing-player (node-turn-player node)))
-  (let* ((start-time (get-universal-time))
-         (queue (list node)))
-    (labels ((minimax-bfs-helper (current-queue)
-               (when current-queue
-                 (let* ((current-node (pop current-queue))
-                        (children (apply-expanding-function expanding-function current-node)))
-                   (cond
-                     ((or (null children) (time-limit-exceeded-p start-time max-time))
-                      (create-solution-node current-node (evaluate-node current-node maximizing-player) 0 0 0))
-                     ((= (node-turn-player current-node) maximizing-player)
-                      (mapc #'(lambda (child)
-                                (push child queue))
-                            children))
-                     (t
-                      (mapc #'(lambda (child)
-                                (push child queue))
-                            children))
-                     (minimax-bfs-helper current-queue)))))
-      (minimax-bfs-helper queue))))
+(defun pick-best-node (node1 node2 symb maximizing-player)
+  (when 
+    (and 
+      (/= most-negative-fixnum (node-evaluation node1)) 
+      (/= most-positive-fixnum (node-evaluation node1))
+    ) 
+    (evaluate-node node1 maximizing-player)
+  )
+  (when 
+    (and 
+      (/= most-negative-fixnum (node-evaluation node2)) 
+      (/= most-positive-fixnum (node-evaluation node2))
+    ) 
+    (evaluate-node node2 maximizing-player)
+  )
+  (if (funcall symb (node-evaluation node1) (node-evaluation node2)) 
+    node1 node2
+  ) 
 )
 
+(defun alfabeta (node expanding-function max-depth max-time &optional (maximizing-player (node-turn-player node)))
+  (let (
+      (start-time (current-time-milliseconds))
+      (alfa-cuts 0)
+      (beta-cuts 0)
+      (result-final nil)
+      (analized-nodes 0)
+    )
+    (labels
+      ((alfabeta-helper (current-node current-depth &optional (alfa most-negative-fixnum) (beta most-positive-fixnum))
+        (progn
+          (setq analized-nodes (+ 1 analized-nodes))
+          (cond
+            ((or 
+                (>= current-depth max-depth) 
+                (time-limit-exceeded-p start-time max-time)
+              )
+              (let ((return-node (evaluate-node current-node maximizing-player)))
+                return-node
+              )
+            )
+            (t
+              (let* (
+                  (maximizing (= (node-turn-player current-node) maximizing-player))
+                  (symb (if maximizing #'>= #'<=))
+                  (children (apply-expanding-function expanding-function current-node maximizing-player))
+                  (ordered-children (order-queue-of-nodes children symb))
+                  (initial-value (if maximizing most-negative-fixnum most-positive-fixnum))
+                  (result (create-node 0 0 0 nil current-depth initial-value nil))
+                )
+                (if ordered-children
+                  (loop 
+                    for child in ordered-children 
+                    do 
+                      (let* (
+                          (ab-node (alfabeta-helper child (1+ current-depth) alfa beta))
+                          (v (pick-best-node ab-node result symb maximizing-player))
+                          (v-eval (node-evaluation v))
+                        )
+                        (setq result v)
+                        (if maximizing
+                          (progn
+                            (setq alfa (if (funcall symb alfa v-eval) alfa v-eval))
+                            (when (>= alfa beta) (progn (setf alfa-cuts (+ 1 alfa-cuts)) (return-from alfabeta-helper v)))
+                          )
+                          (progn
+                            (setq beta (if (funcall symb beta v-eval) beta v-eval))
+                            (when (>= alfa beta) (progn (setf beta-cuts (+ 1 beta-cuts)) (return-from alfabeta-helper v)))
+                          )
+                        )
+                      )
+                    finally (return result)
+                  )
+                  (evaluate-node current-node maximizing-player)
+                )
+              )
+            )
+          )
+        )
+      )) 
+      (setq result-final 
+        (create-solution-node 
+          (alfabeta-helper node 0 most-negative-fixnum most-positive-fixnum) 
+          alfa-cuts beta-cuts (time-elapsed start-time) analized-nodes)
+      ))
+    result-final ; Return the final result
+  )
+) 
+
+;======================================  TIMER
+
 (defun time-limit-exceeded-p (start-time max-time)
-  (> (- (get-universal-time) start-time) (/ max-time 1000.0)))
+  (>= (time-elapsed start-time) max-time)
+)
+
+(defun current-time-milliseconds ()
+  (* 1000 (get-universal-time))
+)
+
+(defun time-elapsed (start-time)
+  (- (current-time-milliseconds) start-time)
+)

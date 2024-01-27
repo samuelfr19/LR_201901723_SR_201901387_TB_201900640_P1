@@ -29,7 +29,6 @@
       score-player-two
       *player-one*
       final-board
-      nil
     )
   )
 )
