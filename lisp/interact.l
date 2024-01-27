@@ -267,18 +267,6 @@
 
 ;;==========================================    PRINT STATS    ==========================================
 
-(defun solution-node-print  (solution-node type)
-"Dá print das estatisticas de cada jogada tanto para o file como para o terminal"
-  (format type "~%analized nodes: ~5a |evaluation: ~5a |alpha: ~5a |beta: ~5a | time-elapsed: ~5a~%~%"
-    (solution-analized-nodes solution-node)
-    (solution-node-evaluation solution-node)
-    (solution-node-alpha-cuts solution-node)
-    (solution-node-beta-cuts  solution-node)
-    (solution-node-time-elapsed solution-node)
-  )
-  (node-print-individual (solution-node-optimal-move solution-node) type)
-)
-
 (defun print-move (solution-node)
 "Funcao de gestao de print das estatisticas"
 (progn
