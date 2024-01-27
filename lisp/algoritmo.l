@@ -6,7 +6,7 @@
   (create-node 17 84 *player-one*
     '(
       (92  42  31  96  7   -1  80  3   52  72 )
-      (97  76  30  nil 87  89  93  99  0   78 )
+      (97  76  30  nil 87  89  93  0   99  78 )
       (46  88  61  79  60  57  32  50  83  47 )
       (9   25  36  49  21  74  85  55  54  4  )
       (68  82  34  73  13  16  22  14  27  64 )
@@ -42,17 +42,8 @@
   )
 )
 
-(defun node-to-first-move-node (node)
-  (cond 
-    ((null (node-parent node)) nil)
-    ((null (node-parent (node-parent node))) node)
-    (t (node-to-first-move-node (node-parent node)))
-  )
-)
-
-
-(defun node-change-board(node new-board)
-  (create-node (node-score-one node) (node-score-two node) (node-turn-player node) new-board (node-depth node) (node-evaluation) (node-parent node))
+(defun node-change-board (node new-board)
+  (setf (node-board node) new-board)
 )
 
 (defun node-print (node &optional (stream-to-write-to t))
@@ -98,14 +89,15 @@
   )
 )
 
-(defun solution-node-print  (solution-node &optional (stream-to-write-to))
-  (format stream-to-write-to "~%evaluation: ~5a |alfa: ~5a |beta: ~5a | time-elapsed: ~5a~%~%"
+(defun solution-node-print  (solution-node type)
+"Dá print das estatisticas de cada jogada tanto para o file como para o terminal"
+  (format type "~%evaluation: ~5a |alpha: ~5a |beta: ~5a | time-elapsed: ~5a~%~%"
     (solution-node-evaluation solution-node)
-    (solution-node-alfa-cuts solution-node)
+    (solution-node-alpha-cuts solution-node)
     (solution-node-beta-cuts  solution-node)
     (solution-node-time-elapsed solution-node)
   )
-  (node-print-individual (solution-node-optimal-move solution-node) stream-to-write-to)
+  (node-print-individual (solution-node-optimal-move solution-node) type)
 )
 
 ;======================================  ALGORITHM
@@ -152,20 +144,21 @@
 
 (defun evaluate-node (node cpu-player)
   (setf (node-evaluation node ) 
-    (if (null node)
-      (if (= cpu-player *player-one*)
-        most-negative-fixnum
-        most-positive-fixnum
-      )
-      (if (= cpu-player *player-one*) 
-        (- (node-score-one node) (node-score-two node))
-        (- (node-score-two node) (node-score-one node))
+    (let ((maximizing (= cpu-player (node-turn-player node))))
+      (if (null (node-board node))
+        (if maximizing
+          most-negative-fixnum
+          most-positive-fixnum
+        )
+        (if maximizing 
+          (- (node-score-one node) (node-score-two node))
+          (- (node-score-two node) (node-score-one node))
+        )
       )
     )
   )
   node
 )
-
 
 (defun order-queue-of-nodes (list-of-nodes symb)
   (let* (
@@ -240,6 +233,7 @@
                           (v (pick-best-node ab-node result symb maximizing-player))
                           (v-eval (node-evaluation v))
                         )
+                        (setq result v)
                         (if maximizing
                           (progn
                             (setq alfa (if (funcall symb alfa v-eval) alfa v-eval))
@@ -268,12 +262,6 @@
     result-final ; Return the final result
   )
 ) 
-
-
-
-
-
-
 
 ;======================================  TIMER
 
