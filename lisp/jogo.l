@@ -1,6 +1,7 @@
 ;====================================== MOVEMENT-RESULT
 ; for handling each movemnt, returns (score board)
 
+
 (defstruct movement-result
   score
   player
@@ -64,7 +65,7 @@
 "Mistura a lista de posições"
   (cond
     ((car board) (let (
-          (n (nth (random (length board)) board))
+          (n (nth (random (length board)(make-random-state t)) board))
         )
         (append (cons n nil) (shuffle (remove n board)))
       )
