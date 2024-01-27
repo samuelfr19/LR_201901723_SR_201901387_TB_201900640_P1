@@ -270,7 +270,8 @@
 
 (defun solution-node-print  (solution-node type)
 "Dá print das estatisticas de cada jogada tanto para o file como para o terminal"
-  (format type "~%evaluation: ~5a |alpha: ~5a |beta: ~5a | time-elapsed: ~5a~%~%"
+  (format type "~%analized nodes: ~5a |evaluation: ~5a |alpha: ~5a |beta: ~5a | time-elapsed: ~5a~%~%"
+    (solution-analized-nodes solution-node)
     (solution-node-evaluation solution-node)
     (solution-node-alpha-cuts solution-node)
     (solution-node-beta-cuts  solution-node)
