@@ -57,6 +57,13 @@
   (print-board (node-board node) stream-to-write-to)
 )
 
+(defun node-fix-movement (node)
+  (cond 
+    ((null (node-parent node)) nil)
+    ((null (node-parent (node-parent node))) node)
+    (t (node-fix-movement (node-parent node)))
+  )
+)
 
 ;======================================  SOLUTION-NODE STRUCTURE
 ; o número de nós analisados,
@@ -88,6 +95,20 @@
     (find-value (node-board node) player)
   )
 )
+
+(defun solution-node-print  (solution-node type)
+"Dá print das estatisticas de cada jogada tanto para o file como para o terminal"
+  (format type "~%analized nodes: ~5a |evaluation: ~5a |alpha: ~5a |beta: ~5a | time-elapsed: ~5a~%~%"
+    (solution-analized-nodes solution-node)
+    (solution-node-evaluation solution-node)
+    (solution-node-alpha-cuts solution-node)
+    (solution-node-beta-cuts  solution-node)
+    (solution-node-time-elapsed solution-node)
+  )
+  (node-print-individual (solution-node-optimal-move solution-node) type)
+)
+
+;======================================  MEMOIZATION
 
 
 ;======================================  ALGORITHM
@@ -184,6 +205,7 @@
   ) 
 )
 
+
 (defun alfabeta (node expanding-function max-depth max-time &optional (maximizing-player (node-turn-player node)))
   (let (
       (start-time (current-time-milliseconds))
@@ -191,67 +213,77 @@
       (beta-cuts 0)
       (result-final nil)
       (analized-nodes 0)
+      (memo-table (make-hash-table :test 'equal)) ;memoization table
     )
     (labels
       ((alfabeta-helper (current-node current-depth &optional (alfa most-negative-fixnum) (beta most-positive-fixnum))
-        (progn
-          (setq analized-nodes (+ 1 analized-nodes))
-          (cond
-            ((or 
-                (>= current-depth max-depth) 
-                (time-limit-exceeded-p start-time max-time)
-              )
-              (let ((return-node (evaluate-node current-node maximizing-player)))
-                return-node
-              )
-            )
-            (t
-              (let* (
-                  (maximizing (= (node-turn-player current-node) maximizing-player))
-                  (symb (if maximizing #'>= #'<=))
-                  (children (apply-expanding-function expanding-function current-node maximizing-player))
-                  (ordered-children (order-queue-of-nodes children symb))
-                  (initial-value (if maximizing most-negative-fixnum most-positive-fixnum))
-                  (result (create-node 0 0 0 nil current-depth initial-value nil))
-                )
-                (if ordered-children
-                  (loop 
-                    for child in ordered-children 
-                    do 
+        (let* (
+            (key (list current-node current-depth)) ; for memoization
+            (cached-value (gethash key memo-table)) ; for memoization
+          )
+          (if cached-value ; for memoization
+            cached-value ; for memoization
+            (let ((r ; for memoization
+                (progn (setq analized-nodes (+ 1 analized-nodes))
+                  (cond
+                    ((or (>= current-depth max-depth) (time-limit-exceeded-p start-time max-time))
+                      (evaluate-node current-node maximizing-player)
+                    )
+                    (t
                       (let* (
-                          (ab-node (alfabeta-helper child (1+ current-depth) alfa beta))
-                          (v (pick-best-node ab-node result symb maximizing-player))
-                          (v-eval (node-evaluation v))
+                          (maximizing (= (node-turn-player current-node) maximizing-player))
+                          (symb (if maximizing #'>= #'<=))
+                          (children (apply-expanding-function expanding-function current-node maximizing-player))
+                          (ordered-children (order-queue-of-nodes children symb))
+                          (initial-value (if maximizing most-negative-fixnum most-positive-fixnum))
+                          (result (create-node 0 0 0 nil current-depth initial-value nil))
                         )
-                        (setq result v)
-                        (if maximizing
-                          (progn
-                            (setq alfa (if (funcall symb alfa v-eval) alfa v-eval))
-                            (when (>= alfa beta) (progn (setf alfa-cuts (+ 1 alfa-cuts)) (return-from alfabeta-helper v)))
+                        (if ordered-children
+                          (loop 
+                            for child in ordered-children 
+                            do 
+                              (let* (
+                                  (ab-node (alfabeta-helper child (1+ current-depth) alfa beta))
+                                  (v (pick-best-node ab-node result symb maximizing-player))
+                                  (v-eval (node-evaluation v))
+                                )
+                                (setq result v)
+                                (if maximizing
+                                  (progn
+                                    (setq alfa (if (funcall symb alfa v-eval) alfa v-eval))
+                                    (when (>= alfa beta) (progn (setf alfa-cuts (+ 1 alfa-cuts)) (return-from alfabeta-helper v)))
+                                  )
+                                  (progn
+                                    (setq beta (if (funcall symb beta v-eval) beta v-eval))
+                                    (when (>= alfa beta) (progn (setf beta-cuts (+ 1 beta-cuts)) (return-from alfabeta-helper v)))
+                                  )
+                                )
+                              )
+                            finally (return result)
                           )
-                          (progn
-                            (setq beta (if (funcall symb beta v-eval) beta v-eval))
-                            (when (>= alfa beta) (progn (setf beta-cuts (+ 1 beta-cuts)) (return-from alfabeta-helper v)))
-                          )
+                          (evaluate-node current-node maximizing-player)
                         )
                       )
-                    finally (return result)
+                    )
                   )
-                  (evaluate-node current-node maximizing-player)
                 )
-              )
+              ))
+              (setf (gethash key memo-table) r) r ;memoization
             )
           )
         )
       )) 
       (setq result-final 
         (create-solution-node 
-          (alfabeta-helper node 0 most-negative-fixnum most-positive-fixnum) 
-          alfa-cuts beta-cuts (time-elapsed start-time) analized-nodes)
+          (node-fix-movement (alfabeta-helper node 0 most-negative-fixnum most-positive-fixnum))
+          alfa-cuts beta-cuts (time-elapsed start-time) analized-nodes
+        )
       ))
     result-final ; Return the final result
   )
-) 
+)  
+
+
 
 ;======================================  TIMER
 
