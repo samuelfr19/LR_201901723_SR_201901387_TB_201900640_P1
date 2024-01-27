@@ -1,5 +1,6 @@
 (defparameter *player-one* -1)
 (defparameter *player-two* -2)
+(defparameter *maxdepth* 10)
 
 (defun oposite-player (player)
   (cond 
@@ -134,8 +135,8 @@
 (defun final-results (node)
 "Funcao para escrever no final do jogo qual o vencedor e quais os seus pontos"
   (if (> (node-score-one node)(node-score-two node))
-      (format t "O jogador 1 ganhou o jogo com ~d pontos.~%Enquanto que o jogador 2 ficou com ~d pontos.~%" (node-score-one node) (node-score-two node))
-      (format t "O jogador 2 ganhou o jogo com ~d pontos.~%Enquanto que o jogador 1 perdeu com ~d pontos.~%" (node-score-two node) (node-score-one node))
+      (format t "~%O jogador 1 ganhou o jogo com ~d pontos.~%Enquanto que o jogador 2 ficou com ~d pontos.~%" (node-score-one node) (node-score-two node))
+      (format t "~%O jogador 2 ganhou o jogo com ~d pontos.~%Enquanto que o jogador 1 perdeu com ~d pontos.~%" (node-score-two node) (node-score-one node))
   )
   (restart-game)
 )
@@ -156,27 +157,38 @@
 
 (defun start-game (time first)
 "Funcao para começar e criar o loop de jogo caso seja jogador vs computador ou so mesmo computador"
-  (let ((current-node (test-node1))
+  (let ((current-node (initial-status))
        (user (when first (if (= first 1) *player-one* *player-two*))))
+    (node-print current-node)
     (loop
       (setf current-node
         (cond
           ((null user)
-            (node-to-first-move-node (solution-node-optimal-move (minimax current-node time 'all-possible-movements)))
+            (let ((pc-move (alfabeta current-node 'all-possible-movements *maxdepth* time)))
+              (print-move pc-move)
+              (solution-node-optimal-move pc-move)
+            )
           )
           ((= (node-turn-player current-node) user) 
-            (player-move current-node time)
+             (player-move current-node time)
           )
           (t 
-            ;;(node-to-first-move-node (solution-node-optimal-move (minimax current-node time 'all-possible-movements)))
-            (player-move current-node time)
+            (let ((pc-move (alfabeta current-node 'all-possible-movements *maxdepth* time)))
+              (print-move pc-move)
+              (solution-node-optimal-move pc-move)
+            )
           )
         )
       )
-      (when (no-possible-movements (node-board current-node)) (progn (node-print-individual current-node) (final-results current-node)))
+      (when (no-possible-movements (node-board current-node)) (return (final-results current-node))   (return))
     )
   )
 )
+
+
+;;(start-game 5000 nil)
+;;(print-move (alfabeta (test-node1) 'all-possible-movements *maxdepth* 1000))
+;;(print-move (alfabeta (initial-status) 'all-possible-movements *maxdepth* 1000))
 
 
 ;;==========================================    PLAYER MOVE    ==========================================
@@ -223,7 +235,6 @@
   (let ((list (list-possible-movements (node-board node) (node-turn-player node))))
   (if list
     (progn
-      (node-print-individual node)
       (format t "Escolha a proxima posição do cavalo~%")
       (let* ( 
           (l (read-position-input "Linha")) 
@@ -276,5 +287,4 @@
     )
     (solution-node-print solution-node t)
   )
-
 )
