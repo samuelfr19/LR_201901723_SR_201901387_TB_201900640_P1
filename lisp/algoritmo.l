@@ -108,10 +108,8 @@
   (node-print-individual (solution-node-optimal-move solution-node) type)
 )
 
-;======================================  MEMOIZATION
-
-
 ;======================================  ALGORITHM
+
 (defun apply-expanding-function (expanding-function node player)
   (let* (
       (children (funcall expanding-function (node-board node) player))
@@ -213,7 +211,7 @@
       (beta-cuts 0)
       (result-final nil)
       (analized-nodes 0)
-      (memo-table (make-hash-table :test 'equal)) ;memoization table
+      (memo-table (make-hash-table :test 'equalp)) ;memoization table
     )
     (labels
       ((alfabeta-helper (current-node current-depth &optional (alfa most-negative-fixnum) (beta most-positive-fixnum))
@@ -279,7 +277,7 @@
           alfa-cuts beta-cuts (time-elapsed start-time) analized-nodes
         )
       ))
-    result-final ; Return the final result
+    result-final
   )
 )  
 
@@ -288,7 +286,9 @@
 ;======================================  TIMER
 
 (defun time-limit-exceeded-p (start-time max-time)
-  (>= (time-elapsed start-time) max-time)
+  (let ((leeway (/ max-time 10)))
+    (>= (+ leeway (time-elapsed start-time)) max-time)
+  )
 )
 
 (defun current-time-milliseconds ()
