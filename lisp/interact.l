@@ -10,9 +10,6 @@
   )
 )
 
-(load "./lisp/jogo.l")
-(load "./lisp/algoritmo.l")
-
 (defun initial-status ()
   (let* (
       (initial-board (random-board))
@@ -28,10 +25,12 @@
       score-player-two
       *player-one*
       final-board
-      nil
     )
   )
 )
+(load "./lisp/jogo.l")
+(load "./lisp/algoritmo.l")
+
 ;;  processo:
 ;;  start > user - pc ou pc - pc > quem joga primeiro > quanto tempo por jogada 1000 - 5000 ms
 ;;  loop: realiza jogada > print numeros duplos se for o caso para escolher qual quer remover (se for o pc escolhe o maior e nao da print)
