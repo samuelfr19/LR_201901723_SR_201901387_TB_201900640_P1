@@ -38,8 +38,8 @@
 
 (defun node-fix-movement (node)
   (cond 
-    ((null (node-parent node)) nil)
     ((null (node-parent (node-parent node))) node)
+    ((null (node-parent node)) (format t "pilinha"))
     (t (node-fix-movement (node-parent node)))
   )
 )
@@ -84,9 +84,9 @@
 
 ;======================================  ALGORITHM
 
-(defun apply-expanding-function (expanding-function node player)
+(defun apply-expanding-function (expanding-function node)
   (let* (
-      (children (funcall expanding-function (node-board node) player))
+      (children (funcall expanding-function (node-board node) (node-turn-player node)))
     )
     (when children
       (remove nil 
@@ -111,7 +111,7 @@
                     (oposite-player (node-turn-player node))
                     new-board
                     (1+ (node-depth node))
-                    most-negative-fixnum
+                    nil
                     node
                   ))
                 )
@@ -143,12 +143,15 @@
   node
 )
 
-(defun order-queue-of-nodes (list-of-nodes symb)
+(defun order-queue-of-nodes (list-of-nodes symb max-player)
   (let* (
       (sorted-evaluation 
         (sort list-of-nodes
           #'(lambda (x y)
-            (funcall symb (node-evaluation x) (node-evaluation y))
+            (progn
+              (evaluate-node x max-player) (evaluate-node y max-player)
+              (funcall symb (node-evaluation x) (node-evaluation y))
+            )
           )
         )
       )
@@ -205,8 +208,8 @@
                       (let* (
                           (maximizing (= (node-turn-player current-node) maximizing-player))
                           (symb (if maximizing #'>= #'<=))
-                          (children (apply-expanding-function expanding-function current-node maximizing-player))
-                          (ordered-children (order-queue-of-nodes children symb))
+                          (children (apply-expanding-function expanding-function current-node))
+                          (ordered-children (order-queue-of-nodes children symb maximizing-player))
                           (initial-value (if maximizing most-negative-fixnum most-positive-fixnum))
                           (result (create-node 0 0 0 nil current-depth initial-value nil))
                         )
@@ -247,7 +250,9 @@
       )) 
       (setq result-final 
         (create-solution-node 
-          (node-fix-movement (alfabeta-helper node 0 most-negative-fixnum most-positive-fixnum))
+          ; (node-fix-movement 
+            (alfabeta-helper node 0 most-negative-fixnum most-positive-fixnum)
+          ; )
           alfa-cuts beta-cuts (time-elapsed start-time) analized-nodes
         )
       ))
