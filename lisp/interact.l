@@ -1,6 +1,6 @@
 (defparameter *player-one* -1)
 (defparameter *player-two* -2)
-(defparameter *maxdepth* 10)
+(defparameter *max-depth* 10)
 
 (defun oposite-player (player)
   (cond 
@@ -157,29 +157,22 @@
 
 (defun start-game (time first)
 "Funcao para começar e criar o loop de jogo caso seja jogador vs computador ou so mesmo computador"
-  (let ((current-node (initial-status))
-       (user (when first (if (= first 1) *player-one* *player-two*))))
+  (let (
+      (current-node (initial-status))
+      (user (when first (if (= first 1) *player-one* *player-two*)))
+    )
     (node-print current-node)
     (loop
       (setf current-node
-        (cond
-          ((null user)
-            (let ((pc-move (alfabeta current-node 'all-possible-movements *maxdepth* time)))
-              (print-move pc-move)
-              (solution-node-optimal-move pc-move)
-            )
+        (if (or (null user) (/= (node-turn-player current-node) user) )
+          (let ((pc-move (alfabeta current-node 'all-possible-movements *max-depth* time)))
+            (print-move pc-move)
+            (setf (node-parent (solution-node-optimal-move pc-move)) nil)
+            (solution-node-optimal-move pc-move)
           )
-          ((= (node-turn-player current-node) user) 
-             (player-move current-node time)
-          )
-          (t 
-            (let ((pc-move (alfabeta current-node 'all-possible-movements *maxdepth* time)))
-              (print-move pc-move)
-              (solution-node-optimal-move pc-move)
-            )
-          )
+          (player-move current-node time)
         )
-      )
+      ) 
       (when (no-possible-movements (node-board current-node)) (return (final-results current-node))   (return))
     )
   )
@@ -187,8 +180,8 @@
 
 
 ;;(start-game 5000 nil)
-;;(print-move (alfabeta (test-node1) 'all-possible-movements *maxdepth* 1000))
-;;(print-move (alfabeta (initial-status) 'all-possible-movements *maxdepth* 1000))
+;;(print-move (alfabeta (test-node1) 'all-possible-movements *max-depth* 1000))
+;;(print-move (alfabeta (initial-status) 'all-possible-movements *max-depth* 1000))
 
 
 ;;==========================================    PLAYER MOVE    ==========================================
@@ -267,8 +260,8 @@
                 (node-score-two node)))
               )
         (if (and (/= 0 (movement-result-score result))(= (movement-result-score result) (reverse-digits (movement-result-score result))))
-          (double-n (create-node score-one score-two (oposite-player (node-turn-player node)) (movement-result-board result) node))  
-          (create-node score-one score-two (oposite-player (node-turn-player node)) (movement-result-board result) node)
+          (double-n (create-node score-one score-two (oposite-player (node-turn-player node)) (movement-result-board result) (node-depth node) most-negative-fixnum node))  
+          (create-node score-one score-two (oposite-player (node-turn-player node)) (movement-result-board result) (node-depth node) most-negative-fixnum node)
         )
       )
       (progn (format t "Movimento não é possivel, escolha outro!") (player-move node time))
@@ -285,6 +278,6 @@
       (solution-node-print solution-node stream)
       (close stream)
     )
-    (solution-node-print solution-node t)
+    (solution-node-print solution-node)
   )
 )
