@@ -164,25 +164,27 @@
     (node-print current-node)
     (loop
       (setf current-node
-        (if (or (null user) (/= (node-turn-player current-node) user) )
-          (let ((pc-move (alfabeta current-node 'all-possible-movements *max-depth* time)))
-            (print-move pc-move)
-            (setf (node-parent (solution-node-optimal-move pc-move)) nil)
-            (solution-node-optimal-move pc-move)
+        (if (list-possible-movements (node-board current-node) (node-turn-player current-node))
+          (if (or (null user) (/= (node-turn-player current-node) user) )
+            (let (
+                (pc-move (alfabeta current-node 'all-possible-movements *max-depth* time))
+              )
+              (print-move pc-move)
+              (setf (node-parent (solution-node-optimal-move pc-move)) nil)
+              (solution-node-optimal-move pc-move)
+            )
+            (player-move current-node time)
           )
-          (player-move current-node time)
+          (progn
+            (setf (node-turn-player current-node) (oposite-player (node-turn-player current-node)))
+            current-node
+          )
         )
       ) 
-      (when (no-possible-movements (node-board current-node)) (return (final-results current-node))   (return))
+      (when (no-possible-movements (node-board current-node)) (return (final-results current-node)))
     )
   )
 )
-
-
-;;(start-game 5000 nil)
-;;(print-move (alfabeta (test-node1) 'all-possible-movements *max-depth* 1000))
-;;(print-move (alfabeta (initial-status) 'all-possible-movements *max-depth* 1000))
-
 
 ;;==========================================    PLAYER MOVE    ==========================================
 
