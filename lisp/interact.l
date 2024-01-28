@@ -163,8 +163,8 @@
     )
     (node-print current-node)
     (loop
-      (setf current-node
-        (if (list-possible-movements (node-board current-node) (node-turn-player current-node))
+      (if (all-possible-movements (node-board current-node) (node-turn-player current-node))
+        (setf current-node
           (if (or (null user) (/= (node-turn-player current-node) user) )
             (let (
                 (pc-move (alfabeta current-node 'all-possible-movements *max-depth* time))
@@ -175,12 +175,12 @@
             )
             (player-move current-node time)
           )
-          (progn
-            (setf (node-turn-player current-node) (oposite-player (node-turn-player current-node)))
-            current-node
-          )
         )
-      ) 
+        (progn
+          (setf (node-turn-player current-node) (oposite-player (node-turn-player current-node)))
+          current-node
+        )
+      )
       (when (no-possible-movements (node-board current-node)) (return (final-results current-node)))
     )
   )
