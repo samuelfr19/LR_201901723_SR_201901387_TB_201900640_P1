@@ -1,0 +1,684 @@
+
+analized nodes: 207   |alfa: 11    |beta: 18    | time-elapsed: 1000 
+
+
+SCORE: 107   | 91   |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |22   63   NIL  46   34   86   67   84   17   82   
+1   |-1   NIL  47   69   28   8    NIL  94   9    39   
+2   |37   79   26   60   NIL  2    71   80   65   70   
+3   |89   30   97   14   52   44   10   29   77   64   
+4   |50   38   75   87   24   4    88   78   41   36   
+5   |76   11   81   32   42   62   5    49   31   7    
+6   |27   54   40   74   58   18   92   45   56   13   
+7   |23   83   35   93   73   53   72   85   96   51   
+8   |1    20   98   6    16   68   NIL  15   33   48   
+9   |0    3    55   -2   25   57   61   90   66   43   
+______________________________________________________
+
+analized nodes: 308   |alfa: 16    |beta: 45    | time-elapsed: 1000 
+
+
+SCORE: 107   | 164  |TURN: -1   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |22   63   NIL  46   34   86   67   84   17   82   
+1   |-1   NIL  47   69   28   8    NIL  94   9    39   
+2   |NIL  79   26   60   NIL  2    71   80   65   70   
+3   |89   30   97   14   52   44   10   29   77   64   
+4   |50   38   75   87   24   4    NIL  78   41   36   
+5   |76   11   81   32   42   62   5    49   31   7    
+6   |27   54   40   74   58   18   92   45   56   13   
+7   |23   83   35   93   -2   53   72   85   96   51   
+8   |1    20   98   6    16   68   NIL  15   33   48   
+9   |0    3    55   NIL  25   57   61   90   66   43   
+______________________________________________________
+
+analized nodes: 230   |alfa: 31    |beta: 11    | time-elapsed: 1000 
+
+
+SCORE: 133   | 164  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |22   63   NIL  46   34   86   67   84   17   82   
+1   |NIL  NIL  47   69   28   8    NIL  94   9    39   
+2   |NIL  79   -1   60   NIL  2    71   80   65   70   
+3   |89   30   97   14   52   44   10   29   NIL  64   
+4   |50   38   75   87   24   4    NIL  78   41   36   
+5   |76   11   81   32   42   NIL  5    49   31   7    
+6   |27   54   40   74   58   18   92   45   56   13   
+7   |23   83   35   93   -2   53   72   85   96   51   
+8   |1    20   98   6    16   68   NIL  15   33   48   
+9   |0    3    55   NIL  25   57   61   90   66   43   
+______________________________________________________
+
+analized nodes: 347   |alfa: 19    |beta: 19    | time-elapsed: 1000 
+
+
+SCORE: 133   | 262  |TURN: -1   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |22   63   NIL  46   34   86   67   84   17   82   
+1   |NIL  NIL  47   69   28   8    NIL  94   9    39   
+2   |NIL  79   -1   60   NIL  2    71   80   65   70   
+3   |NIL  30   97   14   52   44   10   29   NIL  64   
+4   |50   38   75   87   24   4    NIL  78   41   36   
+5   |76   11   81   32   42   NIL  5    49   31   7    
+6   |27   54   40   74   58   18   92   45   56   13   
+7   |23   83   35   93   NIL  53   72   85   96   51   
+8   |1    20   -2   6    16   68   NIL  15   33   48   
+9   |0    3    55   NIL  25   57   61   90   NIL  43   
+______________________________________________________
+
+analized nodes: 223   |alfa: 21    |beta: 20    | time-elapsed: 1000 
+
+
+SCORE: 161   | 262  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |22   63   NIL  46   34   86   67   84   17   NIL  
+1   |NIL  NIL  47   69   -1   8    NIL  94   9    39   
+2   |NIL  79   NIL  60   NIL  2    71   80   65   70   
+3   |NIL  30   97   14   52   44   10   29   NIL  64   
+4   |50   38   75   87   24   4    NIL  78   41   36   
+5   |76   11   81   32   42   NIL  5    49   31   7    
+6   |27   54   40   74   58   18   92   45   56   13   
+7   |23   83   35   93   NIL  53   72   85   96   51   
+8   |1    20   -2   6    16   68   NIL  15   33   48   
+9   |0    3    NIL  NIL  25   57   61   90   NIL  43   
+______________________________________________________
+
+analized nodes: 332   |alfa: 13    |beta: 65    | time-elapsed: 1000 
+
+
+SCORE: 161   | 336  |TURN: -1   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |22   63   NIL  46   34   86   67   84   17   NIL  
+1   |NIL  NIL  NIL  69   -1   8    NIL  94   9    39   
+2   |NIL  79   NIL  60   NIL  2    71   80   65   70   
+3   |NIL  30   97   14   52   NIL  10   29   NIL  64   
+4   |50   38   75   87   24   4    NIL  78   41   36   
+5   |76   11   81   32   42   NIL  5    49   31   7    
+6   |27   54   40   -2   58   18   92   45   56   13   
+7   |23   83   35   93   NIL  53   72   85   96   51   
+8   |1    20   NIL  6    16   68   NIL  15   33   48   
+9   |0    3    NIL  NIL  25   57   61   90   NIL  43   
+______________________________________________________
+
+analized nodes: 254   |alfa: 26    |beta: 30    | time-elapsed: 1000 
+
+
+SCORE: 228   | 336  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |22   63   NIL  46   34   86   -1   84   17   NIL  
+1   |NIL  NIL  NIL  69   NIL  8    NIL  94   9    39   
+2   |NIL  79   NIL  60   NIL  2    71   80   65   70   
+3   |NIL  30   97   14   52   NIL  10   29   NIL  64   
+4   |50   38   75   87   24   4    NIL  78   41   36   
+5   |NIL  11   81   32   42   NIL  5    49   31   7    
+6   |27   54   40   -2   58   18   92   45   56   13   
+7   |23   83   35   93   NIL  53   72   85   96   51   
+8   |1    20   NIL  6    16   68   NIL  15   NIL  48   
+9   |0    3    NIL  NIL  25   57   61   90   NIL  43   
+______________________________________________________
+
+analized nodes: 287   |alfa: 18    |beta: 50    | time-elapsed: 1000 
+
+
+SCORE: 228   | 419  |TURN: -1   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  46   34   86   -1   84   17   NIL  
+1   |NIL  NIL  NIL  69   NIL  8    NIL  94   9    39   
+2   |NIL  79   NIL  60   NIL  2    71   80   65   70   
+3   |NIL  30   97   14   52   NIL  10   29   NIL  64   
+4   |50   NIL  75   87   24   4    NIL  78   41   36   
+5   |NIL  11   81   32   42   NIL  5    49   31   7    
+6   |27   54   40   NIL  58   18   92   45   56   13   
+7   |23   -2   35   93   NIL  53   72   85   96   51   
+8   |1    20   NIL  6    16   68   NIL  15   NIL  48   
+9   |0    3    NIL  NIL  25   57   61   90   NIL  43   
+______________________________________________________
+
+analized nodes: 245   |alfa: 23    |beta: 18    | time-elapsed: 1000 
+
+
+SCORE: 237   | 419  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  46   34   86   NIL  84   17   NIL  
+1   |NIL  NIL  NIL  69   NIL  8    NIL  94   -1   39   
+2   |NIL  79   NIL  60   NIL  2    71   80   65   70   
+3   |NIL  30   97   14   52   NIL  10   29   NIL  64   
+4   |50   NIL  75   87   24   4    NIL  78   41   36   
+5   |NIL  NIL  81   32   42   NIL  5    49   31   7    
+6   |27   54   40   NIL  58   18   92   45   56   13   
+7   |23   -2   35   93   NIL  53   72   85   96   51   
+8   |1    20   NIL  6    16   68   NIL  15   NIL  48   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  43   
+______________________________________________________
+
+analized nodes: 231   |alfa: 0     |beta: 110   | time-elapsed: 1000 
+
+
+SCORE: 237   | 500  |TURN: -1   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  46   34   86   NIL  84   17   NIL  
+1   |NIL  NIL  NIL  69   NIL  8    NIL  94   -1   39   
+2   |NIL  79   NIL  60   NIL  2    71   80   65   70   
+3   |NIL  30   97   14   52   NIL  10   29   NIL  64   
+4   |50   NIL  75   87   24   4    NIL  78   41   36   
+5   |NIL  NIL  -2   32   42   NIL  5    49   31   7    
+6   |27   54   40   NIL  58   NIL  92   45   56   13   
+7   |23   NIL  35   93   NIL  53   72   85   96   51   
+8   |1    20   NIL  6    16   68   NIL  15   NIL  48   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  43   
+______________________________________________________
+
+analized nodes: 296   |alfa: 43    |beta: 13    | time-elapsed: 1000 
+
+
+SCORE: 301   | 500  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  34   86   NIL  84   17   NIL  
+1   |NIL  NIL  NIL  69   NIL  8    NIL  94   NIL  39   
+2   |NIL  79   NIL  60   NIL  2    71   80   65   70   
+3   |NIL  30   97   14   52   NIL  10   29   NIL  -1   
+4   |50   NIL  75   87   24   4    NIL  78   41   36   
+5   |NIL  NIL  -2   32   42   NIL  5    49   31   7    
+6   |27   54   40   NIL  58   NIL  92   45   56   13   
+7   |23   NIL  35   93   NIL  53   72   85   96   51   
+8   |1    20   NIL  6    16   68   NIL  15   NIL  48   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  43   
+______________________________________________________
+
+analized nodes: 308   |alfa: 35    |beta: 25    | time-elapsed: 1000 
+
+
+SCORE: 301   | 558  |TURN: -1   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  34   86   NIL  84   17   NIL  
+1   |NIL  NIL  NIL  69   NIL  8    NIL  94   NIL  39   
+2   |NIL  79   NIL  60   NIL  2    71   80   65   70   
+3   |NIL  30   97   14   52   NIL  10   29   NIL  -1   
+4   |50   NIL  75   87   24   4    NIL  78   41   36   
+5   |NIL  NIL  NIL  32   42   NIL  5    49   31   7    
+6   |27   54   40   NIL  -2   NIL  92   45   56   13   
+7   |23   NIL  35   93   NIL  53   72   NIL  96   51   
+8   |1    20   NIL  6    16   68   NIL  15   NIL  48   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  43   
+______________________________________________________
+
+analized nodes: 262   |alfa: 28    |beta: 28    | time-elapsed: 1000 
+
+
+SCORE: 379   | 558  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  34   86   NIL  84   17   NIL  
+1   |NIL  NIL  NIL  69   NIL  8    NIL  94   NIL  39   
+2   |NIL  79   NIL  60   NIL  2    71   80   65   70   
+3   |NIL  30   97   14   52   NIL  10   29   NIL  NIL  
+4   |50   NIL  75   NIL  24   4    NIL  -1   41   36   
+5   |NIL  NIL  NIL  32   42   NIL  5    49   31   7    
+6   |27   54   40   NIL  -2   NIL  92   45   56   13   
+7   |23   NIL  35   93   NIL  53   72   NIL  96   51   
+8   |1    20   NIL  6    16   68   NIL  15   NIL  48   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  43   
+______________________________________________________
+
+analized nodes: 245   |alfa: 1     |beta: 88    | time-elapsed: 1000 
+
+
+SCORE: 379   | 630  |TURN: -1   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  34   86   NIL  84   17   NIL  
+1   |NIL  NIL  NIL  69   NIL  8    NIL  94   NIL  39   
+2   |NIL  79   NIL  60   NIL  2    71   80   65   70   
+3   |NIL  30   97   14   52   NIL  10   29   NIL  NIL  
+4   |50   NIL  75   NIL  24   4    NIL  -1   41   36   
+5   |NIL  NIL  NIL  32   42   NIL  5    49   31   7    
+6   |NIL  54   40   NIL  NIL  NIL  92   45   56   13   
+7   |23   NIL  35   93   NIL  53   -2   NIL  96   51   
+8   |1    20   NIL  6    16   68   NIL  15   NIL  48   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  43   
+______________________________________________________
+
+analized nodes: 234   |alfa: 44    |beta: 16    | time-elapsed: 1000 
+
+
+SCORE: 386   | 630  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  34   86   NIL  84   17   NIL  
+1   |NIL  NIL  NIL  69   NIL  8    NIL  94   NIL  39   
+2   |NIL  79   NIL  60   NIL  2    71   80   65   NIL  
+3   |NIL  30   97   14   52   NIL  10   29   NIL  NIL  
+4   |50   NIL  75   NIL  24   4    NIL  NIL  41   36   
+5   |NIL  NIL  NIL  32   42   NIL  5    49   31   -1   
+6   |NIL  54   40   NIL  NIL  NIL  92   45   56   13   
+7   |23   NIL  35   93   NIL  53   -2   NIL  96   51   
+8   |1    20   NIL  6    16   68   NIL  15   NIL  48   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  43   
+______________________________________________________
+
+analized nodes: 211   |alfa: 30    |beta: 31    | time-elapsed: 1000 
+
+
+SCORE: 386   | 686  |TURN: -1   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  34   86   NIL  84   17   NIL  
+1   |NIL  NIL  NIL  69   NIL  8    NIL  94   NIL  39   
+2   |NIL  79   NIL  60   NIL  2    71   80   NIL  NIL  
+3   |NIL  30   97   14   52   NIL  10   29   NIL  NIL  
+4   |50   NIL  75   NIL  24   4    NIL  NIL  41   36   
+5   |NIL  NIL  NIL  32   42   NIL  5    49   31   -1   
+6   |NIL  54   40   NIL  NIL  NIL  92   45   -2   13   
+7   |23   NIL  35   93   NIL  53   NIL  NIL  96   51   
+8   |1    20   NIL  6    16   68   NIL  15   NIL  48   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  43   
+______________________________________________________
+
+analized nodes: 75    |alfa: 9     |beta: 20    | time-elapsed: 0    
+
+
+SCORE: 482   | 686  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  34   86   NIL  84   17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  8    NIL  94   NIL  39   
+2   |NIL  79   NIL  60   NIL  2    71   80   NIL  NIL  
+3   |NIL  30   97   14   52   NIL  10   29   NIL  NIL  
+4   |50   NIL  75   NIL  24   4    NIL  NIL  41   36   
+5   |NIL  NIL  NIL  32   42   NIL  5    49   31   NIL  
+6   |NIL  54   40   NIL  NIL  NIL  92   45   -2   13   
+7   |23   NIL  35   93   NIL  53   NIL  NIL  -1   51   
+8   |1    20   NIL  6    16   68   NIL  15   NIL  48   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  43   
+______________________________________________________
+
+analized nodes: 122   |alfa: 0     |beta: 48    | time-elapsed: 1000 
+
+
+SCORE: 482   | 734  |TURN: -1   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  34   86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  8    NIL  94   NIL  39   
+2   |NIL  79   NIL  60   NIL  2    71   80   NIL  NIL  
+3   |NIL  30   97   14   52   NIL  10   29   NIL  NIL  
+4   |50   NIL  75   NIL  24   4    NIL  NIL  41   36   
+5   |NIL  NIL  NIL  32   42   NIL  5    49   31   NIL  
+6   |NIL  54   40   NIL  NIL  NIL  92   45   NIL  13   
+7   |23   NIL  35   93   NIL  53   NIL  NIL  -1   51   
+8   |1    20   NIL  6    16   68   NIL  15   NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  43   
+______________________________________________________
+
+analized nodes: 240   |alfa: 42    |beta: 11    | time-elapsed: 1000 
+
+
+SCORE: 531   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  34   86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  8    NIL  NIL  NIL  39   
+2   |NIL  79   NIL  60   NIL  2    71   80   NIL  NIL  
+3   |NIL  30   97   14   52   NIL  10   29   NIL  NIL  
+4   |50   NIL  75   NIL  24   4    NIL  NIL  41   36   
+5   |NIL  NIL  NIL  32   42   NIL  5    -1   31   NIL  
+6   |NIL  54   40   NIL  NIL  NIL  92   45   NIL  13   
+7   |23   NIL  35   93   NIL  53   NIL  NIL  NIL  51   
+8   |1    20   NIL  6    16   68   NIL  15   NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  43   
+______________________________________________________
+
+analized nodes: 208   |alfa: 9     |beta: 61    | time-elapsed: 1000 
+
+
+SCORE: 535   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  34   86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  8    NIL  NIL  NIL  39   
+2   |NIL  79   NIL  60   NIL  2    71   80   NIL  NIL  
+3   |NIL  30   97   14   52   NIL  10   29   NIL  NIL  
+4   |50   NIL  75   NIL  24   -1   NIL  NIL  41   36   
+5   |NIL  NIL  NIL  32   42   NIL  5    NIL  31   NIL  
+6   |NIL  54   NIL  NIL  NIL  NIL  92   45   NIL  13   
+7   |23   NIL  35   93   NIL  53   NIL  NIL  NIL  51   
+8   |1    20   NIL  6    16   68   NIL  15   NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  43   
+______________________________________________________
+
+analized nodes: 235   |alfa: 59    |beta: 15    | time-elapsed: 1000 
+
+
+SCORE: 549   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  34   86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  8    NIL  NIL  NIL  39   
+2   |NIL  79   NIL  60   NIL  2    71   80   NIL  NIL  
+3   |NIL  30   97   -1   52   NIL  10   29   NIL  NIL  
+4   |50   NIL  75   NIL  24   NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   42   NIL  5    NIL  31   NIL  
+6   |NIL  54   NIL  NIL  NIL  NIL  92   45   NIL  13   
+7   |23   NIL  35   93   NIL  53   NIL  NIL  NIL  51   
+8   |1    20   NIL  6    16   68   NIL  15   NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  43   
+______________________________________________________
+
+analized nodes: 208   |alfa: 22    |beta: 39    | time-elapsed: 1000 
+
+
+SCORE: 551   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  34   86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  8    NIL  NIL  NIL  39   
+2   |NIL  79   NIL  60   NIL  -1   71   80   NIL  NIL  
+3   |NIL  30   97   NIL  52   NIL  10   29   NIL  NIL  
+4   |50   NIL  75   NIL  24   NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   42   NIL  5    NIL  31   NIL  
+6   |NIL  54   NIL  NIL  NIL  NIL  92   45   NIL  13   
+7   |23   NIL  35   93   NIL  53   NIL  NIL  NIL  51   
+8   |1    NIL  NIL  6    16   68   NIL  15   NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  43   
+______________________________________________________
+
+analized nodes: 221   |alfa: 48    |beta: 7     | time-elapsed: 1000 
+
+
+SCORE: 585   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  -1   86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  8    NIL  NIL  NIL  39   
+2   |NIL  79   NIL  60   NIL  NIL  71   80   NIL  NIL  
+3   |NIL  30   97   NIL  52   NIL  10   29   NIL  NIL  
+4   |50   NIL  75   NIL  24   NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   42   NIL  5    NIL  31   NIL  
+6   |NIL  54   NIL  NIL  NIL  NIL  92   45   NIL  13   
+7   |23   NIL  35   93   NIL  53   NIL  NIL  NIL  51   
+8   |1    NIL  NIL  6    16   68   NIL  15   NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  NIL  
+______________________________________________________
+
+analized nodes: 214   |alfa: 18    |beta: 48    | time-elapsed: 1000 
+
+
+SCORE: 645   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  NIL  86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  8    NIL  NIL  NIL  39   
+2   |NIL  79   NIL  -1   NIL  NIL  71   80   NIL  NIL  
+3   |NIL  30   97   NIL  52   NIL  10   29   NIL  NIL  
+4   |50   NIL  75   NIL  24   NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   42   NIL  5    NIL  31   NIL  
+6   |NIL  54   NIL  NIL  NIL  NIL  92   45   NIL  13   
+7   |23   NIL  35   93   NIL  53   NIL  NIL  NIL  51   
+8   |1    NIL  NIL  NIL  16   68   NIL  15   NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  NIL  
+______________________________________________________
+
+analized nodes: 207   |alfa: 30    |beta: 29    | time-elapsed: 1000 
+
+
+SCORE: 653   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  NIL  86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  -1   NIL  NIL  NIL  39   
+2   |NIL  79   NIL  NIL  NIL  NIL  71   NIL  NIL  NIL  
+3   |NIL  30   97   NIL  52   NIL  10   29   NIL  NIL  
+4   |50   NIL  75   NIL  24   NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   42   NIL  5    NIL  31   NIL  
+6   |NIL  54   NIL  NIL  NIL  NIL  92   45   NIL  13   
+7   |23   NIL  35   93   NIL  53   NIL  NIL  NIL  51   
+8   |1    NIL  NIL  NIL  16   68   NIL  15   NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  NIL  
+______________________________________________________
+
+analized nodes: 208   |alfa: 26    |beta: 39    | time-elapsed: 0    
+
+
+SCORE: 663   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  NIL  86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  39   
+2   |NIL  79   NIL  NIL  NIL  NIL  71   NIL  NIL  NIL  
+3   |NIL  30   97   NIL  52   NIL  -1   29   NIL  NIL  
+4   |50   NIL  75   NIL  24   NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   42   NIL  5    NIL  31   NIL  
+6   |NIL  54   NIL  NIL  NIL  NIL  92   45   NIL  13   
+7   |23   NIL  35   93   NIL  53   NIL  NIL  NIL  51   
+8   |NIL  NIL  NIL  NIL  16   68   NIL  15   NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  NIL  
+______________________________________________________
+
+analized nodes: 10    |alfa: 0     |beta: 0     | time-elapsed: 1000 
+
+
+SCORE: 687   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  NIL  86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  39   
+2   |NIL  79   NIL  NIL  NIL  NIL  71   NIL  NIL  NIL  
+3   |NIL  30   97   NIL  52   NIL  NIL  29   NIL  NIL  
+4   |50   NIL  75   NIL  -1   NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   NIL  NIL  5    NIL  31   NIL  
+6   |NIL  54   NIL  NIL  NIL  NIL  92   45   NIL  13   
+7   |23   NIL  35   93   NIL  53   NIL  NIL  NIL  51   
+8   |NIL  NIL  NIL  NIL  16   68   NIL  15   NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  NIL  
+______________________________________________________
+
+analized nodes: 73    |alfa: 0     |beta: 17    | time-elapsed: 0    
+
+
+SCORE: 692   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  NIL  86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  39   
+2   |NIL  79   NIL  NIL  NIL  NIL  71   NIL  NIL  NIL  
+3   |NIL  30   97   NIL  52   NIL  NIL  29   NIL  NIL  
+4   |NIL  NIL  75   NIL  NIL  NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   NIL  NIL  -1   NIL  31   NIL  
+6   |NIL  54   NIL  NIL  NIL  NIL  92   45   NIL  13   
+7   |23   NIL  35   93   NIL  53   NIL  NIL  NIL  51   
+8   |NIL  NIL  NIL  NIL  16   68   NIL  15   NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  NIL  
+______________________________________________________
+
+analized nodes: 41    |alfa: 8     |beta: 0     | time-elapsed: 0    
+
+
+SCORE: 721   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  NIL  86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  39   
+2   |NIL  79   NIL  NIL  NIL  NIL  71   NIL  NIL  NIL  
+3   |NIL  30   97   NIL  52   NIL  NIL  -1   NIL  NIL  
+4   |NIL  NIL  75   NIL  NIL  NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   NIL  NIL  NIL  NIL  31   NIL  
+6   |NIL  54   NIL  NIL  NIL  NIL  NIL  45   NIL  13   
+7   |23   NIL  35   93   NIL  53   NIL  NIL  NIL  51   
+8   |NIL  NIL  NIL  NIL  16   68   NIL  15   NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  NIL  
+______________________________________________________
+
+analized nodes: 10    |alfa: 0     |beta: 0     | time-elapsed: 0    
+
+
+SCORE: 752   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  NIL  86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  39   
+2   |NIL  79   NIL  NIL  NIL  NIL  71   NIL  NIL  NIL  
+3   |NIL  30   97   NIL  52   NIL  NIL  NIL  NIL  NIL  
+4   |NIL  NIL  75   NIL  NIL  NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   NIL  NIL  NIL  NIL  -1   NIL  
+6   |NIL  54   NIL  NIL  NIL  NIL  NIL  45   NIL  NIL  
+7   |23   NIL  35   93   NIL  53   NIL  NIL  NIL  51   
+8   |NIL  NIL  NIL  NIL  16   68   NIL  15   NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  NIL  
+______________________________________________________
+
+analized nodes: 8     |alfa: 0     |beta: 0     | time-elapsed: 0    
+
+
+SCORE: 803   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  NIL  86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  39   
+2   |NIL  79   NIL  NIL  NIL  NIL  71   NIL  NIL  NIL  
+3   |NIL  30   97   NIL  52   NIL  NIL  NIL  NIL  NIL  
+4   |NIL  NIL  75   NIL  NIL  NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   NIL  NIL  NIL  NIL  NIL  NIL  
+6   |NIL  54   NIL  NIL  NIL  NIL  NIL  45   NIL  NIL  
+7   |23   NIL  35   93   NIL  53   NIL  NIL  NIL  -1   
+8   |NIL  NIL  NIL  NIL  16   68   NIL  NIL  NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  NIL  
+______________________________________________________
+
+analized nodes: 7     |alfa: 0     |beta: 0     | time-elapsed: 0    
+
+
+SCORE: 848   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  NIL  86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  39   
+2   |NIL  79   NIL  NIL  NIL  NIL  71   NIL  NIL  NIL  
+3   |NIL  30   97   NIL  52   NIL  NIL  NIL  NIL  NIL  
+4   |NIL  NIL  75   NIL  NIL  NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   NIL  NIL  NIL  NIL  NIL  NIL  
+6   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  -1   NIL  NIL  
+7   |23   NIL  35   93   NIL  53   NIL  NIL  NIL  NIL  
+8   |NIL  NIL  NIL  NIL  16   68   NIL  NIL  NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  NIL  
+______________________________________________________
+
+analized nodes: 6     |alfa: 0     |beta: 0     | time-elapsed: 0    
+
+
+SCORE: 901   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  NIL  86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  39   
+2   |NIL  79   NIL  NIL  NIL  NIL  71   NIL  NIL  NIL  
+3   |NIL  30   97   NIL  52   NIL  NIL  NIL  NIL  NIL  
+4   |NIL  NIL  75   NIL  NIL  NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   NIL  NIL  NIL  NIL  NIL  NIL  
+6   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+7   |23   NIL  NIL  93   NIL  -1   NIL  NIL  NIL  NIL  
+8   |NIL  NIL  NIL  NIL  16   68   NIL  NIL  NIL  -2   
+9   |0    3    NIL  NIL  25   57   61   NIL  NIL  NIL  
+______________________________________________________
+
+analized nodes: 5     |alfa: 0     |beta: 0     | time-elapsed: 0    
+
+
+SCORE: 926   | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  NIL  86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  39   
+2   |NIL  79   NIL  NIL  NIL  NIL  71   NIL  NIL  NIL  
+3   |NIL  30   97   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+4   |NIL  NIL  75   NIL  NIL  NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   NIL  NIL  NIL  NIL  NIL  NIL  
+6   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+7   |23   NIL  NIL  93   NIL  NIL  NIL  NIL  NIL  NIL  
+8   |NIL  NIL  NIL  NIL  16   68   NIL  NIL  NIL  -2   
+9   |0    3    NIL  NIL  -1   57   61   NIL  NIL  NIL  
+______________________________________________________
+
+analized nodes: 3     |alfa: 0     |beta: 0     | time-elapsed: 0    
+
+
+SCORE: 1019  | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  NIL  86   NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+2   |NIL  79   NIL  NIL  NIL  NIL  71   NIL  NIL  NIL  
+3   |NIL  30   97   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+4   |NIL  NIL  75   NIL  NIL  NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   NIL  NIL  NIL  NIL  NIL  NIL  
+6   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+7   |23   NIL  NIL  -1   NIL  NIL  NIL  NIL  NIL  NIL  
+8   |NIL  NIL  NIL  NIL  16   68   NIL  NIL  NIL  -2   
+9   |0    3    NIL  NIL  NIL  57   61   NIL  NIL  NIL  
+______________________________________________________
+
+analized nodes: 2     |alfa: 0     |beta: 0     | time-elapsed: 0    
+
+
+SCORE: 1087  | 734  |TURN: -2   
+
+     0    1    2    3    4    5    6    7    8    9    
+     ________________________________________________
+0   |NIL  63   NIL  NIL  NIL  NIL  NIL  NIL  17   NIL  
+1   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+2   |NIL  79   NIL  NIL  NIL  NIL  71   NIL  NIL  NIL  
+3   |NIL  30   97   NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+4   |NIL  NIL  75   NIL  NIL  NIL  NIL  NIL  NIL  36   
+5   |NIL  NIL  NIL  32   NIL  NIL  NIL  NIL  NIL  NIL  
+6   |NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+7   |23   NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  NIL  
+8   |NIL  NIL  NIL  NIL  16   -1   NIL  NIL  NIL  -2   
+9   |0    3    NIL  NIL  NIL  57   61   NIL  NIL  NIL  
+______________________________________________________

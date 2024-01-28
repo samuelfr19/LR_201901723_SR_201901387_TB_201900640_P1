@@ -62,9 +62,9 @@ Neste ficheiro podemos encontrar a estrutura dos nós, a implementação do algo
       score-one
       score-two 
       turn-player
-    	depth
-    	evaluation
-      board 
+      depth
+      board  
+      evaluation 
       parent
     )
     ```
@@ -74,16 +74,16 @@ Neste ficheiro podemos encontrar a estrutura dos nós, a implementação do algo
     
     ```lisp
     (defun create-node (score-one score-two turn-player board &optional (depth 0) (evaluation most-negative-fixnum) (parent nil))
-      (make-node
-        :score-one score-one
-        :score-two score-two
-        :turn-player turn-player
-        :depth depth
-        :evaluation evaluation
-        :board board 
-        :parent parent
-      )
-    )
+    (make-node
+      :score-one score-one
+      :score-two score-two
+      :turn-player turn-player
+      :depth depth
+      :evaluation evaluation
+      :board board 
+      :parent parent
+  )
+)
     ```
     
 
@@ -178,6 +178,7 @@ Neste ficheiro podemos encontrar a estrutura dos nós, a implementação do algo
               )
             )children
     ...)
+  
     ```
     
 
@@ -216,8 +217,8 @@ Neste ficheiro podemos encontrar a estrutura dos nós, a implementação do algo
                           (let* (
                               (maximizing (= (node-turn-player current-node) maximizing-player))
                               (symb (if maximizing #'>= #'<=))
-                              (children (apply-expanding-function expanding-function current-node maximizing-player))
-                              (ordered-children (order-queue-of-nodes children symb))
+                              (children (apply-expanding-function expanding-function current-node))
+                              (ordered-children (order-queue-of-nodes children symb maximizing-player))
                               (initial-value (if maximizing most-negative-fixnum most-positive-fixnum))
                               (result (create-node 0 0 0 nil current-depth initial-value nil))
                             )
@@ -258,13 +259,12 @@ Neste ficheiro podemos encontrar a estrutura dos nós, a implementação do algo
           )) 
           (setq result-final 
             (create-solution-node 
-              (node-fix-movement (alfabeta-helper node 0 most-negative-fixnum most-positive-fixnum))
+                (alfabeta-helper node 0 most-negative-fixnum most-positive-fixnum)
               alfa-cuts beta-cuts (time-elapsed start-time) analized-nodes
             )
           ))
         result-final
-      )
-    )
+  ) 
     ```
     
 
@@ -728,7 +728,7 @@ O ficheiro ***Interact*** deve ter como função carregar os outros ficheiros de
 - A função de escolha de tempo vem com o argumento *first* que é quem joga primeiro no caso optional com *default nil* para caso o jogo seja Computador vs Computador, neste ecrã o utilizador deve introduzir o tempo que o computador tem para fazer a pesquisa de jogada, colocando um valor válido começa o jogo.
     
     ```lisp
-    (defun time-play(&optional (first nil))
+   (defun time-play(&optional (first nil))
     "Funcao para escolher quanto tempo o computador deve ter para fazer a sua jogada"
       (progn
         (time-play-message)
@@ -737,32 +737,43 @@ O ficheiro ***Interact*** deve ter como função carregar os outros ficheiros de
           (if (or (not (numberp in)) (> in 5000) (< in 1000)) (time-play first)
             (start-game in first)
           ))
+        )
+      )
     ...
     ```
     
 - A função ***(start-game)*** tem o objetivo de começar o jogo mas também de criar o loop entre jogador e computador na sua vez de jogar.
     
     ```lisp
-    (defun start-game (time first)
+   (defun start-game (time first)
     "Funcao para começar e criar o loop de jogo caso seja jogador vs computador ou so mesmo computador"
-      (let ((current-node (initial-status))
-           (user (when first (if (= first 1) *player-one* *player-two*))))
+      (let (
+          (current-node (initial-status))
+          (user (when first (if (= first 1) *player-one* *player-two*)))
+        )
+        (node-print current-node)
         (loop
-          (setf current-node
-            (cond
-              ((null user)
-                (node-to-first-move-node (solution-node-optimal-move (minimax current-node time 'all-possible-movements)))
-              )
-              ((= (node-turn-player current-node) user) 
+          (if (all-possible-movements (node-board current-node) (node-turn-player current-node))
+            (setf current-node
+              (if (or (null user) (/= (node-turn-player current-node) user) )
+                (let (
+                    (pc-move (alfabeta current-node 'all-possible-movements *max-depth* time))
+                  )
+                  (print-move pc-move)
+                  (setf (node-parent (solution-node-optimal-move pc-move)) nil)
+                  (solution-node-optimal-move pc-move)
+                )
                 (player-move current-node time)
               )
-              (t 
-                (node-to-first-move-node (solution-node-optimal-move (minimax current-node time 'all-possible-movements)))
-              )
+            )
+            (progn
+              (setf (node-turn-player current-node) (oposite-player (node-turn-player current-node)))
+              current-node
             )
           )
-          (when (no-possible-movements (node-board current-node)) (progn (return current-node) (final-results current-node)))
+          (when (no-possible-movements (node-board current-node)) (return (final-results current-node)))
         )
+      )
     ...
     ```
     
@@ -786,15 +797,14 @@ O ficheiro ***Interact*** deve ter como função carregar os outros ficheiros de
       (let ((list (list-possible-movements (node-board node) (node-turn-player node))))
       (if list
         (progn
-          (node-print-individual node)
           (format t "Escolha a proxima posição do cavalo~%")
           (let* ( 
               (l (read-position-input "Linha")) 
               (c (read-position-input "Coluna")) 
             )
             (if (some (lambda (e) (equal e (list l c))) list)      
-              (next-node-player node l c) 
-              (progn (format t "Não é possivel mover para a posição insira outra!~%") (player-move node))
+              (next-node-player node l c time) 
+              (progn (format t "Movimento não é possivel, escolha outro!~%") (player-move node time))
             )
           )
         )
@@ -803,6 +813,8 @@ O ficheiro ***Interact*** deve ter como função carregar os outros ficheiros de
           (setf (node-turn-player node) (oposite-player (node-turn-player node)))
           node 
         )
+  )
+)
     ...
     ```
     
@@ -812,26 +824,26 @@ O ficheiro ***Interact*** deve ter como função carregar os outros ficheiros de
 - A função ***(next-node-player)*** primeiramente atualiza os *scores* dos jogadores dependendo em quem faz a jogada, verifica se o número escolhido é um número duplo, se sim chama a função ***(double-n)*** em cima do novo node criado, se não for número duplo procede a criar apenas a node atualizado com a jogada.
     
     ```lisp
-    (defun next-node-player (node l c)
-    "Movimentação e gestao do tipo de movimento"
-      (let ((result (move (node-board node) l c (node-turn-player node))))
-        (if result
-          (let* ((score-one (if (= (node-turn-player node) *player-one*) 
-                    (+ (movement-result-score result) (node-score-one node))
-                    (node-score-one node)))
-                  (score-two (if (= (node-turn-player node) *player-two*) 
-                    (+ (movement-result-score result) (node-score-two node))
-                    (node-score-two node)))
-                  )
-            (if (= (movement-result-score result) (reverse-digits (movement-result-score result)))
-              (double-n (create-node score-one score-two (oposite-player (node-turn-player node)) (movement-result-board result) node))  
-              (create-node score-one score-two (oposite-player (node-turn-player node)) (movement-result-board result) node)
-            )
-          )
-          (progn (format t "Movimento não é possivel, escolha outro!") (player-move node))
-         )
+   (defun next-node-player (node l c time)
+  "Movimentação e gestao do tipo de movimento"
+  (let ((result (move (node-board node) l c (node-turn-player node))))
+    (if result
+      (let* ((score-one (if (= (node-turn-player node) *player-one*) 
+                (+ (movement-result-score result) (node-score-one node))
+                (node-score-one node)))
+              (score-two (if (= (node-turn-player node) *player-two*) 
+                (+ (movement-result-score result) (node-score-two node))
+                (node-score-two node)))
+              )
+        (if (and (/= 0 (movement-result-score result))(= (movement-result-score result) (reverse-digits (movement-result-score result))))
+          (double-n (create-node score-one score-two (oposite-player (node-turn-player node)) (movement-result-board result) (node-depth node) most-negative-fixnum node))  
+          (create-node score-one score-two (oposite-player (node-turn-player node)) (movement-result-board result) (node-depth node) most-negative-fixnum node)
+        )
       )
-    )
+      (progn (format t "Movimento não é possivel, escolha outro!") (player-move node time))
+     )
+  )
+)
     ```
     
     > A função ***(double-n)*** pede ao utilizador para remover um dos números duplos ainda presentes no tabuleiro.
@@ -843,18 +855,7 @@ O ficheiro ***Interact*** deve ter como função carregar os outros ficheiros de
     - tempo gasto na jogada
     - tabuleiro atual
     
-    ```lisp
-    (defun solution-node-print  (solution-node type)
-    "Dá print das estatisticas de cada jogada tanto para o file como para o terminal"
-      (format type "~%evaluation: ~5a |alpha: ~5a |beta: ~5a | time-elapsed: ~5a~%~%"
-        (solution-node-evaluation solution-node)
-        (solution-node-alpha-cuts solution-node)
-        (solution-node-beta-cuts  solution-node)
-        (solution-node-time-elapsed solution-node)
-      )
-      (node-print-individual (solution-node-optimal-move solution-node) type)
-    )
-    
+    ```lisp  
     (defun print-move (solution-node)
     "Funcao de gestao de print das estatisticas"
     (progn

@@ -250,9 +250,7 @@
       )) 
       (setq result-final 
         (create-solution-node 
-          ; (node-fix-movement 
             (alfabeta-helper node 0 most-negative-fixnum most-positive-fixnum)
-          ; )
           alfa-cuts beta-cuts (time-elapsed start-time) analized-nodes
         )
       ))
